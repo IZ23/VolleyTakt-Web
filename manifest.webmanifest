@@ -1,0 +1,25 @@
+{
+  "name": "VolleyTakt Live",
+  "short_name": "VolleyTakt",
+  "description": "VolleyTakt Live 0.3.1 Preview 1 – Livescouting, Analyse und modulare Kamera-Synchronisation",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#020617",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "app-icons/volleytakt-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "app-icons/volleytakt-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

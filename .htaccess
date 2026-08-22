@@ -1,0 +1,50 @@
+# VolleyTakt Live 0.2.1 - ALL-INKL
+# Datei in das Stammverzeichnis der Subdomain legen.
+
+DirectoryIndex index.html
+
+# Kein Verzeichnislisting.
+Options -Indexes
+
+# HTTPS erzwingen. ALL-INKL unterstützt .htaccess-/Rewrite-Regeln im Webspace.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# Versteckte Dateien (außer ACME/.well-known) nicht ausliefern.
+<IfModule mod_authz_core.c>
+<FilesMatch "^\.(?!well-known)">
+    Require all denied
+</FilesMatch>
+</IfModule>
+
+# Einfache Sicherheitsheader. Keine CSP/Permissions-Policy hier,
+# damit Web Bluetooth, Google-Drive-OAuth und der Same-Origin-Sync nicht versehentlich blockiert werden.
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set X-Frame-Options "SAMEORIGIN"
+
+    # HTML, Manifest, JavaScript und Service Worker kurzfristig prüfen,
+    # damit Updates zuverlässig ankommen.
+    <FilesMatch "\.(?:html|js|webmanifest)$">
+        Header set Cache-Control "no-cache, must-revalidate"
+    </FilesMatch>
+
+    # Der Service Worker selbst darf nicht lange zwischengespeichert werden.
+    <Files "sw.js">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+    </Files>
+
+    # Statische Bilder/CSS dürfen moderat gecacht werden.
+    <FilesMatch "\.(?:png|jpg|jpeg|gif|svg|ico|css)$">
+        Header set Cache-Control "public, max-age=86400"
+    </FilesMatch>
+
+    # Der Relay liefert dynamische Antworten und soll nicht gecacht werden.
+    <Files "nextcloud.php">
+        Header set Cache-Control "no-store"
+    </Files>
+</IfModule>

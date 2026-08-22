@@ -1,0 +1,72 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#0f172a"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
+<title>VolleyTakt Live 0.3.1 Preview 1</title><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="./logo.png"><link rel="apple-touch-icon" href="./logo.png"><link rel="stylesheet" href="styles.css?v=0.3.1-p1d">
+</head><body>
+<div id="startGate" class="start-gate"><div class="start-card"><img src="./logo.png" alt="VolleyTakt"><h1>VolleyTakt Live</h1><p>Web 0.3.1 Preview 1 · Tablet-Livescouting · modulare Kamera-Synchronisation</p><div id="browserCameraNotice" class="browser-camera-notice" hidden></div><button id="startAppBtn" class="primary huge">Livescouting öffnen</button><small>Die lokale Zeit startet erst auf ausdrücklichen Befehl. Die verbundene Kamera setzt den Zeitanker erst nach bestätigter Aufnahme.</small></div></div>
+<main id="app" class="app-shell" hidden>
+<header class="topbar">
+  <div class="brand-shell">
+    <button id="menuBtn" class="brand-menu" title="Menü öffnen" aria-label="Menü öffnen">
+      <img src="./logo.png" alt="VolleyTakt">
+      <span class="brand-hamburger" aria-hidden="true">☰</span>
+    </button>
+    <span class="brand-copy"><strong>VolleyTakt Live</strong><small>0.3.1 Preview 1</small></span>
+  </div>
+  <div class="match-center" aria-live="polite">
+    <button id="matchSetupBtn" class="match-setup-link">Spiel einrichten</button>
+    <div id="matchScoreBlock" class="match-score-block" hidden><strong id="headerOwnTeam">Wir</strong><span id="headerScore"><b id="scoreUs">0</b> : <b id="scoreThem">0</b></span><strong id="headerOppTeam">Gegner</strong></div>
+  </div>
+  <div class="head-actions"><span id="setDisplay" class="header-set">Sätze 0 : 0</span><button id="serveStateBtn" class="header-pill" title="Aufschlagrecht ändern">Aufschlag: –</button><button id="clockStartBtn" class="header-pill clock-pill" title="Lokale Zeit starten"><span id="clockMode">lokal bereit</span><strong id="liveClock">00:00.0</strong></button></div>
+</header>
+<section class="workspace scout-layout">
+  <aside class="control-panel panel">
+    <section id="mainCameraPanel" class="main-camera-panel" hidden>
+      <div class="main-camera-head"><strong id="mainCameraName">DJI Osmo Action 4</strong><span id="mainCameraLink">verbunden</span><span id="mainCameraQuality" class="camera-quality">Stabil</span><span id="mainCameraBattery" class="camera-battery" title="Kamera-Akku"><span class="battery-shell"><span id="mainCameraBatteryFill" class="battery-fill"></span></span><small id="mainCameraBatteryPct">–%</small></span></div>
+      <div class="main-camera-controls"><button id="mainRecordStart" class="primary">● Aufnahme starten</button><button id="mainRecordStop" class="danger" disabled>■ Aufnahme stoppen</button><div class="main-camera-time"><strong id="mainCameraTime">00:00.0</strong><small id="mainCameraSync">Sync bereit</small></div></div>
+    </section>
+    <div class="section-title"><span>Scouten</span><span id="selectionLabel">–</span></div><div id="inputStepIndicator" class="input-step-indicator" aria-label="Eingabeschritt"><span class="current">WER</span><b>→</b><span>WAS</span><b>→</b><span>WIE</span><b>→</b><span>WO</span><b>→</b><span>WOHIN</span></div>
+    <label class="inline-quality-toggle" for="detailedQualityToggle"><span>Detaillierte Bewertung</span><span class="switch large-switch"><input type="checkbox" id="detailedQualityToggle"><span class="slider"></span></span></label>
+    <div class="subheading">Techniken</div><div class="technique-grid" id="actionButtons"></div>
+    <div class="subheading quality-heading">Bewertung</div><div class="quality-stack" id="qualityButtons"></div><div id="qualityMeaning" class="quality-meaning"></div><div id="serveDetailPanel" class="set-detail-panel" hidden></div><div id="setDetailPanel" class="set-detail-panel" hidden></div>
+  </aside>
+  <section class="protocol-panel panel">
+    <div class="section-title"><span>Live-Protokoll</span><span id="eventCount">0</span></div>
+    <div class="protocol-wrap"><table><thead><tr><th>Zeit</th><th>S</th><th>R</th><th>P</th><th>Spielerin</th><th>Aktion</th><th>Wert</th><th>Stand</th></tr></thead><tbody id="protocolBody"></tbody></table></div>
+    <label class="note-label"><span>Notiz</span><textarea id="noteInput" rows="2" placeholder="optional"></textarea></label>
+  </section>
+  <aside class="court-panel panel">
+    <div class="section-title court-title"><span id="captureTitle">Eigenes Team</span><label class="opponent-switch"><span>Gegner</span><span class="switch"><input type="checkbox" id="opponentToggle"><span class="slider"></span></span></label><strong id="rotationLabel">R1</strong></div>
+    <div id="courtWrap" class="court-wrap"><div id="activeCourt" class="court own" data-side="own"><div class="net">NETZ</div></div><div id="sharedNet" class="shared-net" hidden>NETZ</div><div id="secondaryCourt" class="court opponent target-court" data-side="opponent" hidden><div class="net">NETZ</div></div></div>
+    <div id="targetHint" class="target-hint" hidden>Gegner-Angriff: Zielposition im eigenen Feld wählen.</div>
+    <div class="rotation-controls"><button id="rotateBackBtn">↶ Rotation</button><button id="rotateBtn">Rotation ↷</button></div><div class="player-change-controls"><button id="substituteBtn" title="Tastenkürzel W">↔ Wechsel</button><button id="liberoBtn" title="Tastenkürzel L">L Libero</button></div>
+  </aside>
+  <div class="correction-dock">
+    <span class="correction-label">Korrekturen</span>
+    <button data-score="us" title="Tastenkürzel P">+ Punkt Wir</button><button data-score="them" title="Tastenkürzel G">+ Punkt Gegner</button>
+    <button id="correctScoreBtn">Spielstand korr.</button><button id="sideoutBtn" class="ghost">Side-out manuell</button>
+    <button id="undoBtn" class="danger" disabled>↶ Letzten Eintrag</button><button id="clearSelectionBtn" class="ghost">✕ Auswahl verwerfen</button>
+  </div>
+</section>
+<footer class="statusbar"><span id="statusText">Bereit.</span><span class="status-right"><span id="syncBadge" class="badge muted">☁ lokal</span><span id="storagePill" class="badge">CSV …</span><span id="bleMini" class="badge muted">Kamera getrennt</span></span></footer>
+</main>
+<div id="drawerBackdrop" class="drawer-backdrop" hidden><aside id="drawer" class="drawer"><header><h2 id="drawerTitle">Menü</h2><button id="drawerClose" class="iconclose">✕</button></header><nav id="drawerNav" class="drawer-nav"><button data-view="match">🏐 Spiel</button><button data-view="players">👥 Spielerinnen</button><button data-view="teams">🛡️ Teams</button><button data-view="seasons">📅 Saisons</button><button data-view="rosters">📋 Kader</button><button data-view="data">📄 Daten / CSV</button><button data-view="camera">📷 Kamera</button><button data-view="sync">☁️ Synchronisation</button><button data-view="analysis">📊 Analyse</button><button data-view="settings">⚙️ Einstellungen</button></nav><div id="drawerBody" class="drawer-body"></div></aside></div>
+<div id="dialogBackdrop" class="dialog-backdrop" hidden><form id="modalForm" class="dialog"><h2 id="dialogTitle"></h2><div id="dialogBody"></div><div class="dialog-actions"><button type="button" id="dialogCancel">Abbrechen</button><button type="submit" class="primary" id="dialogOk">Übernehmen</button></div></form></div>
+
+<div id="tourOverlay" class="tour-overlay" hidden aria-live="polite"><div id="tourSpotlight" class="tour-spotlight" hidden></div><div class="tour-card" role="dialog" aria-modal="true" aria-labelledby="tourTitle"><div class="tour-head"><span id="tourStep">1 / 1</span><button id="tourClose" aria-label="Einführung schließen">✕</button></div><h2 id="tourTitle">Einführung</h2><p id="tourText"></p><div class="tour-actions"><button id="tourDontShow" class="tour-dismiss">nicht mehr zeigen</button><span class="tour-nav"><button id="tourPrev">Zurück</button><button id="tourNext" class="primary">Weiter</button></span></div></div></div>
+<input id="csvImport" type="file" accept=".csv,text/csv" hidden><input id="jsonImport" type="file" accept=".json,application/json" hidden>
+<script>
+(function(){
+  const showStartupError=(msg)=>{
+    const card=document.querySelector('.start-card'); if(!card)return;
+    let box=document.getElementById('startupError');
+    if(!box){box=document.createElement('div');box.id='startupError';box.style.cssText='margin-top:14px;padding:12px;border:1px solid #ef4444;border-radius:10px;color:#fecaca;background:#450a0a;text-align:left;font-size:14px;white-space:pre-wrap';card.appendChild(box)}
+    box.textContent='Startfehler: '+msg+'\nBitte Screenshot senden.';
+  };
+  window.addEventListener('vsw-app-error',e=>showStartupError(e.detail||'Unbekannter Initialisierungsfehler'));
+  window.addEventListener('error',e=>{if(!window.__VSW_APP_READY__)showStartupError(e.message||'JavaScript-Fehler')});
+  window.addEventListener('unhandledrejection',e=>{if(!window.__VSW_APP_READY__)showStartupError(e.reason?.message||String(e.reason||'Promise-Fehler'))});
+  setTimeout(()=>{if(!window.__VSW_APP_READY__)showStartupError(window.__VSW_APP_ERROR__||'App-Modul wurde nicht vollständig initialisiert.')},3500);
+})();
+</script>
+<script type="module" src="js/app.js?v=0.3.1-p1d"></script></body></html>
