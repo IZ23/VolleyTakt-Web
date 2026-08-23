@@ -1,4 +1,4 @@
-import {DJI,FrameStream,buildFrame,recordPayload,statusSubscribePayload,connectionPayload,connectionResponsePayload,parseCameraStatus,u32} from './dji-protocol.js?v=0.3.1-p1';
+import {DJI,FrameStream,buildFrame,recordPayload,statusSubscribePayload,connectionPayload,connectionResponsePayload,parseCameraStatus,u32} from './dji-protocol.js?v=0.3.1-p2c';
 const PAIRED_KEY='volleytakt-dji-paired-v1',ID_KEY='volleytakt-dji-controller-v1';
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 

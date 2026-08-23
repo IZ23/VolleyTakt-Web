@@ -13,7 +13,7 @@ const checks=[
  ['step indicator', html.includes('inputStepIndicator')],
  ['outer/inner border', css.includes('.pos.selectedpos') && css.includes('.pos.actionzone')],
  ['help updated', app.includes('Neue Eingabelogik: WER → WAS → WIE → WO') && app.includes('Außenrahmen = WER, Innenrahmen = WO')],
- ['preview version lineage', /0\.3\.(?:0 Preview 9|1 Preview 1)/.test(html) && /TOUR_VERSION='0\.3\.(?:0-p9a|1-p1)'/.test(app)]
+ ['preview version lineage', /0\.3\.(?:0 Preview 9|1 Preview [12])/.test(html) && /TOUR_VERSION='0\.3\.(?:0-p9a|1-p(?:1|2b|2c|2d|2e|2f|2g|2h|2i))'/.test(app)]
 ];
 for(const [name,ok] of checks){if(!ok)throw new Error(`Preview 8 core regression check failed: ${name}`)}
 console.log(`Preview 8 core rally/input model retained: OK (${checks.length}/${checks.length})`);

@@ -1,4 +1,4 @@
-// English UI catalogue for VolleyTakt Live 0.3.1 Preview 1.
+// English UI catalogue for VolleyTakt Live 0.3.1 Preview 2.
 // German remains the canonical source language in the current UI code; this
 // catalogue translates every rendered text node/attribute without touching
 // persisted volleyball data or event values.
@@ -56,7 +56,7 @@ export const EXACT_EN={
 '+ Spielerin':'+ Player','Inaktive anzeigen':'Show inactive','Nr.':'No.','Position':'Position','Status':'Status','inaktiv':'inactive','aktiv':'active',
 '+ Team':'+ Team','Art':'Type','Protokollierung':'Scoring profile','Eigenes':'Own','Basis (- / 0 / +)':'Basic (- / 0 / +)','Detailliert (= / - / / / 0 / + / ++)':'Detailed (= / - / / / 0 / + / ++)','Team bearbeiten':'Edit team','Team anlegen':'Create team','Name':'Name','Standard-Protokollierung':'Default scoring profile',
 'Saison bearbeiten':'Edit season','Saison anlegen':'Create season','Beginn':'Start','Ende':'End','+ Saison':'+ Season',
-'Kader':'Roster','Saisonkader':'Season roster','Spielkader':'Match roster','Spiel-/Kaderart':'Match/roster type','Spiel-/Kaderart bearbeiten':'Edit match/roster type','Spiel-/Kaderart anlegen':'Create match/roster type','Diese Spiel-/Kaderart existiert bereits.':'This match/roster type already exists.',
+'Kader':'Roster','Saisonkader':'Season roster','Spielkader':'Match roster','Spiel-/Kaderart':'Match/roster type','Spiel-/Kaderart bearbeiten':'Edit match/roster type','Spiel-/Kaderart anlegen':'Create match/roster type','Diese Spiel-/Kaderart existiert bereits.':'This match/roster type already exists.','Bitte eine vorhandene Spiel-/Kaderart auswählen. Neue Spielarten werden ausschließlich in den Stammdaten manuell angelegt.':'Please select an existing match/roster type. New types can only be created manually in master data.','Bitte eine Bezeichnung eingeben.':'Please enter a name.',
 'Datenverwaltung':'Data management','CSV exportieren':'Export CSV','CSV laden / fortsetzen':'Load / resume CSV','Stammdaten exportieren':'Export master data','Stammdaten importieren':'Import master data','Scouting zurücksetzen':'Reset scouting',
 'Kamera':'Camera','Kamera-Adapter':'Camera adapter','Lokale Zeit':'Local time','Bluetooth-Diagnose':'Bluetooth diagnostics','Diagnose aktualisieren':'Refresh diagnostics','Ausgewähltes Gerät':'Selected device','Bluetooth verfügbar':'Bluetooth available','Aufnahme + Sync':'Recording + sync','Stop':'Stop',
 'Synchronisation':'Synchronization','Anbieter':'Provider','Cloud-Ordner':'Cloud folder','Benutzer':'Username','App-Passwort':'App password','Beim Start synchronisieren':'Synchronize on startup','Einstellungen speichern':'Save settings','Verbindung testen':'Test connection','Jetzt synchronisieren':'Sync now','Keine Cloud-Synchronisation aktiv.':'No cloud synchronization active.','Nextcloud wird über WebDAV angebunden.':'Nextcloud is connected via WebDAV.','Generisches WebDAV. Der Zielhost muss serverseitig im Relay freigegeben sein.':'Generic WebDAV. The target host must be allowed server-side in the relay.','Google Drive verwendet OAuth und die Google Drive API.':'Google Drive uses OAuth and the Google Drive API.',
@@ -105,7 +105,7 @@ export const EXACT_EN={
 // Longest fragments first. These are deliberate fallbacks for dynamic status
 // strings that contain IDs, scores, browser names, counts or player names.
 
-// 0.3.1 Preview 1 additions
+// 0.3.1 Preview 2 additions
 Object.assign(EXACT_EN,{
  'WOHIN':'TARGET',
  'Aufschlagtechnik':'Serve technique',
@@ -124,7 +124,7 @@ Object.assign(EXACT_EN,{
  'eingeschränkt':'Limited',
  'sehr eingeschränkt':'Severely limited',
  'Neue Eingabelogik: WER → WAS → WIE → WO → WOHIN.':'New input logic: WHO → WHAT → HOW → WHERE → TARGET.',
- '0.3.1 Preview 1 verwendet ein modulares Sprachsystem. Alle aktuellen Beschriftungen, Erklärungen, Hilfe-, Status- und Fehlermeldungen stehen in Deutsch und Englisch zur Verfügung.':'0.3.1 Preview 1 uses the modular language system. All current labels, explanations, help, status and error messages are available in German and English.'
+ '0.3.1 Preview 2 verwendet ein modulares Sprachsystem. Alle aktuellen Beschriftungen, Erklärungen, Hilfe-, Status- und Fehlermeldungen stehen in Deutsch und Englisch zur Verfügung.':'0.3.1 Preview 2 uses the modular language system. All current labels, explanations, help, status and error messages are available in German and English.'
 });
 export const FRAGMENTS_EN={
 'Gegner mitscouten / Startaufstellung erfassen':'Scout opponent / capture starting lineup',
@@ -148,3 +148,27 @@ export const FRAGMENTS_EN={
 
 // Preview 9 additions
 EXACT_EN['0.3.0 Preview 9 verwendet ein modulares Sprachsystem. Alle aktuellen Beschriftungen, Erklärungen, Hilfe-, Status- und Fehlermeldungen stehen in Deutsch und Englisch zur Verfügung.']='0.3.0 Preview 9 uses the modular language system.';
+
+// 0.3.1 Preview 2 analysis labels
+Object.assign(EXACT_EN,{
+ 'Spiel- / Satzübersicht':'Match / set overview',
+ 'Rotations-Dashboard':'Rotation dashboard',
+ 'K1 / Sideout & K2 / Break':'K1 / Sideout & K2 / Break',
+ 'Aufschlaganalyse':'Serve analysis',
+ 'Annahmeanalyse':'Reception analysis',
+ 'Zuspielverteilung':'Set distribution',
+ 'Angriff · Quelle → Ziel':'Attack · source → target',
+ 'Kontextketten':'Context chains',
+ 'Gegner-Tendenzen':'Opponent tendencies',
+ 'First-Ball-Sideout':'First-ball sideout',
+ 'K2 Breakpoint':'K2 breakpoint',
+ 'Sideout nach Annahmequalität':'Sideout by reception quality',
+ 'Eigene direkte Punktaktionen':'Own direct scoring actions',
+ 'Auffälligkeiten':'Notable patterns',
+ 'Angriffstendenzen':'Attack tendencies',
+ 'Aufschlagziele':'Serve targets',
+ 'Zuspielwege':'Set paths',
+ 'Noch zu wenig Daten für belastbare Tendenzen.':'Not enough data yet for reliable tendencies.',
+ 'Noch keine vollständigen Kontextketten':'No complete context chains yet',
+ 'gleiche Datenbasis für einfaches und detailliertes Scouting':'same data model for basic and detailed scouting'
+});

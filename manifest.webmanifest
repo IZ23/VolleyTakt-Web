@@ -1,7 +1,7 @@
 {
   "name": "VolleyTakt Live",
   "short_name": "VolleyTakt",
-  "description": "VolleyTakt Live 0.3.1 Preview 1 – Livescouting, Analyse und modulare Kamera-Synchronisation",
+  "description": "VolleyTakt Live 0.3.1 Preview 2 – Livescouting, Analyse und modulare Kamera-Synchronisation",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

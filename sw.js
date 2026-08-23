@@ -1,22 +1,22 @@
-const CACHE = 'volleytakt-live-web-v0.3.1-p1d';
+const CACHE = 'volleytakt-live-web-v0.3.1';
 
 // Nur diese Kernressourcen dürfen die Installation des Service Workers blockieren.
 const CORE_ASSETS = [
   './',
   './index.html',
-  './styles.css?v=0.3.1-p1d',
+  './styles.css?v=0.3.1',
   './manifest.webmanifest',
   './logo.png',
   './assets/volleyball-service.png',
-  './js/app.js?v=0.3.1-p1d',
-  './js/storage.js?v=0.3.1-p1d',
-  './js/sync.js?v=0.3.1-p1d',
-  './js/dji-protocol.js?v=0.3.1-p1d',
-  './js/dji-ble.js?v=0.3.1-p1d',
-  './js/gopro-ble.js?v=0.3.1-p1d',
-  './js/i18n.js?v=0.3.1-p1d',
-  './js/locales/de.js?v=0.3.1-p1d',
-  './js/locales/en.js?v=0.3.1-p1d'
+  './js/app.js?v=0.3.1',
+  './js/storage.js?v=0.3.1',
+  './js/sync.js?v=0.3.1',
+  './js/dji-protocol.js?v=0.3.1',
+  './js/dji-ble.js?v=0.3.1',
+  './js/gopro-ble.js?v=0.3.1',
+  './js/i18n.js?v=0.3.1',
+  './js/locales/de.js?v=0.3.1',
+  './js/locales/en.js?v=0.3.1'
 ];
 
 // PWA-Icons sind wichtig, aber ein einzelnes fehlendes Icon darf die App nicht offline-unfähig machen.

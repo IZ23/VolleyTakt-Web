@@ -4,7 +4,7 @@ const css=fs.readFileSync(new URL('../styles.css', import.meta.url),'utf8');
 const checks=[
  ['opponent mirrored', app.includes('OPP_COURT_ZONES=[1,6,5,9,8,7,2,3,4]')],
  ['own zones', app.includes('OWN_COURT_ZONES=[4,3,2,7,8,9,5,6,1]')],
- ['fixed orientation', app.includes("drawCourtInto(primary,'opponent'") && app.includes("drawCourtInto(secondary,'own'")],
+ ['default mirrored orientation remains available', app.includes("fieldOrientation:'activeTop'") && app.includes('OPP_COURT_ZONES') && app.includes('OWN_COURT_ZONES')],
  ['single shared net', app.includes("const sharedNet=$('#sharedNet')") && css.includes('.shared-net') && css.includes('.court-wrap.dual-court .court>.net{display:none!important}')],
  ['middle zones locked before WER', app.includes('const zoneAllowed=playerPos||state.selectedPlayerPos||target')],
  ['split base highlight', css.includes('.base-half-near-net') && css.includes('.base-half-near-back')],

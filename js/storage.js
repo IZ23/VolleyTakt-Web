@@ -37,11 +37,13 @@ export const touched=(old={})=>({...old,updatedAt:now(),revision:(old.revision||
 
 export function active(rows){return rows.filter(r=>r.active!==false)}
 export function orderedMatchTypes(rows){
+  // Eine einzige Stammdatenquelle: Auswahlfelder erhalten immer die echten Datensaetze
+  // (inkl. stabiler ID), nie abgeleitete Namenslisten, aus denen neue Typen entstehen koennten.
   const a=active(rows);
-  if(!a.some(r=>(r.usageCount||0)>0))return {top:[],rest:a.map(r=>r.name).sort((a,b)=>a.localeCompare(b,'de'))};
-  const ranked=[...a].sort((x,y)=>(y.usageCount||0)-(x.usageCount||0)||x.name.localeCompare(y.name,'de'));
+  if(!a.some(r=>(r.usageCount||0)>0))return {top:[],rest:[...a].sort((x,y)=>String(x.name||'').localeCompare(String(y.name||''),'de'))};
+  const ranked=[...a].sort((x,y)=>(y.usageCount||0)-(x.usageCount||0)||String(x.name||'').localeCompare(String(y.name||''),'de'));
   const topRows=ranked.slice(0,3),topIds=new Set(topRows.map(r=>r.id));
-  return {top:topRows.map(r=>r.name).sort((a,b)=>a.localeCompare(b,'de')),rest:a.filter(r=>!topIds.has(r.id)).map(r=>r.name).sort((a,b)=>a.localeCompare(b,'de'))};
+  return {top:[...topRows].sort((x,y)=>String(x.name||'').localeCompare(String(y.name||''),'de')),rest:a.filter(r=>!topIds.has(r.id)).sort((x,y)=>String(x.name||'').localeCompare(String(y.name||''),'de'))};
 }
 
 const csvCell=v=>{const s=String(v??'');return /[;"\r\n]/.test(s)?`"${s.replaceAll('"','""')}"`:s};

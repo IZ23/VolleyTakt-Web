@@ -1,4 +1,4 @@
-# VolleyTakt Live 0.3.1 Preview 1
+# VolleyTakt Live 0.3.1 Preview 2
 
 Ausgangsbasis: zuletzt korrigierte 0.3.0 Preview 9.
 
@@ -13,4 +13,13 @@ Ausgangsbasis: zuletzt korrigierte 0.3.0 Preview 9.
 - Einheitliches Aktionsdatenmodell für einfaches und detailliertes Scouting; Detailfelder bleiben bei einfacher Erfassung leer.
 - Bestehende 9-Zonen-Feldorientierung und Start-/End-Timestamps aus 0.3.0 Preview 9 bleiben erhalten.
 
-- 0.3.1 Preview 1 Korrektur p1d: gemeinsame responsive Scout-UI für einfach und detailliert; Profil unterscheidet nur Inhalt, nicht Touch-Zielgrößen oder Legendenlayout.
+- Aus 0.3.1 Preview 1 übernommen: gemeinsame responsive Scout-UI für einfach und detailliert; Profil unterscheidet nur Inhalt, nicht Touch-Zielgrößen oder Legendenlayout.
+## 0.3.1 Preview 2 – Analyse
+
+- Spiel-/Satzübersicht und Rotations-Dashboard.
+- K1/Sideout, First-Ball-Sideout und K2/Breakpoint.
+- Aufschlag-, Annahme-, Zuspiel- und Angriffsanalyse.
+- Kontextketten Annahme → Zuspiel → Angriff → Rally-Ergebnis.
+- Gegner-Tendenzen aus den tatsächlich erfassten Detaildaten.
+- Gemeinsames Datenmodell für einfache und detaillierte Erfassung.
+

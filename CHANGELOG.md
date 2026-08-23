@@ -1,3 +1,12 @@
+# Changelog
+
+## 0.3.1 Preview 2
+- Neuer trainerorientierter Analysebereich: Übersicht, Rotation, K1/K2, First-Ball-Sideout, Aufschlag, Annahme, Zuspiel, Angriff Quelle→Ziel, Kontextketten und Gegner-Tendenzen.
+- Analyse verwendet das gemeinsame Ereignismodell von einfachem und detailliertem Scouting; Detaildimensionen werden nur ausgewertet, wenn sie erfasst wurden.
+- Angriffseffizienz: (Punkte − Fehler − direkt geblockt) / Angriffe.
+- Zeitraum-A/B-Vergleich für die neuen Ansichten beibehalten.
+- PWA-Cachekennung `0.3.1-p2c`.
+
 
 ### 0.3.1 Preview 1 – UI-Touch-Hotfix
 - Technik- und Bewertungsbuttons im Scoutbereich vergrößert, insbesondere im detaillierten Profil.
@@ -64,3 +73,40 @@ Preview-Funktionen gelten nicht automatisch als endgültig abgenommen. Die 0.3.0
 - Hotfix Feldansicht: nur ein gemeinsames Netz zwischen Gegner/Wir; P7–P9 werden nach WER über selectedPlayerPos freigeschaltet; permanenter grauer Halbflächen-Schleier entfernt.
 
 - 0.3.1 Preview 1 Korrektur p1d: gemeinsame responsive Scout-UI für einfach und detailliert; Profil unterscheidet nur Inhalt, nicht Touch-Zielgrößen oder Legendenlayout.
+
+### 0.3.1 Preview 2 – Korrektur p2b
+- Spiel-/Kaderarten verwenden im gesamten Spiel-Setup ausschließlich die zentrale Stammdatentabelle `master.matchTypes` mit stabiler ID.
+- Keine automatische Anlage von Spielarten mehr durch Auswahlfelder, Spielanlage, Import oder Synchronisation.
+- Manuelle Anlage prüft normalisiert auf Redundanz (Unicode-Normalisierung, Trim, Mehrfach-Leerzeichen, Groß-/Kleinschreibung).
+- Bestehende Dubletten werden zusammengeführt; Spielkader, aktueller Zustand und Match-Archive werden auf die erhaltene ID migriert.
+- Cloud-Merge normalisiert die Spielarten vor dem Zurückschreiben.
+- Spontanes Scouting ist keine Spielart im regulären Auswahlfeld mehr.
+- Reguläres und spontanes Scouting besitzen wieder eindeutig unterscheidbare Feldoptik.
+- Bei ausgeschaltetem Gegner-Scouting wird der aktive Erfassungskontext auf das eigene Team zurückgesetzt.
+
+### 0.3.1 Preview 2 – Korrektur p2c
+- Satzvorbereitung arbeitet transaktional: vorhandene Aufstellung bleibt bis „Übernehmen“ unverändert.
+- „Satz erneut vorbereiten“ zeigt die bereits gespeicherte Aufstellung vorausgewählt an.
+- „Abbrechen“ verwirft alle Änderungen der laufenden Satzvorbereitung.
+- Libero-Auswahl (bis zu zwei Libero-Spielerinnen pro Team/Satz) in die Startaufstellung aufgenommen.
+- Libero-Auswahl wird satzbezogen gespeichert und im Satzstart-Ereignis mitgeführt.
+- Im laufenden Satz werden bei Libero-Austausch vorrangig die für den Satz ausgewählten Liberos angeboten.
+- Rückwärtskompatibilität für ältere Satzstart-Ereignisse ohne Libero-Felder erhalten.
+
+### 0.3.1 Preview 2 – Korrektur p2d
+- Persönliche Scout-Einstellung für Spielerinnen-Sortierung: Trikotnummer, Kürzel oder Vorname.
+- Einheitliche Sortierung in Startaufstellung, Wechsel- und Libero-Auswahl.
+- Satzvorbereitung fragt nur noch den Start-Libero ab; weitere Libero-Spielerinnen sind über den Spielkader bekannt.
+- Alle im Spielkader als Libero gekennzeichneten Spielerinnen bleiben für spätere Libero-Austausche verfügbar.
+- Bestehende ältere Satzdaten mit zwei Libero-Einträgen werden kompatibel gelesen und auf den Start-Libero reduziert.
+
+### 0.3.1 Preview 2 – Korrektur p2e
+- Scout-Einstellungen responsiv neu angeordnet.
+- Checkbox-Gruppe und Spielerinnen-Sortierung besitzen einen klaren Abstand und überlappen nicht mehr.
+- Breite Einstellungsbereiche zeigen die Gruppen nebeneinander; bei geringer verfügbarer Breite brechen sie automatisch untereinander um.
+- Umbruch orientiert sich an der verfügbaren Breite des Einstellungsbereichs, nicht an einem einzelnen Gerätetyp.
+
+## 0.3.1 Preview 2i
+- Felddarstellungsschalter korrigiert: markierte Seite oben/unten steuert spiegelbildliche Einzelfelddarstellung und Netzposition.
+- Bei Gegner-Scouting mit beiden Teams bleibt das Netz mittig; gilt für 6- und 9-Zonen-Ansicht.
+- Links-/Rechts-Orientierung bleibt als TODO.

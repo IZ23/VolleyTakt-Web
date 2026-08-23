@@ -4,7 +4,7 @@ const storage=fs.readFileSync(new URL('../js/storage.js', import.meta.url),'utf8
 const html=fs.readFileSync(new URL('../index.html', import.meta.url),'utf8');
 const css=fs.readFileSync(new URL('../styles.css', import.meta.url),'utf8');
 const checks=[
- ['preview9 lineage', (html.includes('0.3.0 Preview 9')||html.includes('0.3.1 Preview 1')) && (app.includes("TOUR_VERSION='0.3.0-p9a'")||app.includes("TOUR_VERSION='0.3.1-p1'"))],
+ ['preview9 lineage', (html.includes('0.3.0 Preview 9')||/0\.3\.1 Preview [12]/.test(html)) && (app.includes("TOUR_VERSION='0.3.0-p9a'")||/TOUR_VERSION='0\.3\.1-p(?:1|2b|2c|2d|2e|2f|2g|2h|2i)'/.test(app))],
  ['dual timestamps', ['action_start_seconds','action_start_timestamp','action_end_seconds','action_end_timestamp'].every(x=>storage.includes(`'${x}'`)) && app.includes('state.actionStartedSeconds=currentSeconds()')],
  ['start frozen on first WER', app.includes('const firstWer=!state.pendingSide&&!state.selectedPlayerPos')],
  ['nine zones', app.includes('OWN_COURT_ZONES=[4,3,2,7,8,9,5,6,1]') && app.includes('OPP_COURT_ZONES=[1,6,5,9,8,7,2,3,4]') && css.includes('.court.nine-zone')],

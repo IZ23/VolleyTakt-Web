@@ -1027,3 +1027,76 @@ body{min-width:0}
     --vsw-quality-h:clamp(44px,calc(54px * var(--vsw-ui-scale)),58px);
   }
 }
+
+/* 0.3.1 Preview 2 – trainer-oriented analysis */
+.analysis-split{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(8px,1vw,14px);align-items:start;margin-top:10px}
+.analysis-split section{min-width:0;background:#081225;border:1px solid #334155;border-radius:10px;padding:clamp(8px,1vw,12px)}
+.analysis-split h4,.card>h4{margin:.35rem 0 .55rem}
+.analysis-mini-bars{display:grid;gap:6px}.analysis-mini-bars>div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #25324a;padding:5px 2px}.analysis-mini-bars strong{font-variant-numeric:tabular-nums}
+.analysis-insights{margin:.25rem 0;padding-left:1.25rem}.analysis-insights li{margin:.35rem 0;line-height:1.35}
+.analysis-table-wrap .data-table{min-width:max-content;width:100%}.analysis-table-wrap th{white-space:nowrap}.analysis-table-wrap td{font-variant-numeric:tabular-nums}
+@media(max-width:680px){.analysis-split{grid-template-columns:1fr}}
+
+
+/* 0.3.1 Preview 2b: reguläres und spontanes Scouting optisch eindeutig trennen. */
+.court.quick-scout-court{background:linear-gradient(90deg,#3f4754,#566171)!important;border-color:#64748b!important}
+.court.quick-scout-court .pos{background:#e2e8f0!important;border-color:#94a3b8!important}
+.court.regular-scout-court.own{background:linear-gradient(90deg,#713f12,#854d0e)!important}
+.court.regular-scout-court.opponent{background:linear-gradient(90deg,#334155,#475569)!important}
+
+
+/* 0.3.1 Preview 2e – responsive Scout settings layout.
+   Uses available card width rather than a fixed device class. */
+.settings-scout-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:clamp(14px,2vw,28px);
+  align-items:start;
+  margin-top:4px;
+}
+.settings-scout-options{
+  display:grid;
+  gap:clamp(7px,1vh,10px);
+  min-width:0;
+}
+.settings-scout-options label{
+  display:flex;
+  align-items:flex-start;
+  gap:7px;
+  line-height:1.3;
+}
+.settings-player-sort{
+  display:grid;
+  grid-template-columns:minmax(max-content,auto) minmax(130px,220px);
+  gap:clamp(10px,1.4vw,18px);
+  align-items:center;
+  justify-content:start;
+  min-width:0;
+}
+.settings-player-sort select{width:100%}
+@media (max-width:620px){
+  .settings-scout-grid{grid-template-columns:1fr}
+  .settings-player-sort{grid-template-columns:1fr;gap:6px}
+}
+
+/* 0.3.1 Preview 2f: sortable player table headers */
+.data-table th .table-sort{display:inline-flex;align-items:center;gap:.35rem;background:transparent;border:0;color:inherit;padding:0;min-height:0;font:inherit;font-weight:inherit;cursor:pointer}.data-table th .table-sort span{font-size:.72em;opacity:.65}.data-table th .table-sort.active span{opacity:1}.data-table th .table-sort:focus-visible{outline:2px solid #38bdf8;outline-offset:3px;border-radius:4px}
+
+/* Preview 2h: kompakter Felddarstellungs-Umschalter, nur eine aktive/farbige Seite. */
+.court-title{gap:.55rem}
+.court-title-tools{display:flex;align-items:center;justify-content:flex-end;gap:clamp(.4rem,1vw,.8rem);min-width:0}
+.field-orientation-btn{width:38px;height:34px;min-width:38px;padding:3px 6px;border:1px solid #64748b;border-radius:8px;background:#172033;display:grid;place-items:center;cursor:pointer}
+.field-orientation-btn:hover{border-color:#38bdf8;background:#1e293b}
+.orientation-icon{position:relative;width:22px;height:25px;display:block}
+.orientation-half{position:absolute;left:4px;width:14px;height:10px;border:2px solid #cbd5e1;background:#334155;box-sizing:border-box}
+.orientation-half.top{top:1px}.orientation-half.bottom{bottom:1px}
+.orientation-midline{position:absolute;left:0;right:0;top:11px;height:3px;border-radius:2px;background:#e2e8f0}
+.field-orientation-btn.active-top .orientation-half.top,.field-orientation-btn.active-bottom .orientation-half.bottom{background:#0ea5e9;border-color:#7dd3fc}
+.field-orientation-btn.active-top .orientation-half.bottom,.field-orientation-btn.active-bottom .orientation-half.top{background:#334155;border-color:#94a3b8}
+@media(max-width:760px){.court-title-tools{gap:.35rem}.field-orientation-btn{width:34px;min-width:34px;height:32px}}
+
+/* 0.3.1 Preview 2i – single-field view follows the marked physical side. */
+.court.net-after{grid-template-rows:repeat(2,minmax(0,1fr)) clamp(18px,calc(24px * var(--vsw-ui-scale,1)),24px)!important}
+.court.net-before{grid-template-rows:clamp(18px,calc(24px * var(--vsw-ui-scale,1)),24px) repeat(2,minmax(0,1fr))!important}
+.court.nine-zone.net-after{grid-template-rows:repeat(3,minmax(0,1fr)) clamp(18px,calc(24px * var(--vsw-ui-scale,1)),24px)!important}
+.court.nine-zone.net-before{grid-template-rows:clamp(18px,calc(24px * var(--vsw-ui-scale,1)),24px) repeat(3,minmax(0,1fr))!important}

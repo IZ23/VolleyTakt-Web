@@ -1,4 +1,4 @@
-# Funktionsgegencheck – VolleyTakt Live 0.3.1 Preview 1
+# Funktionsgegencheck – VolleyTakt Live 0.3.1 Preview 2
 
 Ausgangsbasis: korrigierte 0.3.0 Preview 9.
 
@@ -13,7 +13,7 @@ Prüfpunkte:
 - Regression: 9-Zonen-Feld, Timestamps, DJI/GoPro/i18n.
 
 ## Testergebnis
-- 0.3.1 Preview 1: 12/12
+- 0.3.1 Preview 2: 12/12
 - Preview-8-Kernregression: 10/10
 - Preview-9-Erweiterungsregression: 11/11
 - Preview-9-Feldorientierung: 7/7
@@ -21,3 +21,5 @@ Prüfpunkte:
 - GoPro-BLE: OK
 - i18n: OK
 - PHP-Syntax: OK
+
+- 0.3.1 Preview 2 Analyse: 14/14

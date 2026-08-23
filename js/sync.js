@@ -1,5 +1,12 @@
 const FILES={players:'players.json',teams:'teams.json',seasons:'seasons.json',seasonRosters:'season_rosters.json',matchTypes:'match_types.json',matchRosters:'match_rosters.json',sharedSettings:'shared_settings.json'};
 function mergeRows(local=[],remote=[]){const map=new Map();for(const x of [...local,...remote]){const prev=map.get(x.id);if(!prev||String(x.updatedAt||'')>String(prev.updatedAt||'')||(x.updatedAt===prev.updatedAt&&(x.revision||0)>(prev.revision||0)))map.set(x.id,x)}return [...map.values()]}
+function matchTypeKey(name){return String(name||'').normalize('NFKC').trim().replace(/\s+/g,' ').toLocaleLowerCase('de')}
+function normalizeMatchTypes(master){
+ const groups=new Map();for(const mt of master.matchTypes||[]){const key=matchTypeKey(mt.name);if(!key)continue;(groups.get(key)||groups.set(key,[]).get(key)).push(mt)}
+ const idMap=new Map(),kept=[];
+ for(const rows of groups.values()){rows.sort((a,b)=>(b.usageCount||0)-(a.usageCount||0)||String(b.updatedAt||'').localeCompare(String(a.updatedAt||'')));const keep=rows[0];keep.name=String(keep.name||'').normalize('NFKC').trim().replace(/\s+/g,' ');keep.usageCount=rows.reduce((n,x)=>n+(x.usageCount||0),0);for(const x of rows.slice(1))idMap.set(x.id,keep.id);kept.push(keep)}
+ master.matchTypes=kept;for(const r of master.matchRosters||[]){const next=idMap.get(r.matchTypeId);if(next)r.matchTypeId=next}return master
+}
 export function mergeMaster(local,remote){const out={...local};for(const k of ['players','teams','seasons','seasonRosters','matchTypes','matchRosters'])out[k]=mergeRows(local[k]||[],remote[k]||[]);if(remote.sharedSettings&&String(remote.sharedSettings.updatedAt||'')>String(local.sharedSettings?.updatedAt||''))out.sharedSettings=remote.sharedSettings;return out}
 export function normalizeServerUrl(value){let v=String(value||'').trim();if(!v)return '';if(!/^https?:\/\//i.test(v))v='https://'+v;try{const u=new URL(v);u.hash='';u.search='';u.pathname=u.pathname.replace(/\/+$/,'');return u.toString().replace(/\/$/,'')}catch{return v}}
 
@@ -35,11 +42,12 @@ class GoogleDriveProvider{
  async test(){await this.folder();return true}
 }
 
-class PreparedProvider{constructor(cfg,name,requirements){this.cfg=cfg;this.name=name;this.requirements=requirements}async test(){throw new Error(`${this.name}: Anbieter ist in 0.3.1 Preview 1 konfigurierbar. Für die produktive API-Anmeldung wird ${this.requirements} benötigt.`)}async get(){return null}async put(){throw new Error(`${this.name}: API-Anmeldung noch nicht aktiviert.`)}}
+class PreparedProvider{constructor(cfg,name,requirements){this.cfg=cfg;this.name=name;this.requirements=requirements}async test(){throw new Error(`${this.name}: Anbieter ist in 0.3.1 Preview 2 konfigurierbar. Für die produktive API-Anmeldung wird ${this.requirements} benötigt.`)}async get(){return null}async put(){throw new Error(`${this.name}: API-Anmeldung noch nicht aktiviert.`)}}
 export function createProvider(cfg){if(cfg.provider==='google')return new GoogleDriveProvider(cfg);if(cfg.provider==='nextcloud'||cfg.provider==='webdav')return new WebDavProvider(cfg);if(cfg.provider==='icloud')return new PreparedProvider(cfg,'Apple iCloud / CloudKit','eine CloudKit-Container-ID, ein API-Token und die Apple-Anmeldung');if(cfg.provider==='onedrive')return new PreparedProvider(cfg,'Microsoft OneDrive','eine Microsoft-App-Registrierung mit Client-ID und OAuth/PKCE');if(cfg.provider==='dropbox')return new PreparedProvider(cfg,'Dropbox','eine Dropbox-App mit App-Key und OAuth/PKCE');if(cfg.provider==='box')return new PreparedProvider(cfg,'Box','eine Box-App mit Client-ID und OAuth-Anmeldung');throw new Error('Kein Cloud-Anbieter gewählt.')}
 export async function syncMaster(master,cfg,onProgress=()=>{}){
  const p=createProvider(cfg);if(p.ensure)await p.ensure();let merged=structuredClone(master);
  for(const [key,name] of Object.entries(FILES)){onProgress(`Lese ${name} …`);const remote=await p.get(name);if(remote){if(Array.isArray(master[key]))merged[key]=mergeRows(master[key],remote);else if(key==='sharedSettings'&&String(remote.updatedAt||'')>String(master[key]?.updatedAt||''))merged[key]=remote}}
+ normalizeMatchTypes(merged);
  for(const [key,name] of Object.entries(FILES)){onProgress(`Schreibe ${name} …`);await p.put(name,merged[key]||[])}
  return merged;
 }

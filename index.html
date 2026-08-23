@@ -1,9 +1,9 @@
 <!doctype html><html lang="de"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#0f172a"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
-<title>VolleyTakt Live 0.3.1 Preview 1</title><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="./logo.png"><link rel="apple-touch-icon" href="./logo.png"><link rel="stylesheet" href="styles.css?v=0.3.1-p1d">
+<title>VolleyTakt Live 0.3.1</title><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="./logo.png"><link rel="apple-touch-icon" href="./logo.png"><link rel="stylesheet" href="styles.css?v=0.3.1">
 </head><body>
-<div id="startGate" class="start-gate"><div class="start-card"><img src="./logo.png" alt="VolleyTakt"><h1>VolleyTakt Live</h1><p>Web 0.3.1 Preview 1 · Tablet-Livescouting · modulare Kamera-Synchronisation</p><div id="browserCameraNotice" class="browser-camera-notice" hidden></div><button id="startAppBtn" class="primary huge">Livescouting öffnen</button><small>Die lokale Zeit startet erst auf ausdrücklichen Befehl. Die verbundene Kamera setzt den Zeitanker erst nach bestätigter Aufnahme.</small></div></div>
+<div id="startGate" class="start-gate"><div class="start-card"><img src="./logo.png" alt="VolleyTakt"><h1>VolleyTakt Live</h1><p>Web 0.3.1 · Tablet-Livescouting · modulare Kamera-Synchronisation</p><div id="browserCameraNotice" class="browser-camera-notice" hidden></div><button id="startAppBtn" class="primary huge">Livescouting öffnen</button><small>Die lokale Zeit startet erst auf ausdrücklichen Befehl. Die verbundene Kamera setzt den Zeitanker erst nach bestätigter Aufnahme.</small></div></div>
 <main id="app" class="app-shell" hidden>
 <header class="topbar">
   <div class="brand-shell">
@@ -11,7 +11,7 @@
       <img src="./logo.png" alt="VolleyTakt">
       <span class="brand-hamburger" aria-hidden="true">☰</span>
     </button>
-    <span class="brand-copy"><strong>VolleyTakt Live</strong><small>0.3.1 Preview 1</small></span>
+    <span class="brand-copy"><strong>VolleyTakt Live</strong><small>0.3.1</small></span>
   </div>
   <div class="match-center" aria-live="polite">
     <button id="matchSetupBtn" class="match-setup-link">Spiel einrichten</button>
@@ -36,7 +36,7 @@
     <label class="note-label"><span>Notiz</span><textarea id="noteInput" rows="2" placeholder="optional"></textarea></label>
   </section>
   <aside class="court-panel panel">
-    <div class="section-title court-title"><span id="captureTitle">Eigenes Team</span><label class="opponent-switch"><span>Gegner</span><span class="switch"><input type="checkbox" id="opponentToggle"><span class="slider"></span></span></label><strong id="rotationLabel">R1</strong></div>
+    <div class="section-title court-title"><span id="captureTitle">Eigenes Team</span><div class="court-title-tools"><button id="fieldOrientationBtn" class="field-orientation-btn active-top" type="button" aria-label="Felddarstellung umschalten" title="Felddarstellung umschalten"><span class="orientation-icon" aria-hidden="true"><i class="orientation-half top"></i><i class="orientation-midline"></i><i class="orientation-half bottom"></i></span></button><label class="opponent-switch"><span>Gegner</span><span class="switch"><input type="checkbox" id="opponentToggle"><span class="slider"></span></span></label><strong id="rotationLabel">R1</strong></div></div>
     <div id="courtWrap" class="court-wrap"><div id="activeCourt" class="court own" data-side="own"><div class="net">NETZ</div></div><div id="sharedNet" class="shared-net" hidden>NETZ</div><div id="secondaryCourt" class="court opponent target-court" data-side="opponent" hidden><div class="net">NETZ</div></div></div>
     <div id="targetHint" class="target-hint" hidden>Gegner-Angriff: Zielposition im eigenen Feld wählen.</div>
     <div class="rotation-controls"><button id="rotateBackBtn">↶ Rotation</button><button id="rotateBtn">Rotation ↷</button></div><div class="player-change-controls"><button id="substituteBtn" title="Tastenkürzel W">↔ Wechsel</button><button id="liberoBtn" title="Tastenkürzel L">L Libero</button></div>
@@ -69,4 +69,4 @@
   setTimeout(()=>{if(!window.__VSW_APP_READY__)showStartupError(window.__VSW_APP_ERROR__||'App-Modul wurde nicht vollständig initialisiert.')},3500);
 })();
 </script>
-<script type="module" src="js/app.js?v=0.3.1-p1d"></script></body></html>
+<script type="module" src="js/app.js?v=0.3.1"></script></body></html>

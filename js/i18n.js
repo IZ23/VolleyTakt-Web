@@ -1,5 +1,5 @@
-import {localeDe} from './locales/de.js?v=0.3.1-p1';
-import {EXACT_EN,FRAGMENTS_EN} from './locales/en.js?v=0.3.1-p1';
+import {localeDe} from './locales/de.js?v=0.3.1-p2c';
+import {EXACT_EN,FRAGMENTS_EN} from './locales/en.js?v=0.3.1-p2c';
 
 let language='de';
 let observer=null;
