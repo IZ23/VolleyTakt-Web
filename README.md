@@ -23,3 +23,19 @@ Ausgangsbasis: zuletzt korrigierte 0.3.0 Preview 9.
 - Gegner-Tendenzen aus den tatsächlich erfassten Detaildaten.
 - Gemeinsames Datenmodell für einfache und detaillierte Erfassung.
 
+## Projekt
+
+- Homepage: https://volleytakt.de
+- Dokumentation: https://docs.volleytakt.de
+- Live-Version: https://live.volleytakt.de
+- Desktop-Repository: https://github.com/IZ23/VolleyTakt
+
+## Quelloffen / Source Available
+
+VolleyTakt Live ist kostenlos nutzbar und source-available. Der Quellcode darf innerhalb der Berechtigungen der PolyForm Perimeter License 1.0.1 genutzt, geändert und weitergegeben werden. Die Bereitstellung eines Produkts, das mit VolleyTakt konkurriert, ist nach dieser Lizenz nicht gestattet.
+
+## Lizenz
+
+VolleyTakt Live steht unter der **PolyForm Perimeter License 1.0.1**. Die verbindlichen Bedingungen stehen in [LICENSE](LICENSE).
+
+Copyright 2026 Ingo Zech.
