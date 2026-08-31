@@ -1,4 +1,4 @@
-// VolleyTakt Live 0.4.0 RC1 - keyed migration bridge for legacy UI texts.
+// VolleyTakt Live 0.4.0 RC2 - keyed migration bridge for legacy UI texts.
 // Every formerly exact German->English translation now resolves through a stable key.
 export const LEGACY_KEY_BY_DE=Object.freeze({
   "Wird nur angezeigt, weil…":"legacy.only_shown_because",
@@ -391,7 +391,7 @@ export const LEGACY_KEY_BY_DE=Object.freeze({
   "eingeschränkt":"legacy.limited",
   "sehr eingeschränkt":"legacy.severely_limited",
   "Neue Eingabelogik: WER → WAS → WIE → WO → WOHIN.":"legacy.new_input_logic_who_what_how_where_target",
-  "0.4.0 RC1 verwendet das modulare Sprachsystem. Alle aktuellen Beschriftungen, Erklärungen, Hilfe-, Status- und Fehlermeldungen stehen in Deutsch und Englisch zur Verfügung.":"legacy.0_4_0_rc1_uses_modular_language_system",
+  "0.4.0 RC2 verwendet das modulare Sprachsystem. Alle aktuellen Beschriftungen, Erklärungen, Hilfe-, Status- und Fehlermeldungen stehen in Deutsch und Englisch zur Verfügung.":"legacy.0_4_0_rc2_uses_modular_language_system",
   "Wird nur angezeigt, weil…":"legacy.only_shown_because",
   "Weitere Dateien oder Perspektiven…":"legacy.additional_files_perspectives",
   "bleibt Grundlage für Undo…":"legacy.remains_basis_undo",
@@ -827,7 +827,7 @@ export const LEGACY_MESSAGES_DE=Object.freeze({
   "legacy.limited":"eingeschränkt",
   "legacy.severely_limited":"sehr eingeschränkt",
   "legacy.new_input_logic_who_what_how_where_target":"Neue Eingabelogik: WER → WAS → WIE → WO → WOHIN.",
-  "legacy.0_4_0_rc1_uses_modular_language_system":"0.4.0 RC1 verwendet das modulare Sprachsystem. Alle aktuellen Beschriftungen, Erklärungen, Hilfe-, Status- und Fehlermeldungen stehen in Deutsch und Englisch zur Verfügung.",
+  "legacy.0_4_0_rc2_uses_modular_language_system":"0.4.0 RC2 verwendet das modulare Sprachsystem. Alle aktuellen Beschriftungen, Erklärungen, Hilfe-, Status- und Fehlermeldungen stehen in Deutsch und Englisch zur Verfügung.",
   "legacy.only_shown_because":"Wird nur angezeigt, weil…",
   "legacy.additional_files_perspectives":"Weitere Dateien oder Perspektiven…",
   "legacy.remains_basis_undo":"bleibt Grundlage für Undo…",
@@ -1263,7 +1263,7 @@ export const LEGACY_MESSAGES_EN=Object.freeze({
   "legacy.limited":"Limited",
   "legacy.severely_limited":"Severely limited",
   "legacy.new_input_logic_who_what_how_where_target":"New input logic: WHO → WHAT → HOW → WHERE → TARGET.",
-  "legacy.0_4_0_rc1_uses_modular_language_system":"0.4.0 RC1 uses the modular language system. All current labels, explanations, help, status and error messages are available in German and English.",
+  "legacy.0_4_0_rc2_uses_modular_language_system":"0.4.0 RC2 uses the modular language system. All current labels, explanations, help, status and error messages are available in German and English.",
   "legacy.only_shown_because":"Only shown because…",
   "legacy.additional_files_perspectives":"Additional files or perspectives…",
   "legacy.remains_basis_undo":"remains the basis for Undo…",

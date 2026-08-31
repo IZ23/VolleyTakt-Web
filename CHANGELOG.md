@@ -1,10 +1,14 @@
+## 0.4.0 RC2
+
+- FE-UI10: Spontanscouting-Feldzellen im kompakten Touch-Landscape vereinfacht; Positionsnummer nur einmal, redundante Standard-Kürzel P1–P6 ausgeblendet und sekundäre Spielerinfos höhenabhängig reduziert. Positionsarrays und Desktopdarstellung bleiben unverändert.
+- FE-SCOUT7: monotone Rally-Nummer über Undo/Neuzweig erneut validiert; persistierter High-Water-Zähler wird beim Laden robust normalisiert.
+- Vollständiger RC2-Build direkt aus 0.4.0 RC1.
 
 ## 0.4.0 RC1
 
 - Release-Kandidat auf Basis von 0.4.0 Preview19.
 - Keine neuen Funktionen; Versions-, Cache- und Release-Kennungen auf RC1 eingefroren.
 - Vorgesehen für abschließenden Praxis- und Regressionstest vor 0.4.0 final.
-
 
 ## 0.4.0 Preview15
 - Schlüsselbasierte i18n-API eingeführt.

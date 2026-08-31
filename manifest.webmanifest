@@ -1,7 +1,7 @@
 {
-  "name": "VolleyTakt Live 0.4.0 RC1",
+  "name": "VolleyTakt Live 0.4.0 RC2",
   "short_name": "VolleyTakt Live",
-  "description": "VolleyTakt Live 0.4.0 RC1 – Offline-first Livescouting, Spielbibliothek, Videozuordnung und Kamera-Synchronisation",
+  "description": "VolleyTakt Live 0.4.0 RC2 – Offline-first Livescouting, Spielbibliothek, Videozuordnung und Kamera-Synchronisation",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

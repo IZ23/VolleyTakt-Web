@@ -1,4 +1,4 @@
-// VolleyTakt Live 0.4.0 RC1 - camera service boundary.
+// VolleyTakt Live 0.4.0 RC2 - camera service boundary.
 // Owns camera-adapter lifecycle and connection telemetry; contains no DOM/UI code.
 export const CAMERA_ADAPTERS={
  dji_osmo:{id:'dji_osmo',shortName:'DJI',defaultName:'DJI Osmo Action'},

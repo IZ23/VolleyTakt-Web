@@ -42,7 +42,7 @@ export function tr(value,lang=language){
   [/^DJI: (.+)$/,m=>`DJI: ${m[1]}`]
  ];
  for(const [re,fn] of dynamic){const m=trim.match(re);if(m)return preserveWhitespace(source,fn(m));}
- // RC1: all formerly exact legacy translations resolve through stable keys.
+ // RC2: all formerly exact legacy translations resolve through stable keys.
  // Unknown strings remain intact instead of using unsafe substring translation.
  return source;
 }

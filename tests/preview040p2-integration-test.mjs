@@ -6,9 +6,9 @@ const rally=fs.readFileSync(new URL('../js/scouting/rally.js',import.meta.url),'
 const sw=fs.readFileSync(new URL('../sw.js',import.meta.url),'utf8');
 const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const storage=fs.readFileSync(new URL('../js/storage.js',import.meta.url),'utf8');
-need(app.includes("APP_VERSION='0.4.0 RC1'"),'current app version');
-need(html.includes('VolleyTakt Live 0.4.0 RC1'),'current html version');
-need(sw.includes('volleytakt-live-web-v0.4.0-rc1'),'current SW cache');
+need(app.includes("APP_VERSION='0.4.0 RC2'"),'current app version');
+need(html.includes('VolleyTakt Live 0.4.0 RC2'),'current html version');
+need(sw.includes('volleytakt-live-web-v0.4.0-rc2'),'current SW cache');
 need(sw.includes('./js/scouting/scouting.js'),'scouting module not cached');
 need(sw.includes('./js/scouting/rally.js'),'rally module not cached');
 need(storage.includes('CURRENT_DATA_SCHEMA=5'),'data schema must remain 5');
@@ -25,4 +25,4 @@ need(rally.includes('automaticPointFor')&&rally.includes('contextForAction'),'ra
 need(app.includes('async function logOwn'),'event build must remain outside domain modules');
 need(!scouting.includes('automaticPointFor')&&!scouting.includes('rallyContextForAction')&&!scouting.includes('appendEvent'),'capture module must stay free of rally/event/scoring');
 need(!rally.includes('appendEvent')&&!rally.includes('document.')&&!rally.includes('localStorage'),'rally module must remain DOM/persistence free');
-console.log('0.4.0 RC1 integration boundary regression: OK');
+console.log('0.4.0 RC2 integration boundary regression: OK');

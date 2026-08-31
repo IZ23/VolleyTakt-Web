@@ -1,4 +1,4 @@
-// VolleyTakt Live 0.4.0 RC1 - shared command vocabulary.
+// VolleyTakt Live 0.4.0 RC2 - shared command vocabulary.
 // Preview1 defines the boundary only; touch/keyboard routing follows in later previews.
 export const COMMANDS = Object.freeze({
   SELECT_POSITION:'SELECT_POSITION',

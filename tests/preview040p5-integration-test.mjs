@@ -5,14 +5,14 @@ const mod=fs.readFileSync(new URL('../js/scouting/scoring.js',import.meta.url),'
 const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const sw=fs.readFileSync(new URL('../sw.js',import.meta.url),'utf8');
 const need=(v,m)=>{if(!v)throw new Error(m)};
-need(app.includes("APP_VERSION='0.4.0 RC1'"),'app version');
+need(app.includes("APP_VERSION='0.4.0 RC2'"),'app version');
 need(app.includes("from './scouting/scoring.js'"),'scoring module import');
 need(activeApp.includes("from './scouting/scoring.js'"),'active app missing scoring module import');
 need(app.includes('scorePointTransition({winner:who'),'award not delegated');
 need(app.includes('winningSideForTarget(us,them,pointsTargetForSet(setNo))'),'set winner rule not delegated');
 need(app.includes('setWinTransition({winner,setWinsUs:state.setWinsUs,setWinsThem:state.setWinsThem})'),'set wins not delegated');
 need(!mod.includes('document.')&&!mod.includes('localStorage')&&!mod.includes('navigator')&&!mod.includes('CsvStore'),'scoring module must be DOM/storage free');
-need(html.includes('0.4.0 RC1'),'visible version');
-need(sw.includes('volleytakt-live-web-v0.4.0-rc1'),'service worker cache');
+need(html.includes('0.4.0 RC2'),'visible version');
+need(sw.includes('volleytakt-live-web-v0.4.0-rc2'),'service worker cache');
 need(sw.includes("'./js/scouting/scoring.js'"),'scoring module missing from offline core assets');
 console.log('Preview5 integration checks OK');

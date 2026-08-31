@@ -93,4 +93,4 @@ need(SET_TEMPOS.length===4&&SET_DISTANCES.length>=7,'set detail catalogues missi
  r=ctl.selectTargetZone('own',4);need(r.ok&&r.draft.setTempo==='T1'&&r.draft.setDistance==='weit','set details in draft');
 }
 
-console.log('0.4.0 RC1 scouting engine regression: OK');
+console.log('0.4.0 RC2 scouting engine regression: OK');

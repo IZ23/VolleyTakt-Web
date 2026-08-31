@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "app": "VolleyTakt Live",
-  "version": "0.4.0 RC1",
-  "version_id": "0.4.0-rc1",
+  "version": "0.4.0 RC2",
+  "version_id": "0.4.0-rc2",
   "data_schema": 5,
   "channel": "preview",
   "requires_confirmation": true,
@@ -81,6 +81,9 @@
     "Release candidate baseline: rally numbering uses a persistent high-water mark across undo/new branches",
     "Release candidate baseline: match library supports local or synchronized removal without deleting or moving video files",
     "Release candidate baseline: synchronized library removal uses tombstones to prevent normal sync resurrection",
-    "Release candidate baseline: all former exact legacy translations resolve through stable keyed DE/EN catalogues"
+    "Release candidate baseline: all former exact legacy translations resolve through stable keyed DE/EN catalogues",
+    "RC2 FE-UI10: compact landscape quick-scout court cells show each position number only once and suppress redundant default P1-P6 abbreviations",
+    "RC2 FE-UI10: secondary quick-scout player text is reduced by available landscape height without changing court position arrays or desktop rendering",
+    "RC2 FE-SCOUT7: rally numbering high-water is normalized on load and remains monotone across undo/new branches"
   ]
 }

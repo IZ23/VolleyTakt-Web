@@ -1,4 +1,4 @@
-// VolleyTakt Live 0.4.0 RC1 - central application state boundary.
+// VolleyTakt Live 0.4.0 RC2 - central application state boundary.
 // The persisted shape intentionally remains compatible with 0.3.2 Preview2-r7 rebuild3-fix2.
 
 export const TRANSIENT_STATE_KEYS = Object.freeze([
@@ -37,6 +37,7 @@ export function normalizeLoadedState(source = {}, defaults = createDefaultState(
   state.setReady=state.setReady===true;
   state.matchComplete=state.matchComplete===true;
   state.rallyCounter=Math.max(0,+state.rallyCounter||0);
+  state.rallyHighWater=Math.max(state.rallyCounter,Math.max(0,+state.rallyHighWater||0));
   state.currentRallyNo=Math.max(0,+state.currentRallyNo||0);
   state.currentRallySeq=Math.max(0,+state.currentRallySeq||0);
   if(!['own','opponent'].includes(state.activeTeamContext))state.activeTeamContext='own';
