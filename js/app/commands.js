@@ -1,0 +1,16 @@
+// VolleyTakt Live 0.4.0 RC1 - shared command vocabulary.
+// Preview1 defines the boundary only; touch/keyboard routing follows in later previews.
+export const COMMANDS = Object.freeze({
+  SELECT_POSITION:'SELECT_POSITION',
+  SELECT_ACTION:'SELECT_ACTION',
+  SELECT_QUALITY:'SELECT_QUALITY',
+  SELECT_ORIGIN_ZONE:'SELECT_ORIGIN_ZONE',
+  SELECT_TARGET_ZONE:'SELECT_TARGET_ZONE',
+  AWARD_POINT_US:'AWARD_POINT_US',
+  AWARD_POINT_THEM:'AWARD_POINT_THEM',
+  ROTATE:'ROTATE',
+  UNDO:'UNDO',
+  CANCEL:'CANCEL',
+  SUBSTITUTION:'SUBSTITUTION',
+  LIBERO:'LIBERO'
+});

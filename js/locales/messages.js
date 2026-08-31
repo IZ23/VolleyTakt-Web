@@ -1,0 +1,41 @@
+import {LEGACY_MESSAGES_DE,LEGACY_MESSAGES_EN} from './legacy-messages.js';
+export const MESSAGES_DE={...LEGACY_MESSAGES_DE,
+ 'common.us':'Wir','common.own':'Eigener','common.opponent':'Gegner','common.save':'Speichern','common.cancel':'Abbrechen',
+ 'scouting.who':'WER','scouting.what':'WAS','scouting.how':'WIE','scouting.where':'WO','scouting.target':'WOHIN',
+ 'libero.swap':'Liberotausch','libero.select_backrow':'Liberotausch: P1, P6 oder P5 wählen.',
+ 'libero.one':'Libero 1','libero.two':'Libero 2','libero.direct_swap':'Direkter Libero-gegen-Libero-Tausch','libero.backrow_only':'Libero-Austausch nur auf den Hinterfeldpositionen I, VI oder V auswählen.','libero.none_available':'Kein verfügbarer Libero bzw. Rücktausch für diese Position vorhanden.','libero.direct_swap_hint':'Neben dem Rücktausch ist auch ein direkter Libero-gegen-Libero-Tausch möglich.','libero.apply':'Libero übernehmen',
+ 'court.orientation.top':'Felddarstellung: markierte Seite oben · Scoutingdaten und Positionslogik unverändert.',
+ 'court.orientation.bottom':'Felddarstellung: markierte Seite unten · Scoutingdaten und Positionslogik unverändert.',
+ 'scouting.status.who_required':'Bitte zuerst WER auswählen.',
+ 'scouting.status.serve_terminal':'{side} Aufschlag {quality} – ohne verpflichtendes WO direkt abgeschlossen.',
+ 'scouting.status.origin_inherited':'Ballposition {zone} aus vorherigem WOHIN als WO übernommen; Aktion abgeschlossen.',
+ 'scouting.status.origin_inherited_target':'Ballposition {zone} aus vorherigem WOHIN als WO übernommen – jetzt WOHIN wählen.',
+ 'scouting.status.origin_prefilled':'WO aus vorherigem WOHIN vorbelegt: {zone}. Position bestätigen oder ändern.',
+ 'scouting.status.set_details':'Qualität gewählt – Zuspiel: Tempo und Passweite/-richtung erfassen.',
+ 'scouting.status.choose_origin':'{quality} gewählt – WO: tatsächliche Aktionszone P1–P{max} auswählen.',
+ 'scouting.status.set_origin':'Zuspiel-Details vollständig – jetzt WO (P1–P9) wählen.',
+
+ 'library.empty':'Noch keine gespeicherten Spiele.','library.continue':'Fortsetzen','library.video':'Video','library.review':'Prüfen','library.analyse':'Analysieren','library.remove':'Spiel aus Bibliothek entfernen','library.remove_active_hint':'Das aktuell laufende Spiel kann nicht aus der Bibliothek entfernt werden. Bitte zuerst ein anderes/neues Spiel öffnen.','library.remove_title':'Spiel aus Bibliothek entfernen','library.remove_local':'Nur auf diesem Gerät entfernen','library.remove_local_help':'Entfernt nur den lokalen VolleyTakt-Bibliothekseintrag. Zugeordnete Videos bleiben unverändert.','library.remove_sync':'Aus synchronisierter Bibliothek entfernen','library.remove_sync_help':'Entfernt den Bibliothekseintrag auch aus der synchronisierten Bibliothek. Video-Dateien und Video-Speicherorte bleiben unangetastet.','library.remove_video_safe':'Es wird ausschließlich der VolleyTakt-Bibliothekseintrag entfernt. Zugeordnete Videos werden niemals gelöscht, verschoben oder verändert.','library.remove_sync_offline':'Für das Entfernen aus der synchronisierten Bibliothek ist eine Online-Verbindung erforderlich.','library.removed_local':'Spiel wurde nur von diesem Gerät aus der Bibliothek entfernt. Videos bleiben erhalten.','library.removed_sync':'Spiel wurde aus der synchronisierten Bibliothek entfernt. Videos bleiben erhalten.','library.remove_confirm':'Entfernen',
+ 'camera.connect':'Kamera verbinden','camera.disconnect':'Kamera trennen',
+ 'history.undo':'Undo','history.redo':'Redo'
+};
+export const MESSAGES_EN={...LEGACY_MESSAGES_EN,
+ 'common.us':'Us','common.own':'Own','common.opponent':'Opponent','common.save':'Save','common.cancel':'Cancel',
+ 'scouting.who':'WHO','scouting.what':'WHAT','scouting.how':'HOW','scouting.where':'WHERE','scouting.target':'TARGET',
+ 'libero.swap':'Libero replacement','libero.select_backrow':'Libero replacement: select P1, P6 or P5.',
+ 'libero.one':'Libero 1','libero.two':'Libero 2','libero.direct_swap':'Direct libero-for-libero replacement','libero.backrow_only':'Libero replacement is only available at back-row positions I, VI or V.','libero.none_available':'No available libero or valid return replacement for this position.','libero.direct_swap_hint':'In addition to the return replacement, a direct libero-for-libero replacement is possible.','libero.apply':'Apply libero',
+ 'court.orientation.top':'Court view: highlighted side at top · scouting data and position logic unchanged.',
+ 'court.orientation.bottom':'Court view: highlighted side at bottom · scouting data and position logic unchanged.',
+ 'scouting.status.who_required':'Select WHO first.',
+ 'scouting.status.serve_terminal':'{side} serve {quality} – completed directly without mandatory WHERE.',
+ 'scouting.status.origin_inherited':'Ball position {zone} inherited from the previous TARGET as WHERE; action completed.',
+ 'scouting.status.origin_inherited_target':'Ball position {zone} inherited from the previous TARGET as WHERE – now select TARGET.',
+ 'scouting.status.origin_prefilled':'WHERE preselected from the previous TARGET: {zone}. Confirm or change the position.',
+ 'scouting.status.set_details':'Quality selected – set: enter tempo and pass distance/direction.',
+ 'scouting.status.choose_origin':'{quality} selected – WHERE: choose actual action zone P1–P{max}.',
+ 'scouting.status.set_origin':'Set details complete – now choose WHERE (P1–P9).',
+
+ 'library.empty':'No saved matches yet.','library.continue':'Continue','library.video':'Video','library.review':'Review','library.analyse':'Analyze','library.remove':'Remove match from library','library.remove_active_hint':'The currently active match cannot be removed from the library. Open another or a new match first.','library.remove_title':'Remove match from library','library.remove_local':'Remove only on this device','library.remove_local_help':'Removes only the local VolleyTakt library entry. Linked videos remain unchanged.','library.remove_sync':'Remove from synchronized library','library.remove_sync_help':'Also removes the entry from the synchronized library. Video files and video storage locations remain untouched.','library.remove_video_safe':'Only the VolleyTakt library entry is removed. Linked videos are never deleted, moved, or modified.','library.remove_sync_offline':'An online connection is required to remove the entry from the synchronized library.','library.removed_local':'Match removed from the library on this device only. Videos remain available.','library.removed_sync':'Match removed from the synchronized library. Videos remain available.','library.remove_confirm':'Remove',
+ 'camera.connect':'Connect camera','camera.disconnect':'Disconnect camera',
+ 'history.undo':'Undo','history.redo':'Redo'
+};

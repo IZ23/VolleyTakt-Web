@@ -29,8 +29,10 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
     # HTML, Manifest, JavaScript und Service Worker kurzfristig prüfen,
     # damit Updates zuverlässig ankommen.
-    <FilesMatch "\.(?:html|js|webmanifest)$">
-        Header set Cache-Control "no-cache, must-revalidate"
+    <FilesMatch "\.(?:html|js|json|webmanifest)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
     </FilesMatch>
 
     # Der Service Worker selbst darf nicht lange zwischengespeichert werden.

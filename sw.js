@@ -1,29 +1,46 @@
-const CACHE = 'volleytakt-live-web-v0.3.1';
+const CACHE = 'volleytakt-live-web-v0.4.0-rc1';
 
 // Nur diese Kernressourcen dürfen die Installation des Service Workers blockieren.
 const CORE_ASSETS = [
   './',
   './index.html',
-  './styles.css?v=0.3.1',
+  './styles.css?v=0.4.0-rc1',
   './manifest.webmanifest',
+  './update-manifest.json',
   './logo.png',
   './assets/volleyball-service.png',
-  './js/app.js?v=0.3.1',
-  './js/storage.js?v=0.3.1',
-  './js/sync.js?v=0.3.1',
-  './js/dji-protocol.js?v=0.3.1',
-  './js/dji-ble.js?v=0.3.1',
-  './js/gopro-ble.js?v=0.3.1',
-  './js/i18n.js?v=0.3.1',
-  './js/locales/de.js?v=0.3.1',
-  './js/locales/en.js?v=0.3.1'
+  './js/app.js',
+  './js/app/state.js',
+  './js/app/selectors.js',
+  './js/app/persistence.js',
+  './js/app/commands.js','./js/app/input-routing.js',
+  './js/analysis/domain.js','./js/analysis/ui.js',
+  './js/camera/service.js',
+  './js/scouting/scouting.js',
+  './js/scouting/rally.js',
+  './js/scouting/events.js','./js/scouting/scoring.js','./js/scouting/match-flow.js','./js/scouting/history.js',
+  './js/storage.js',
+  './js/sync.js',
+  './js/dji-protocol.js',
+  './js/i18n.js',
+  './js/locales/de.js',
+  './js/locales/messages.js',
+  './js/locales/legacy-messages.js'
 ];
 
 // PWA-Icons sind wichtig, aber ein einzelnes fehlendes Icon darf die App nicht offline-unfähig machen.
 const OPTIONAL_ASSETS = [
+  './js/dji-ble.js',
+  './js/gopro-ble.js',
   './app-icons/volleytakt-96.png',
   './app-icons/volleytakt-192.png',
   './app-icons/volleytakt-512.png',
+  './app-icons/techniques/aufschlag.png?v=0.4.0-rc1-pictograms',
+  './app-icons/techniques/zuspiel.png?v=0.4.0-rc1-pictograms',
+  './app-icons/techniques/angriff.png?v=0.4.0-rc1-pictograms',
+  './app-icons/techniques/annahme.png?v=0.4.0-rc1-pictograms',
+  './app-icons/techniques/abwehr.png?v=0.4.0-rc1-pictograms',
+  './app-icons/techniques/block.png?v=0.4.0-rc1-pictograms',
   './app-icons/volleytakt-1024.png'
 ];
 
@@ -35,6 +52,8 @@ self.addEventListener('install', event => {
     await self.skipWaiting();
   })());
 });
+
+self.addEventListener('message', event => { if (event.data === 'SKIP_WAITING') self.skipWaiting(); });
 
 self.addEventListener('activate', event => {
   event.waitUntil((async () => {
@@ -49,7 +68,7 @@ self.addEventListener('fetch', event => {
 
   event.respondWith((async () => {
     try {
-      const response = await fetch(event.request);
+      const response = await fetch(event.request, event.request.mode === 'navigate' ? {cache:'no-store'} : {cache:'no-cache'});
       if (response && response.ok) {
         const cache = await caches.open(CACHE);
         cache.put(event.request, response.clone()).catch(() => {});
@@ -60,7 +79,7 @@ self.addEventListener('fetch', event => {
       if (cached) return cached;
 
       if (event.request.mode === 'navigate') {
-        const fallback = await caches.match('./index.html');
+        const fallback = await caches.match('./index.html', {ignoreSearch:true});
         if (fallback) return fallback;
       }
       throw error;

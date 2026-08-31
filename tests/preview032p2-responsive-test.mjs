@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+const css=fs.readFileSync(new URL('../styles.css',import.meta.url),'utf8');
+const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
+const need=(v,m)=>{if(!v)throw new Error(m)};
+need(css.includes('@media'), 'responsive rules missing');
+need(css.includes('.viewport-compact .brand-copy small{display:block!important}'),'version hidden on compact');
+need(/\.drawer[^{]*\{[^}]*max-width/s.test(css)||css.includes('width:min('),'drawer width guard missing');
+need(!html.includes('<small>0.3.1</small>'),'old header version remains');
+need(html.includes('viewport-fit=cover'),'viewport config missing');
+console.log('preview032p2-responsive-test: OK');

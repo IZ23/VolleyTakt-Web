@@ -4,15 +4,101 @@ const STATE_KEY='volleytakt-live-state-v2';
 const EVENTS_KEY='volleytakt-live-events-v2';
 const SETTINGS_KEY='volleytakt-live-settings-v2';
 const MATCH_ARCHIVE_KEY='volleytakt-match-archive-v1';
-export function loadMatchArchive(){try{return JSON.parse(localStorage.getItem(MATCH_ARCHIVE_KEY)||'[]')}catch{return []}}
-export function saveMatchArchive(v){localStorage.setItem(MATCH_ARCHIVE_KEY,JSON.stringify(v||[]))}
+const DATA_SCHEMA_KEY='volleytakt-data-schema';
+const DATA_BACKUP_KEY='volleytakt-update-backup';
+export const CURRENT_DATA_SCHEMA=5;
+
+function safeJson(raw,fallback){try{return JSON.parse(raw)}catch{return fallback}}
+export function createUpdateBackup(reason='update'){
+  const payload={
+    schema:Number(localStorage.getItem(DATA_SCHEMA_KEY)||0),
+    reason,
+    createdAt:new Date().toISOString(),
+    data:{
+      master:localStorage.getItem(MASTER_KEY),
+      state:localStorage.getItem(STATE_KEY),
+      events:localStorage.getItem(EVENTS_KEY),
+      settings:localStorage.getItem(SETTINGS_KEY),
+      matchArchive:localStorage.getItem(MATCH_ARCHIVE_KEY)
+    }
+  };
+  localStorage.setItem(DATA_BACKUP_KEY,JSON.stringify(payload));
+  return payload;
+}
+export function latestUpdateBackup(){return safeJson(localStorage.getItem(DATA_BACKUP_KEY)||'null',null)}
+export function runDataMigrations(target=CURRENT_DATA_SCHEMA){
+  let current=Math.max(0,Number(localStorage.getItem(DATA_SCHEMA_KEY)||0));
+  if(current>=target)return{from:current,to:current,migrated:false};
+  createUpdateBackup(`schema-${current}-to-${target}`);
+  const from=current;
+  try{
+    while(current<target){
+      const next=current+1;
+      if(next===1){
+        // Legacy installations without an explicit data-schema marker.
+      }else if(next===2){
+        const m=safeJson(localStorage.getItem(MASTER_KEY)||'{}',{});
+        if(m&&typeof m==='object'){m.schema=Math.max(3,Number(m.schema||3));localStorage.setItem(MASTER_KEY,JSON.stringify(m))}
+      }else if(next===3){
+        const archive=safeJson(localStorage.getItem(MATCH_ARCHIVE_KEY)||'[]',[]);
+        if(Array.isArray(archive))localStorage.setItem(MATCH_ARCHIVE_KEY,JSON.stringify(archive.map(x=>{
+          const st=x?.fullState||x?.state||{};
+          return {...x,status:x?.status||(st.matchComplete?'ended':'interrupted'),videos:[...(x?.videos||st.videoAssignments||[])],fullState:x?.fullState||null};
+        })));
+      }else if(next===4){
+        // 0.3.2: ensure video assignments and reusable match snapshots survive upgrades.
+        const st=safeJson(localStorage.getItem(STATE_KEY)||'{}',{});
+        if(st&&typeof st==='object'){st.videoAssignments=[...(st.videoAssignments||[])];localStorage.setItem(STATE_KEY,JSON.stringify(st))}
+        const archive=safeJson(localStorage.getItem(MATCH_ARCHIVE_KEY)||'[]',[]);
+        if(Array.isArray(archive))localStorage.setItem(MATCH_ARCHIVE_KEY,JSON.stringify(archive.map(x=>{
+          const full={...(x?.fullState||x?.state||{})};
+          full.videoAssignments=[...(full.videoAssignments||x?.videos||[])];
+          return {...x,status:x?.status||(full.matchComplete?'ended':'interrupted'),videos:[...(x?.videos||full.videoAssignments||[])],fullState:full};
+        })));
+      }else if(next===5){
+        // Preview2-r5: remove the former ++ quality tier. Legacy ++ means the same maximum success and becomes #.
+        const normalizeQuality=v=>String(v??'')==='++'?'#':v;
+        const st=safeJson(localStorage.getItem(STATE_KEY)||'{}',{});
+        if(st&&typeof st==='object'){if(st.pendingQuality==='++')st.pendingQuality='#';localStorage.setItem(STATE_KEY,JSON.stringify(st))}
+        const ev=safeJson(localStorage.getItem(EVENTS_KEY)||'[]',[]);
+        if(Array.isArray(ev))localStorage.setItem(EVENTS_KEY,JSON.stringify(ev.map(x=>({...x,value:normalizeQuality(x?.value)}))));
+        const archive=safeJson(localStorage.getItem(MATCH_ARCHIVE_KEY)||'[]',[]);
+        if(Array.isArray(archive))localStorage.setItem(MATCH_ARCHIVE_KEY,JSON.stringify(archive.map(x=>{
+          const full={...(x?.fullState||x?.state||{})};if(full.pendingQuality==='++')full.pendingQuality='#';
+          const events=Array.isArray(x?.events)?x.events.map(e=>({...e,value:normalizeQuality(e?.value)})):x?.events;
+          return {...x,events,fullState:full};
+        })));
+      }
+      current=next;localStorage.setItem(DATA_SCHEMA_KEY,String(current));
+    }
+    return{from,to:current,migrated:true};
+  }catch(error){
+    const backup=latestUpdateBackup();
+    if(backup?.data){
+      for(const [key,value] of Object.entries({[MASTER_KEY]:backup.data.master,[STATE_KEY]:backup.data.state,[EVENTS_KEY]:backup.data.events,[SETTINGS_KEY]:backup.data.settings,[MATCH_ARCHIVE_KEY]:backup.data.matchArchive})){
+        if(value===null||value===undefined)localStorage.removeItem(key);else localStorage.setItem(key,value);
+      }
+      localStorage.setItem(DATA_SCHEMA_KEY,String(backup.schema||0));
+    }
+    throw error;
+  }
+}
+
+function normalizeMatchSnapshot(x={}){
+  const state=x.fullState||x.state||{};
+  return {...x,status:x.status||(state.matchComplete?'ended':'interrupted'),videos:[...(x.videos||state.videoAssignments||[])],fullState:x.fullState||null};
+}
+export function loadMatchArchive(){try{return (JSON.parse(localStorage.getItem(MATCH_ARCHIVE_KEY)||'[]')||[]).map(normalizeMatchSnapshot)}catch{return []}}
+export function saveMatchArchive(v){localStorage.setItem(MATCH_ARCHIVE_KEY,JSON.stringify((v||[]).map(normalizeMatchSnapshot)))}
 export function upsertMatchArchive(snapshot){
   if(!snapshot?.matchId)return;
-  const all=loadMatchArchive(),i=all.findIndex(x=>x.matchId===snapshot.matchId);
-  if(i>=0)all[i]=snapshot;else all.push(snapshot);
-  all.sort((a,b)=>String(b.matchDate||b.updatedAt||'').localeCompare(String(a.matchDate||a.updatedAt||'')));
+  const next=normalizeMatchSnapshot(snapshot),all=loadMatchArchive(),i=all.findIndex(x=>x.matchId===next.matchId);
+  if(i>=0)all[i]={...all[i],...next};else all.push(next);
+  all.sort((a,b)=>String(b.updatedAt||b.matchDate||'').localeCompare(String(a.updatedAt||a.matchDate||'')));
   saveMatchArchive(all);
 }
+export function getMatchSnapshot(matchId){return loadMatchArchive().find(x=>x.matchId===matchId)||null}
+export function removeMatchArchive(matchId){const id=String(matchId||'');if(!id)return false;const all=loadMatchArchive(),next=all.filter(x=>x.matchId!==id);if(next.length===all.length)return false;saveMatchArchive(next);return true}
 const now=()=>new Date().toISOString();
 const id=(p)=>`${p}_${crypto.randomUUID()}`;
 

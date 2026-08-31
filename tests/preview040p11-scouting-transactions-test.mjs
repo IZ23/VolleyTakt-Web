@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {createScoutingController} from '../js/scouting/scouting.js';
+import {undoEventBatch} from '../js/scouting/history.js';
+const state={servingSide:'us',activeTeamContext:'own',setReady:true,matchComplete:false,currentRallyId:'',pendingSide:null,allowPositionOnly:false,fieldOrientation:'activeBottom',inputStep:'WER',selectedPlayerPos:0,selectedPlayerId:'',actionZone:0,targetZone:0,targetSide:'',pendingAction:null,pendingQuality:null,autoServePreset:false};
+const c=createScoutingController({getState:()=>state,getLineup:()=>({1:'p1'}),getQualityProfileForSide:()=> 'basic_5',getCurrentSeconds:()=>1,getNow:()=> 'now',isScoutingReady:()=>true});
+assert.equal(c.prepareOwnServePreset(),true);let r=c.chooseQuality('#');assert.equal(r.type,'ACTION_COMPLETE');assert.equal(r.immediateServeResult,true);assert.equal(r.draft.originZone,0);
+c.resetCaptureState(); state.pendingSide='own';state.selectedPlayerPos=1;state.selectedPlayerId='p1';state.pendingAction='Annahme';state.pendingQuality='+';state.inputStep='WO';assert.equal(c.originMaxZone('Annahme'),9);r=c.selectOriginZone('own',9);assert.equal(r.ok,true);
+c.resetCaptureState(); state.pendingSide='own';state.selectedPlayerPos=1;state.selectedPlayerId='p1';state.pendingAction='Zuspiel';state.pendingQuality='+';state.actionZone=2;state.inputStep='TARGET';r=c.selectTargetZone('opponent',9);assert.equal(r.ok,true);assert.equal(r.draft.targetSide,'opponent');
+const tx='tx_1';const rows=[{action:'Aufschlag',transaction_id:tx,event_group:tx},{action:'Punkt wir',transaction_id:tx,event_group:tx},{action:'Rotation weiter',transaction_id:tx,event_group:tx}];const u=undoEventBatch(rows);assert.equal(u.events.length,0);assert.deepEqual(u.removed.map(x=>x.action),['Aufschlag','Punkt wir','Rotation weiter']);
+console.log('Preview11 scouting/transaction tests passed');

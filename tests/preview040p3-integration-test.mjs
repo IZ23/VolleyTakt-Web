@@ -1,0 +1,17 @@
+import fs from 'node:fs';
+const app=fs.readFileSync('js/app.js','utf8');
+const index=fs.readFileSync('index.html','utf8');
+const sw=fs.readFileSync('sw.js','utf8');
+const manifest=JSON.parse(fs.readFileSync('manifest.webmanifest','utf8'));
+const update=JSON.parse(fs.readFileSync('update-manifest.json','utf8'));
+const ok=(x,m)=>{if(!x)throw new Error(m)};
+ok(app.includes("APP_VERSION='0.4.0 RC1'"),'app version');
+ok(app.includes("createRallyController,automaticPointFor"),'rally import');
+ok(app.includes('const rallyController=createRallyController'),'rally controller wiring');
+ok(!app.includes('function automaticPointFor(side,action,quality)'), 'legacy automatic point function removed');
+ok(index.includes('VolleyTakt Live 0.4.0 RC1'),'index current version');
+ok(sw.includes("volleytakt-live-web-v0.4.0-rc1"),'service worker cache');
+ok(sw.includes("'./js/scouting/rally.js'"),'rally module offline cached');
+ok(manifest.name==='VolleyTakt Live 0.4.0 RC1','manifest version');
+ok(update.version==='0.4.0 RC1'&&update.version_id==='0.4.0-rc1','update manifest version');
+console.log('Preview3 integration checks OK');

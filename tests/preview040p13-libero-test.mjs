@@ -1,0 +1,3 @@
+import assert from 'node:assert/strict';import fs from 'node:fs';
+const app=fs.readFileSync('js/app.js','utf8');const flow=fs.readFileSync('js/scouting/match-flow.js','utf8');const hist=fs.readFileSync('js/scouting/history.js','utf8');
+assert.match(app,/function quickLiberoId/);assert.match(app,/abbreviation:`Libero\$\{index\}`/);assert.match(app,/t\('libero\.select_backrow'\)/);assert.match(app,/outLib&&inLib/);assert.match(app,/preferredLibero/);assert.match(app,/liberoRows\.map\(r=>pickRow\(r,'libero',preferredLibero\)\)/);assert.match(app,/fd\.get\('libero2'\)/);assert.match(flow,/slice\(0,2\)/);assert.match(hist,/slice\(0,2\)/);console.log('preview13-libero ok');

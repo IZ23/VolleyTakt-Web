@@ -1,0 +1,15 @@
+import {buildScoutingEvent,buildPlayerActionExtra,inferEventSide,splitEventTiming} from '../js/scouting/events.js';
+const need=(v,m)=>{if(!v)throw new Error(m)};
+need(inferEventSide('Angriff','')==='own','own inference');
+need(inferEventSide('Gegner Aufschlag','')==='opponent','opponent inference');
+const t=splitEventTiming({action_start_seconds:12.25,action_started_at:'START',x:'y'},18.5);
+need(t.startSeconds===12.25&&t.endSeconds===18.5&&t.startedAt==='START'&&t.extra.x==='y','timing normalization');
+need(!('action_start_seconds' in t.extra)&&!('action_started_at' in t.extra),'timing helper fields leaked');
+const extra=buildPlayerActionExtra({side:'opponent',playerId:'p1',playerAbbreviation:'AB',playerName:'Ada Ball',playerPosition:2,originZone:2,targetZone:5,action:'Angriff',qualityLevel:4,qualityProfile:'datavolley_6',eventGroup:'g1',context:{phase:'K2'},rallyMeta:{rally_id:'r1'}});
+need(extra.attack_to===5&&extra.player_id==='p1'&&extra.action_zone===2&&extra.target_zone===5,'opponent action extra');
+const e=buildScoutingEvent({id:'e1',endSeconds:18.5,formatSeconds:x=>`F${x}`,completedAt:'DONE',createdAt:'CREATED',setNo:2,matchMode:'regular',fixedSetCount:3,fixedFinalSetTarget:25,rotation:'R6',position:2,player:'AB',action:'Gegner Angriff',value:'+',scoreUs:10,scoreThem:11,note:'Gegner',extra:{...extra,action_start_seconds:12.25,action_started_at:'START'}});
+need(e.id==='e1'&&e.seconds==='12.250'&&e.action_end_seconds==='18.500','event timing fields');
+need(e.timestamp==='F12.25'&&e.action_end_timestamp==='F18.5','formatted timestamps');
+need(e.set==='2'&&e.rotation==='R6'&&e.score_us==='10'&&e.score_them==='11','snapshot fields');
+need(e.player_id==='p1'&&e.rally_id==='r1'&&e.phase==='K2','extra preservation');
+console.log('Preview4 event model checks OK');

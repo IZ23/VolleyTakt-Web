@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+const app=fs.readFileSync(new URL('../js/app.js',import.meta.url),'utf8');
+const need=(v,m)=>{if(!v)throw new Error(m)};
+need(app.includes('>DJI Osmo Action</option>'),'DJI family label missing');
+need(app.includes('>GoPro HERO</option>'),'GoPro family label missing');
+need(!app.includes('DJI Osmo Action 2 / 4'),'explicit DJI model numbers remain in UI');
+need(!app.includes('GoPro HERO10+ (Open GoPro)'),'explicit GoPro model remains in UI');
+need(!app.includes("'DJI Osmo Action 4'"),'default DJI display name still contains a model number');
+need(app.includes('id="cameraCompatInfo"'),'compatibility info button missing');
+need(app.includes('id="cameraCompatHelp"'),'compatibility helper missing');
+need(app.includes('Open-GoPro-BLE-Unterstützung'),'GoPro compatibility hint missing');
+console.log('preview032p2r2-camera-label-test: OK');

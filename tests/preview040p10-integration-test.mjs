@@ -1,0 +1,13 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';
+const app=fs.readFileSync('js/app.js','utf8'),sw=fs.readFileSync('sw.js','utf8'),idx=fs.readFileSync('index.html','utf8');
+assert.match(app,/from '\.\/camera\/service\.js'/);
+assert.match(app,/new CameraService\(/);
+assert.match(app,/cameraService\.connect\(/);
+assert.match(app,/cameraService\.startRecording\(/);
+assert.match(app,/cameraService\.stopRecording\(/);
+assert.doesNotMatch(app,/import\('\.\/dji-ble\.r7r3f2\.js'\)/);
+assert.doesNotMatch(app,/import\('\.\/gopro-ble\.r7r3f2\.js'\)/);
+assert.match(sw,/js\/camera\/service\.js/);
+assert.match(sw,/0\.4\.0-rc1/);
+assert.match(idx,/0\.4\.0 RC1/);
+console.log('0.4.0 RC1 camera service integration: OK');

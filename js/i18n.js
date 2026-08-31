@@ -1,5 +1,6 @@
-import {localeDe} from './locales/de.js?v=0.3.1-p2c';
-import {EXACT_EN,FRAGMENTS_EN} from './locales/en.js?v=0.3.1-p2c';
+import {localeDe} from './locales/de.js';
+import {MESSAGES_DE,MESSAGES_EN} from './locales/messages.js';
+import {LEGACY_KEY_BY_DE} from './locales/legacy-messages.js';
 
 let language='de';
 let observer=null;
@@ -8,16 +9,22 @@ const originals=new WeakMap();
 const rendered=new WeakMap();
 const renderedAttrs=new WeakMap();
 const attrs=['title','aria-label','placeholder'];
-const sortedFragments=Object.entries(FRAGMENTS_EN).sort((a,b)=>b[0].length-a[0].length);
 
 function preserveWhitespace(source,replacement){
  const lead=(source.match(/^\s*/)||[''])[0],trail=(source.match(/\s*$/)||[''])[0];
  return lead+replacement+trail;
 }
+function interpolate(template,params={}){return String(template??'').replace(/\{([A-Za-z0-9_]+)\}/g,(_,key)=>Object.prototype.hasOwnProperty.call(params,key)?String(params[key]):`{${key}}`)}
+export function t(key,params={},lang=language){
+ const catalogue=lang==='en'?MESSAGES_EN:MESSAGES_DE;
+ const fallback=MESSAGES_DE[key]??key;
+ return interpolate(catalogue[key]??fallback,params)
+}
 export function tr(value,lang=language){
  if(value==null||lang==='de')return String(value??'');
  const source=String(value),trim=source.trim();if(!trim)return source;
- if(Object.prototype.hasOwnProperty.call(EXACT_EN,trim))return preserveWhitespace(source,EXACT_EN[trim]);
+ const legacyKey=LEGACY_KEY_BY_DE[trim];
+ if(legacyKey)return preserveWhitespace(source,t(legacyKey,{},lang));
  const dynamic=[
   [/^Du verwendest (.+)\. Die Kamerakopplung benötigt einen sicheren HTTPS-Kontext\. Öffne VolleyTaktLive über HTTPS\.$/,m=>`You are using ${m[1]}. Camera pairing requires a secure HTTPS context. Open VolleyTakt Live via HTTPS.`],
   [/^Du verwendest (.+) unter iOS\/iPadOS\. Web Bluetooth steht dort derzeit nicht zur Verfügung; ein Browserwechsel aktiviert die Kamerakopplung nicht\. Die lokale Zeitquelle bleibt nutzbar\.$/,m=>`You are using ${m[1]} on iOS/iPadOS. Web Bluetooth is currently unavailable there; switching browsers does not enable camera pairing. The local time source remains usable.`],
@@ -35,9 +42,9 @@ export function tr(value,lang=language){
   [/^DJI: (.+)$/,m=>`DJI: ${m[1]}`]
  ];
  for(const [re,fn] of dynamic){const m=trim.match(re);if(m)return preserveWhitespace(source,fn(m));}
- let out=trim;
- for(const [de,en] of sortedFragments)if(out.includes(de))out=out.split(de).join(en);
- return preserveWhitespace(source,out);
+ // RC1: all formerly exact legacy translations resolve through stable keys.
+ // Unknown strings remain intact instead of using unsafe substring translation.
+ return source;
 }
 function translateTextNode(node,external=false){
  if(external&&rendered.has(node)&&node.nodeValue!==rendered.get(node))originals.set(node,node.nodeValue);

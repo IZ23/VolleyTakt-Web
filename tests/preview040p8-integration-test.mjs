@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const app=fs.readFileSync(new URL('../js/app.js',import.meta.url),'utf8');
+const sw=fs.readFileSync(new URL('../sw.js',import.meta.url),'utf8');
+const index=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
+assert.match(app,/input-routing\.js/);
+assert.match(app,/commandForShortcutAction/);
+assert.match(app,/createEdgeSwipeRouter/);
+assert.doesNotMatch(app,/swipeStartX|swipeStartY/);
+assert.match(app,/0\.4\.0 RC1/);
+assert.match(app,/0\.4\.0-rc1/);
+assert.match(sw,/input-routing\.js/);
+assert.match(sw,/0\.4\.0-rc1/);
+assert.match(index,/0\.4\.0 RC1/);
+console.log('preview040p8-integration-test: ok');

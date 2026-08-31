@@ -1,9 +1,9 @@
 <!doctype html><html lang="de"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#0f172a"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
-<title>VolleyTakt Live 0.3.1</title><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="./logo.png"><link rel="apple-touch-icon" href="./logo.png"><link rel="stylesheet" href="styles.css?v=0.3.1">
+<title>VolleyTakt Live 0.4.0 RC1</title><link rel="manifest" href="manifest.webmanifest"><link rel="icon" type="image/png" href="./app-icons/volleytakt-192.png?v=0.4.0-rc1"><link rel="apple-touch-icon" href="./app-icons/volleytakt-192.png?v=0.4.0-rc1"><link rel="stylesheet" href="styles.css?v=0.4.0-rc1">
 </head><body>
-<div id="startGate" class="start-gate"><div class="start-card"><img src="./logo.png" alt="VolleyTakt"><h1>VolleyTakt Live</h1><p>Web 0.3.1 · Tablet-Livescouting · modulare Kamera-Synchronisation</p><div id="browserCameraNotice" class="browser-camera-notice" hidden></div><button id="startAppBtn" class="primary huge">Livescouting öffnen</button><small>Die lokale Zeit startet erst auf ausdrücklichen Befehl. Die verbundene Kamera setzt den Zeitanker erst nach bestätigter Aufnahme.</small></div></div>
+<div id="startGate" class="start-gate"><div class="start-card"><img src="./logo.png" alt="VolleyTakt"><h1>VolleyTakt Live</h1><p>Web 0.4.0 RC1 · Tablet-Livescouting · modulare Kamera-Synchronisation</p><div id="browserCameraNotice" class="browser-camera-notice" hidden></div><button id="startAppBtn" class="primary huge">Livescouting öffnen</button><small>Die lokale Zeit startet erst auf ausdrücklichen Befehl. Die verbundene Kamera setzt den Zeitanker erst nach bestätigter Aufnahme.</small></div></div>
 <main id="app" class="app-shell" hidden>
 <header class="topbar">
   <div class="brand-shell">
@@ -11,7 +11,7 @@
       <img src="./logo.png" alt="VolleyTakt">
       <span class="brand-hamburger" aria-hidden="true">☰</span>
     </button>
-    <span class="brand-copy"><strong>VolleyTakt Live</strong><small>0.3.1</small></span>
+    <span class="brand-copy"><strong>VolleyTakt Live</strong><small>0.4.0 RC1</small></span>
   </div>
   <div class="match-center" aria-live="polite">
     <button id="matchSetupBtn" class="match-setup-link">Spiel einrichten</button>
@@ -26,17 +26,17 @@
       <div class="main-camera-controls"><button id="mainRecordStart" class="primary">● Aufnahme starten</button><button id="mainRecordStop" class="danger" disabled>■ Aufnahme stoppen</button><div class="main-camera-time"><strong id="mainCameraTime">00:00.0</strong><small id="mainCameraSync">Sync bereit</small></div></div>
     </section>
     <div class="section-title"><span>Scouten</span><span id="selectionLabel">–</span></div><div id="inputStepIndicator" class="input-step-indicator" aria-label="Eingabeschritt"><span class="current">WER</span><b>→</b><span>WAS</span><b>→</b><span>WIE</span><b>→</b><span>WO</span><b>→</b><span>WOHIN</span></div>
-    <label class="inline-quality-toggle" for="detailedQualityToggle"><span>Detaillierte Bewertung</span><span class="switch large-switch"><input type="checkbox" id="detailedQualityToggle"><span class="slider"></span></span></label>
-    <div class="subheading">Techniken</div><div class="technique-grid" id="actionButtons"></div>
-    <div class="subheading quality-heading">Bewertung</div><div class="quality-stack" id="qualityButtons"></div><div id="qualityMeaning" class="quality-meaning"></div><div id="serveDetailPanel" class="set-detail-panel" hidden></div><div id="setDetailPanel" class="set-detail-panel" hidden></div>
+    <label class="inline-quality-toggle" for="detailedQualityToggle"><span>Detailliertes Scouting</span><span class="switch large-switch"><input type="checkbox" id="detailedQualityToggle"><span class="slider"></span></span></label>
+    <div class="subheading technique-heading">Technik (WAS)</div><div class="technique-grid" id="actionButtons"></div>
+    <div class="subheading quality-heading">Qualität (WIE)</div><div class="quality-stack" id="qualityButtons"></div><div id="qualityMeaning" class="quality-meaning"></div><div id="serveDetailPanel" class="set-detail-panel" hidden></div><div id="setDetailPanel" class="set-detail-panel" hidden></div>
   </aside>
   <section class="protocol-panel panel">
-    <div class="section-title"><span>Live-Protokoll</span><span id="eventCount">0</span></div>
+    <div class="section-title"><span>Live-Protokoll</span><span class="protocol-head-actions"><span id="eventCount">0</span><button id="phoneProtocolClose" class="phone-only phone-protocol-close" type="button">✕</button></span></div>
     <div class="protocol-wrap"><table><thead><tr><th>Zeit</th><th>S</th><th>R</th><th>P</th><th>Spielerin</th><th>Aktion</th><th>Wert</th><th>Stand</th></tr></thead><tbody id="protocolBody"></tbody></table></div>
     <label class="note-label"><span>Notiz</span><textarea id="noteInput" rows="2" placeholder="optional"></textarea></label>
   </section>
   <aside class="court-panel panel">
-    <div class="section-title court-title"><span id="captureTitle">Eigenes Team</span><div class="court-title-tools"><button id="fieldOrientationBtn" class="field-orientation-btn active-top" type="button" aria-label="Felddarstellung umschalten" title="Felddarstellung umschalten"><span class="orientation-icon" aria-hidden="true"><i class="orientation-half top"></i><i class="orientation-midline"></i><i class="orientation-half bottom"></i></span></button><label class="opponent-switch"><span>Gegner</span><span class="switch"><input type="checkbox" id="opponentToggle"><span class="slider"></span></span></label><strong id="rotationLabel">R1</strong></div></div>
+    <div class="section-title court-title"><span id="captureTitle">Eigenes Team</span><div class="court-title-tools"><button id="phoneProtocolBtn" class="phone-only phone-protocol-btn" type="button">☷ Protokoll</button><button id="fieldOrientationBtn" class="field-orientation-btn active-top" type="button" aria-label="Felddarstellung umschalten" title="Felddarstellung umschalten"><span class="orientation-icon" aria-hidden="true"><i class="orientation-half top"></i><i class="orientation-midline"></i><i class="orientation-half bottom"></i></span></button><label class="opponent-switch"><span>Gegner</span><span class="switch"><input type="checkbox" id="opponentToggle"><span class="slider"></span></span></label><strong id="rotationLabel">R1</strong></div></div>
     <div id="courtWrap" class="court-wrap"><div id="activeCourt" class="court own" data-side="own"><div class="net">NETZ</div></div><div id="sharedNet" class="shared-net" hidden>NETZ</div><div id="secondaryCourt" class="court opponent target-court" data-side="opponent" hidden><div class="net">NETZ</div></div></div>
     <div id="targetHint" class="target-hint" hidden>Gegner-Angriff: Zielposition im eigenen Feld wählen.</div>
     <div class="rotation-controls"><button id="rotateBackBtn">↶ Rotation</button><button id="rotateBtn">Rotation ↷</button></div><div class="player-change-controls"><button id="substituteBtn" title="Tastenkürzel W">↔ Wechsel</button><button id="liberoBtn" title="Tastenkürzel L">L Libero</button></div>
@@ -45,7 +45,7 @@
     <span class="correction-label">Korrekturen</span>
     <button data-score="us" title="Tastenkürzel P">+ Punkt Wir</button><button data-score="them" title="Tastenkürzel G">+ Punkt Gegner</button>
     <button id="correctScoreBtn">Spielstand korr.</button><button id="sideoutBtn" class="ghost">Side-out manuell</button>
-    <button id="undoBtn" class="danger" disabled>↶ Letzten Eintrag</button><button id="clearSelectionBtn" class="ghost">✕ Auswahl verwerfen</button>
+    <button id="undoBtn" class="danger" disabled>↶ Undo</button><button id="redoBtn" class="ghost" disabled>↷ Redo</button><button id="clearSelectionBtn" class="ghost">✕ Auswahl verwerfen</button>
   </div>
 </section>
 <footer class="statusbar"><span id="statusText">Bereit.</span><span class="status-right"><span id="syncBadge" class="badge muted">☁ lokal</span><span id="storagePill" class="badge">CSV …</span><span id="bleMini" class="badge muted">Kamera getrennt</span></span></footer>
@@ -69,4 +69,15 @@
   setTimeout(()=>{if(!window.__VSW_APP_READY__)showStartupError(window.__VSW_APP_ERROR__||'App-Modul wurde nicht vollständig initialisiert.')},3500);
 })();
 </script>
-<script type="module" src="js/app.js?v=0.3.1"></script></body></html>
+<script type="module">
+(async()=>{
+  try {
+    await import('./js/app.js');
+  } catch (err) {
+    const detail = String(err?.stack || err?.message || err || 'Modul konnte nicht geladen werden');
+    window.__VSW_APP_ERROR__ = detail;
+    window.dispatchEvent(new CustomEvent('vsw-app-error', {detail}));
+    console.error('VolleyTakt Live Modulstart fehlgeschlagen', err);
+  }
+})();
+</script></body></html>

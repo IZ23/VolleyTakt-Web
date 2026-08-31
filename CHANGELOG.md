@@ -1,4 +1,163 @@
+
+## 0.4.0 RC1
+
+- Release-Kandidat auf Basis von 0.4.0 Preview19.
+- Keine neuen Funktionen; Versions-, Cache- und Release-Kennungen auf RC1 eingefroren.
+- Vorgesehen für abschließenden Praxis- und Regressionstest vor 0.4.0 final.
+
+
+## 0.4.0 Preview15
+- Schlüsselbasierte i18n-API eingeführt.
+- Unsichere Substring-/Fragmentübersetzung entfernt; bekannte Kollisionsfälle explizit übersetzt.
+- i18n-Regressionstests um reale Problemfälle erweitert.
+
+## 0.4.0 Preview14
+- Produktive Runtime auf kanonische JavaScript-Dateinamen konsolidiert.
+- Historische r7r3f2-Dubletten entfernt; index.html, Service Worker und Module verwenden denselben Pfad.
+
+## 0.4.0 Preview13
+- Libero-Workflow als eigener Bedienmodus ohne WO/WOHIN.
+- Doppel-Libero-Auswahl, Vorselektion des zuletzt verwendeten Liberos und Libero-zu-Libero-Tausch.
+- Spontanscouting bietet Libero 1 und Libero 2.
+
+## 0.4.0 Preview12
+- Redo für vollständige Undo-Transaktionen; neuer Protokolleintrag verwirft Redo-Historie.
+- DJI/GoPro-Adapter werden bei Bedarf dynamisch geladen.
+- Kameraadapter blockieren die Service-Worker-Kerninstallation nicht mehr.
+- Qualitätsbuttons, Legende und Detailbereiche als getrennte Layout-Blöcke stabilisiert.
+
+## 0.4.0 Preview11
+- Aufschlag =/# ohne verpflichtendes WO abgeschlossen.
+- P7–P9 als WO-Dokumentationszonen für Annahme, Zuspiel und Angriff.
+- WOHIN bei Zuspiel/Angriff auf eigener oder gegnerischer Feldseite; `target_side` gespeichert.
+- Gemeinsame `transaction_id` für Scoutingaktion und automatische Folgeevents; Undo transaktionsweise.
+- Feldorientierungsstatus und Sperrzustand im UI korrigiert.
+# 0.4.0 Preview10
+
+- Modularisierung Phase 9: Analyse-Datenlogik und Analyse-UI getrennt.
+- Neues DOM-freies `js/analysis/domain.js` für Filterung, Rally-Aggregation und Basisstatistik.
+- Neues `js/analysis/ui.js` für Analyse-Filter- und Ergebnis-Shells.
+- App-Orchestrator liest UI-Zustand und delegiert Berechnung an die Analyse-Domain.
+- Keine beabsichtigte fachliche Änderung der Analyseansichten oder Filter.
+
+# 0.4.0 Preview7
+
+- Undo-Gruppierung in DOM-freies History-Modul ausgelagert.
+- Zustandsrekonstruktion aus Satzstart, Rally-Ergebnis, Rotation, Wechsel, Libero und Spielstandskorrektur ausgelagert.
+- Legacy-Rotation ohne `lineup_after` wird über das gemeinsame Rotationsmodul rekonstruiert.
+- Persistenz, CSV-I/O, Rendering und Session-Reload bleiben im App-Orchestrator.
+
+# 0.4.0 Preview5
+
+- Modularisierung Phase 5: neues DOM-freies `js/scouting/scoring.js`.
+- Punktstand, Aufschlagwechsel und Sideout-Erkennung als reine Transition ausgelagert.
+- Satzgewinnerprüfung und Satzsieg-Transition aus dem App-Orchestrator herausgelöst.
+- Rotation, Satzwechsel-Orchestrierung, Undo/Reconstruction, Analyse und Kamera bewusst noch nicht modularisiert.
+- Daten-Schema bleibt 5; keine Migration und keine beabsichtigte UI-/Funktionsänderung.
+
+# 0.4.0 Preview4
+
+- Modularisierung Phase 4: neues DOM-freies `js/scouting/events.js`.
+- Persistierbarer Eventaufbau und aktionsspezifische Event-Normalisierung aus `app.js` ausgelagert.
+- `appendEvent()`, Persistenz und Protokoll-Rendern bleiben als dünne Adapter im App-Orchestrator.
+- Daten-Schema bleibt 5; keine Migration und keine beabsichtigte UI-/Funktionsänderung.
+
+# 0.4.0 Preview3
+
+- Modularisierung Phase 3: neues DOM-freies `js/scouting/rally.js`.
+- Rally-ID/-Sequenz sowie K1/K2/K3-Transitionen aus `app.js` ausgelagert.
+- Automatische Punktentscheidung als reine Rally-Domain-Funktion ausgelagert.
+- Score-Mutation, Sideout, Rotation, Satzlogik und Eventpersistenz bewusst noch im App-Orchestrator.
+- Daten-Schema bleibt 5; keine Migration und keine beabsichtigte UI-/Funktionsänderung.
+
+# 0.4.0 Preview2
+- Scouting-Capture WER → WAS → WIE → WO → WOHIN aus dem App-Monolithen in `js/scouting/scouting.js` ausgelagert.
+- Scouting-Modul ist DOM-frei und erzeugt einen internen `ActionDraft`; Event-/Rally-/Scoring-Verarbeitung bleibt im Legacy-Orchestrator.
+- Aufschlagtechnik, Zuspieldetails, Zonenvalidierung, direkter Gegneraufschlag und eigener Aufschlag-Preset im gemeinsamen Capture-Modul gebündelt.
+- P1–P6 als WER und P1–P9 nur bei detaillierter Zonenwahl explizit abgesichert.
+- Persistiertes Event- und Datenschema unverändert (Schema 5).
+- Keine beabsichtigte UI-, Analyse-, Kamera-, Sync- oder Storage-Funktionsänderung.
+
+# 0.4.0 Preview1
+- Beginn der modularen Architektur ohne beabsichtigte Funktions- oder UI-Änderungen.
+- State-Erzeugung, Normalisierung und Snapshot-Bereinigung ausgelagert.
+- Stammdaten-Selektoren ausgelagert.
+- Persistenz-Orchestrierung ausgelagert; Storage-/Sync-Implementierungen unverändert.
+- Command-Vokabular als Vorbereitung für gemeinsame Touch-/Tastatursteuerung angelegt.
+- Persistiertes Datenformat bleibt kompatibel zu 0.3.2 Preview2-r7 rebuild3-fix2.
+
+## 0.3.2 Preview2-r7 rebuild3-fix2
+- Eigene Technik-SVGs mit eindeutigem Standaufschlag von oben.
+- Aufschlagvariante als optionale, analysierbare Zusatzinformation; alle Varianten sichtbar.
+- Scouting2/3: DataVolley-Bedeutungen und Reihenfolge technikspezifisch korrigiert; Hilfe aktualisiert.
+
+## 0.3.2 Preview2-r5
+- Smartphone-Landscape-Modus, DataVolley-Bewertung ohne ++, einheitliche Symbole/Farben, kontextabhängige Bedienung und aktualisierte Hilfe.
+
 # Changelog
+
+## 0.3.2 Preview2-r5
+
+- Kamerahilfe an die aktuelle modulare DJI-/GoPro-Implementierung angepasst.
+- konkrete DJI-R-SDK-kompatible Modelle in Hilfe und Info-Hinweis ergänzt.
+- konkrete Open-GoPro-kompatible HERO-Modelle ergänzt.
+- nicht unterstützte DJI Action 2 / Osmo Action 3 ausdrücklich gekennzeichnet.
+- Bedienung, Status-/Akkuanzeige, Verbindungsqualität und Diagnoseverhalten dokumentiert.
+
+## 0.3.2 Preview2-r3
+
+- `Neues Spiel` erzeugt sofort eine eigene stabile Match-ID.
+- neues Spielobjekt wird unmittelbar lokal gespeichert/archiviert.
+- Videozuordnung ist sofort vor vollständiger Spielkonfiguration möglich.
+- `🎬 Video` direkt in jedem Spielbibliothekseintrag.
+- Videos gespeicherter/unterbrochener/beendeter Spiele können ohne `Fortsetzen` gepflegt werden.
+- Videoänderungen werden bei aktiver Nextcloud/WebDAV-Synchronisation wieder synchronisiert.
+
+## 0.3.2 Preview2-r2
+
+- Kameraauswahl auf Familiennamen vereinfacht: DJI Osmo Action / GoPro HERO.
+- Info-Button mit kurzem Kompatibilitätshinweis ergänzt.
+- ausführlichere Modellkompatibilität bleibt in Hilfe/Dokumentation.
+- technische Kameraadapter unverändert.
+
+# Changelog
+
+## 0.3.2 Preview2-r1
+
+- Kameraoberfläche kompakter und DJI/GoPro vereinheitlicht.
+- Bluetooth-Diagnose nur nach fehlgeschlagenem Verbindungsversuch sichtbar.
+- Diagnose verschwindet nach erfolgreicher Verbindung oder Reconnect.
+- Akkusymbol mit Prozentwert in der Kameraansicht.
+- GoPro-Hintergrundstatus auf konfigurierbare 10–15 s, Standard 12 s.
+- DJI bleibt status-push-basiert; Anzeige wird im gleichen Rhythmus gedrosselt.
+- Aufnahme-Stopp lässt die Bluetooth-Verbindung bestehen.
+- Verbindungsqualität als abgeleitete Qualitätsanzeige statt RSSI gekennzeichnet.
+
+## 0.3.2 Preview2
+
+- Offline-first-Spielbibliothek: lokale und Cloud-Spiele werden über `matchId` zusammengeführt.
+- Spiel laden, fortsetzen, prüfen und spielbezogen analysieren.
+- Automatische lokale Speicherung und Nachsynchronisation bei Online-Rückkehr.
+- Videospeicher lokal / Cloud / YouTube mit persistenter Spielzuordnung.
+- Scouting↔Video-Timestamp-Abgleich je Video und Synchronisation der Video-Metadaten.
+- DJI/GoPro: Verbindung bleibt nach Aufnahme-Stopp bestehen; Akku- und Verbindungsstatus vereinheitlicht.
+- GitHub-Release-Updateprüfung mit Nutzerbestätigung, Backup und Datenmigration.
+- Daten-Schema 4 für Match-/Video-Metadaten.
+- Scouting-Fixes: WO, stabiler Bewertungsmodus, stabile Feldausrichtung.
+- einfache Spielfelddarstellung auf exakt zwei Reihen korrigiert.
+- interne Version `0.3.2 Preview2` in allen aktiven UI-/Cache-/Modulkennungen.
+
+## 0.3.2 Preview1
+
+- Neue Offline-first-Spielbibliothek aus lokalen und Cloud-Spielen.
+- Spiele werden automatisch lokal archiviert; kein manueller Speichern-Button erforderlich.
+- Bibliotheksanzeige mit Datum, beteiligten Teams, Status, Satz-/Punktestand sowie Cloud- und Geräte-Symbol.
+- Unterbrochene Spiele können geladen und fortgesetzt werden.
+- Gespeicherte Spiele können in einem Prüfmodus geöffnet und direkt für die Analyse ausgewählt werden.
+- Nextcloud/WebDAV synchronisiert zusätzlich einen Spieleindex sowie nicht aktive lokale Spielstände nach Wiederherstellung der Online-Verbindung.
+- Vorbereitung Analyse → Video: Videospeicher (lokal, Cloud, YouTube), persistente Videozuordnung zum Spiel und individueller Timestamp-Abgleich je Video.
+- Video-Metadaten und Timestamp-Abgleich werden mit den Spiel-/Sessiondaten synchronisiert.
+- PWA-/Service-Worker-Version und alle aktiven Modul-Cachekennungen auf 0.3.2 Preview1 angehoben.
 
 ## 0.3.1 Preview 2
 - Neuer trainerorientierter Analysebereich: Übersicht, Rotation, K1/K2, First-Ball-Sideout, Aufschlag, Annahme, Zuspiel, Angriff Quelle→Ziel, Kontextketten und Gegner-Tendenzen.
@@ -110,3 +269,18 @@ Preview-Funktionen gelten nicht automatisch als endgültig abgenommen. Die 0.3.0
 - Felddarstellungsschalter korrigiert: markierte Seite oben/unten steuert spiegelbildliche Einzelfelddarstellung und Netzposition.
 - Bei Gegner-Scouting mit beiden Teams bleibt das Netz mittig; gilt für 6- und 9-Zonen-Ansicht.
 - Links-/Rechts-Orientierung bleibt als TODO.
+
+
+## 0.3.2 Preview2-r7 rebuild3-fix2
+- Start-Gate auf kleinen/hohen und niedrigen Mobile-Viewports scrollbar und kompakt; Startbutton bleibt erreichbar.
+- Felddarstellungs-Umschalter bindet die aktive Scoutseite korrekt an obere/untere Bildschirmhälfte; Aufschlagball folgt dem eigenen Feld.
+- Detailliertes P1–P9-Feld erzwingt drei gleich hohe Positionsreihen; P7–P9 sind nicht mehr optisch verkleinert.
+- Safe-Area/Viewport-Härtung gegen horizontales Überlaufen.
+- Vollständiges ZIP; eindeutige fix2 Modul-/Cache-Version.
+
+
+## 0.4.0 Preview10
+- Touch-/Tastatur-Commandrouting weiter modularisiert.
+- Neues DOM-freies Modul `js/app/input-routing.js` für Shortcut-Normalisierung, Shortcut→Command-Abbildung und Edge-Swipe-Erkennung.
+- Konkrete DOM-Verkabelung und Ausführung der bestehenden Fachfunktionen bleiben im App-Adapter.
+- Keine beabsichtigte Änderung an Scouting-, Punkt-, Rotations- oder Undo-Verhalten.
