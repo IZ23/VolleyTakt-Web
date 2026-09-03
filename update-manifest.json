@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "app": "VolleyTakt Live",
-  "version": "0.4.0 RC4-r1",
-  "version_id": "0.4.0-rc4-r1",
+  "version": "0.4.0 RC4-r2",
+  "version_id": "0.4.0-rc4-r2",
   "data_schema": 5,
   "channel": "preview",
   "requires_confirmation": true,
@@ -91,6 +91,10 @@
     "RC4 FE-SCOUT8: start gate offers direct spontaneous scouting; library entry is materialized only with the first saved event",
     "RC4 FE-UI11: opponent-side switch is immediately functional and explained in spontaneous scouting",
     "RC4 FE-UI12: match library uses compact cards inside a bounded vertical scroll area",
-    "RC4: spontaneous scouting starts with one court half; opponent side is selected with the side switch and target selection may temporarily show both halves"
+    "RC4: spontaneous scouting starts with one court half; opponent side is selected with the side switch and target selection may temporarily show both halves",
+    "RC4-r2 FE-UI13: technical entry gate centers the single VolleyTakt Live button and keeps Web Bluetooth capability notice separate from scouting choices",
+    "RC4-r2 FE-UI14: new-match metadata form is collapsed by default and opens inside the match library only after Neues Spiel",
+    "RC4-r2 FE-UI14: cancelling new-match entry closes the editor without creating or replacing a match",
+    "RC4-r2 FE-SCOUT9: cancelling spontaneous-scout confirmation restores the toggle to the previous state without changing the current match"
   ]
 }

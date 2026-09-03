@@ -1,8 +1,8 @@
-# VolleyTakt Live 0.4.0 RC4-r1
+# VolleyTakt Live 0.4.0 RC4-r2
 
-Release Candidate auf Basis von RC3. RC4 ergänzt den direkten Einstieg ins Spontanscouting, eine verständlichere Gegner-Seitenwahl, eine kompaktere scrollbare Spielbibliothek und korrigiert die Start-Feldansicht des Spontanscoutings.
+Release-Candidate-Revision auf Basis des vollständigen RC4-r1. RC4-r2 präzisiert das technische Einstiegsfenster (FE-UI13), integriert die neue Spielanlage in die Spielbibliothek (FE-UI14) und korrigiert den Abbruchzustand des Spontanscouting-Schalters (FE-SCOUT9).
 
-Weitere Details: `RELEASE_0.4.0_RC4.md` und `FUNCTION_CHECK_0.4.0_RC4.md`.
+Weitere Details: `RELEASE_0.4.0_RC4_R2.md` und `FUNCTION_CHECK_0.4.0_RC4_R2.md`.
 
 ---
 

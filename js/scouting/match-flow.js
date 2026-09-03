@@ -1,4 +1,4 @@
-// VolleyTakt Live 0.4.0 RC4-r1
+// VolleyTakt Live 0.4.0 RC4-r2
 // Pure rotation and set/match state transitions. No DOM, storage or event I/O.
 
 export function rotateLineup(lineup={},dir=1){

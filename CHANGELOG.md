@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.0 RC4-r2
+- FE-UI13: technisches Einstiegsfenster mit zentriertem Button „VolleyTakt Live“; Web-Bluetooth-Prüfung/Hinweis bleibt Zweck der Vorschaltseite.
+- FE-UI14: Spielanlage erscheint erst nach Klick auf „Neues Spiel“ und ist in die Spielbibliothek integriert; Abbrechen legt kein Spiel an.
+- FE-SCOUT9: Abbruch der Spontanscouting-Rückfrage setzt den Schalter auf den tatsächlichen vorherigen Zustand zurück.
+
 ## 0.4.0 RC4-r1
 - FE-SCOUT8: „Spontan scouten“ als Modusschalter im Scoutingpanel neben „Detailliert scouten“; Splash-Button entfernt.
 - FE-UI9: Protokollspalte „R“ als „Rot.“ (Rotation) eindeutig benannt.
@@ -114,6 +119,11 @@
 
 # Changelog
 
+## 0.4.0 RC4-r2
+- FE-UI13: technisches Einstiegsfenster mit zentriertem Button „VolleyTakt Live“; Web-Bluetooth-Prüfung/Hinweis bleibt Zweck der Vorschaltseite.
+- FE-UI14: Spielanlage erscheint erst nach Klick auf „Neues Spiel“ und ist in die Spielbibliothek integriert; Abbrechen legt kein Spiel an.
+- FE-SCOUT9: Abbruch der Spontanscouting-Rückfrage setzt den Schalter auf den tatsächlichen vorherigen Zustand zurück.
+
 ## 0.3.2 Preview2-r5
 
 - Kamerahilfe an die aktuelle modulare DJI-/GoPro-Implementierung angepasst.
@@ -139,6 +149,11 @@
 - technische Kameraadapter unverändert.
 
 # Changelog
+
+## 0.4.0 RC4-r2
+- FE-UI13: technisches Einstiegsfenster mit zentriertem Button „VolleyTakt Live“; Web-Bluetooth-Prüfung/Hinweis bleibt Zweck der Vorschaltseite.
+- FE-UI14: Spielanlage erscheint erst nach Klick auf „Neues Spiel“ und ist in die Spielbibliothek integriert; Abbrechen legt kein Spiel an.
+- FE-SCOUT9: Abbruch der Spontanscouting-Rückfrage setzt den Schalter auf den tatsächlichen vorherigen Zustand zurück.
 
 ## 0.3.2 Preview2-r1
 
@@ -202,6 +217,11 @@
 - Einheitliches Datenmodell um serve_technique ergänzt.
 
 # Changelog
+
+## 0.4.0 RC4-r2
+- FE-UI13: technisches Einstiegsfenster mit zentriertem Button „VolleyTakt Live“; Web-Bluetooth-Prüfung/Hinweis bleibt Zweck der Vorschaltseite.
+- FE-UI14: Spielanlage erscheint erst nach Klick auf „Neues Spiel“ und ist in die Spielbibliothek integriert; Abbrechen legt kein Spiel an.
+- FE-SCOUT9: Abbruch der Spontanscouting-Rückfrage setzt den Schalter auf den tatsächlichen vorherigen Zustand zurück.
 
 ## 0.3.0 Preview 9
 - action_start_* wird beim ersten WER-Touch eingefroren; action_end_* beim Commit gespeichert.

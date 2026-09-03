@@ -1,4 +1,4 @@
-// VolleyTakt Live 0.4.0 RC4-r1 - central application state boundary.
+// VolleyTakt Live 0.4.0 RC4-r2 - central application state boundary.
 // The persisted shape intentionally remains compatible with 0.3.2 Preview2-r7 rebuild3-fix2.
 
 export const TRANSIENT_STATE_KEYS = Object.freeze([

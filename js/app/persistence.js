@@ -1,4 +1,4 @@
-// VolleyTakt Live 0.4.0 RC4-r1 - persistence orchestration boundary.
+// VolleyTakt Live 0.4.0 RC4-r2 - persistence orchestration boundary.
 // Storage and sync implementations remain unchanged in Preview1.
 import {cleanStateForSnapshot,cleanStateForStorage} from './state.js';
 
