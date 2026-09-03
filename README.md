@@ -16,7 +16,7 @@ Browserbasierte, offline-first Volleyball-Scouting-WebApp/PWA.
 
 ## Installation
 
-Den Inhalt des Webspace-Pakets in das Stammverzeichnis von `live.volleytakt.de` kopieren. Die App benötigt keinen Build-Schritt.
+Den Inhalt des Webspace-Pakets in das Stammverzeichnis von `DEINE-DOMAIN` kopieren. Die App benötigt keinen Build-Schritt.
 
 ## Lizenz
 
