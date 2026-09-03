@@ -52,6 +52,6 @@ for(const text of [app,idx,sw]){
   assert.doesNotMatch(text,/0\.4\.0 Preview17\b/);
   assert.doesNotMatch(text,/0\.4\.0-preview17\b/);
 }
-assert.match(app,/APP_VERSION='0\.4\.0 RC3'/);
-assert.match(sw,/0\.4\.0-rc3/);
+assert.match(app,/APP_VERSION='0\.4\.0 RC4'/);
+assert.match(sw,/0\.4\.0-rc4/);
 console.log('rc3 libero / ball-chain / UI regression: OK');

@@ -46,7 +46,7 @@ class GoogleDriveProvider{
  async test(){await this.folder();return true}
 }
 
-class PreparedProvider{constructor(cfg,name,requirements){this.cfg=cfg;this.name=name;this.requirements=requirements}async test(){throw new Error(`${this.name}: Anbieter ist in 0.4.0 RC3 konfigurierbar. Für die produktive API-Anmeldung wird ${this.requirements} benötigt.`)}async get(){return null}async put(){throw new Error(`${this.name}: API-Anmeldung noch nicht aktiviert.`)}}
+class PreparedProvider{constructor(cfg,name,requirements){this.cfg=cfg;this.name=name;this.requirements=requirements}async test(){throw new Error(`${this.name}: Anbieter ist in 0.4.0 RC4-r1 konfigurierbar. Für die produktive API-Anmeldung wird ${this.requirements} benötigt.`)}async get(){return null}async put(){throw new Error(`${this.name}: API-Anmeldung noch nicht aktiviert.`)}}
 export function createProvider(cfg){if(cfg.provider==='google')return new GoogleDriveProvider(cfg);if(cfg.provider==='nextcloud'||cfg.provider==='webdav')return new WebDavProvider(cfg);if(cfg.provider==='icloud')return new PreparedProvider(cfg,'Apple iCloud / CloudKit','eine CloudKit-Container-ID, ein API-Token und die Apple-Anmeldung');if(cfg.provider==='onedrive')return new PreparedProvider(cfg,'Microsoft OneDrive','eine Microsoft-App-Registrierung mit Client-ID und OAuth/PKCE');if(cfg.provider==='dropbox')return new PreparedProvider(cfg,'Dropbox','eine Dropbox-App mit App-Key und OAuth/PKCE');if(cfg.provider==='box')return new PreparedProvider(cfg,'Box','eine Box-App mit Client-ID und OAuth-Anmeldung');throw new Error('Kein Cloud-Anbieter gewählt.')}
 export async function syncMaster(master,cfg,onProgress=()=>{}){
  const p=createProvider(cfg);if(p.ensure)await p.ensure();let merged=structuredClone(master);

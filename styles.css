@@ -1465,13 +1465,13 @@ html,body{width:100%;max-width:100%;min-width:0;overflow-x:hidden;background:#02
 }
 
 
-/* 0.4.0 RC3 — quality controls and legend are independent flow blocks */
+/* 0.4.0 RC4-r1 — quality controls and legend are independent flow blocks */
 .control-panel .quality-stack{position:relative!important;display:grid!important;flex:0 0 auto!important;min-height:0!important;margin-bottom:0!important;overflow:visible!important}
 .control-panel .quality-meaning{position:relative!important;display:grid!important;float:none!important;flex:0 0 auto!important;height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important;margin-top:10px!important;align-self:stretch!important}
 .control-panel #serveDetailPanel,.control-panel #setDetailPanel{position:relative!important;float:none!important;flex:0 0 auto!important;height:auto!important;min-height:0!important}
 @media (max-width:1250px) and (orientation:landscape){.control-panel .quality-meaning{grid-template-columns:1fr!important}}
 
-/* 0.4.0 RC3 — scouting-state clarity and quality layout regression guard */
+/* 0.4.0 RC4-r1 — scouting-state clarity and quality layout regression guard */
 .control-panel .quality-stack,
 .control-panel .quality-meaning,
 .control-panel #serveDetailPanel,
@@ -1481,11 +1481,11 @@ html,body{width:100%;max-width:100%;min-width:0;overflow-x:hidden;background:#02
 .target-court .pos.base-half-near-net,.target-court .pos.base-half-near-back{background:#f8fafce9!important}
 .target-court .pos.zone-only.base-half-near-net,.target-court .pos.zone-only.base-half-near-back{background:#e2e8f0!important}
 
-/* 0.4.0 RC3 — dedicated player-change mode feedback */
+/* 0.4.0 RC4-r1 — dedicated player-change mode feedback */
 .player-change-controls button.selected{outline:3px solid #38bdf8;outline-offset:1px;background:#0c4a6e;box-shadow:0 0 0 2px rgba(56,189,248,.18) inset}
 
 
-/* 0.4.0 RC3 – compact library removal and safe scope selection */
+/* 0.4.0 RC4-r1 – compact library removal and safe scope selection */
 .match-library-actions{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:center}
 .match-library-actions .library-trash{min-width:44px;font-size:1rem;padding-inline:10px}
 .match-library-actions .library-trash:disabled{opacity:.35;cursor:not-allowed}
@@ -1497,7 +1497,7 @@ html,body{width:100%;max-width:100%;min-width:0;overflow-x:hidden;background:#02
 @media(max-width:520px){.match-library-actions{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 
-/* 0.4.0 RC3 · FE-UI10 — Spontanscouting-Feldzellen im kompakten Landscape-Modus.
+/* 0.4.0 RC4-r1 · FE-UI10 — Spontanscouting-Feldzellen im kompakten Landscape-Modus.
    Nur Darstellung: Positionsarrays/Scoutinglogik und Desktopansicht bleiben unverändert. */
 @media (orientation:landscape) and (max-height:900px) and (pointer:coarse){
   .court.quick-scout-court .pos-playerline.quick-redundant-playerline{display:none!important}
@@ -1510,7 +1510,7 @@ html,body{width:100%;max-width:100%;min-width:0;overflow-x:hidden;background:#02
   .court.quick-scout-court .pos-position{font-size:clamp(.82rem,3.3vh,1.18rem)!important}
 }
 
-/* 0.4.0 RC3 — one geometry model for detailed courts on every viewport.
+/* 0.4.0 RC4-r1 — one geometry model for detailed courts on every viewport.
    P1–P9 always occupy three equal rows; there is no smaller middle row on mobile. */
 .court.nine-zone,
 .court-wrap.dual-court .court.nine-zone{
@@ -1531,3 +1531,17 @@ html,body{width:100%;max-width:100%;min-width:0;overflow-x:hidden;background:#02
   height:100%!important;
   align-self:stretch!important;
 }
+
+
+/* 0.4.0 RC4-r1 · FE-SCOUT8 / FE-UI11 / FE-UI12 */
+.start-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:.65rem 0}.start-actions button{margin:0!important}.start-actions .quick-start{background:#12314a;border-color:#38bdf8}
+.opponent-switch.quick-opponent-ready{outline:1px solid rgba(56,189,248,.35);outline-offset:3px}
+.match-library-card #matchLibrary{margin-top:10px}.match-library-list{max-height:min(46dvh,440px);overflow-y:auto;overflow-x:hidden;padding-right:6px;scrollbar-gutter:stable}.match-library-item{padding:8px 10px;gap:5px 10px;border-radius:10px}.match-library-main strong{font-size:.92rem}.match-library-date,.match-library-meta{font-size:.7rem;margin-bottom:0}.match-library-actions{gap:5px}.match-library-actions button{min-height:36px;padding:.35rem .5rem;font-size:.78rem}.match-library-availability{font-size:1rem}.match-library-card>.toolbar{margin-top:4px}
+@media(max-width:760px){.start-actions{grid-template-columns:1fr}.match-library-list{max-height:42dvh}.match-library-actions{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media(max-width:520px){.match-library-actions{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+.start-card .start-actions{grid-area:button}.start-card .start-actions button{grid-area:auto!important}
+
+/* RC4-r1: FE-SCOUT8 mode toggles */
+.scout-mode-toggles{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;margin:2px 0 8px}
+.scout-mode-toggles .inline-quality-toggle{margin:0!important;min-width:0}
+@media (max-width:520px){.scout-mode-toggles{grid-template-columns:1fr}}

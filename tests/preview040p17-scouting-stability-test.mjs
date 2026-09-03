@@ -59,7 +59,7 @@ assert.match(app,/if\(!target&&!playerPos&&pair\.length&&state\.selectedPlayerPo
 assert.match(css,/target-court \.pos\.base-half-near-net/);
 // Quality controls and legend remain separate flow blocks.
 assert.match(idx,/id="qualityButtons"[\s\S]*id="qualityMeaning"/);
-assert.match(css,/0\.4\.0 RC3 — scouting-state clarity and quality layout regression guard/);
+assert.match(css,/0\.4\.0 RC4 — scouting-state clarity and quality layout regression guard/);
 // Libero remains dedicated and supports two liberos / direct swap.
 assert.match(app,/beginPlayerChange\(kind\)/);
 assert.match(app,/mode\.kind==='libero'/);
@@ -71,6 +71,6 @@ for(const text of [app,idx,sw,manifest,update]){
   assert.doesNotMatch(text,/0\.4\.0 Preview(?:[1-9]|1[0-6])\b/);
   assert.doesNotMatch(text,/0\.4\.0-preview(?:[1-9]|1[0-6])\b/);
 }
-assert.match(app,/APP_VERSION='0\.4\.0 RC3'/);
-assert.match(sw,/0\.4\.0-rc3/);
-console.log('rc3-compatible scouting stability regression: OK');
+assert.match(app,/APP_VERSION='0\.4\.0 RC4'/);
+assert.match(sw,/0\.4\.0-rc4/);
+console.log('rc4-compatible scouting stability regression: OK');

@@ -9,7 +9,7 @@ ok(html.includes("import('./js/app.js')"),'unique bootstrap import missing');
 ok(html.includes('vsw-app-error'),'bootstrap diagnostic missing');
 ok(app.includes("storage.js"),'unique storage import missing');
 ok(app.includes("updateViaCache:'none'"),'service worker updateViaCache none missing');
-ok(sw.includes("CACHE = 'volleytakt-live-web-v0.4.0-rc3'"),'new cache id missing');
+ok(sw.includes("CACHE = 'volleytakt-live-web-v0.4.0-rc4'"),'new cache id missing');
 ok(sw.includes("cache:'no-store'"),'navigation no-store missing');
 ok(ht.includes('no-cache, no-store, must-revalidate'),'server no-store missing');
 console.log('Preview2-r7 rebuild3-fix2 startup/cache regression OK');

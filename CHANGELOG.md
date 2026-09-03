@@ -1,3 +1,10 @@
+# Changelog
+
+## 0.4.0 RC4-r1
+- FE-SCOUT8: „Spontan scouten“ als Modusschalter im Scoutingpanel neben „Detailliert scouten“; Splash-Button entfernt.
+- FE-UI9: Protokollspalte „R“ als „Rot.“ (Rotation) eindeutig benannt.
+- RC4-Startfehler in `render()` behoben (`ready` wurde vor Initialisierung gelesen).
+
 ## 0.4.0 RC3
 
 - Startansicht korrigiert: vor einem tatsächlich vorbereiteten Match/Satz wird nur eine Feldhälfte angezeigt.
@@ -295,3 +302,9 @@ Preview-Funktionen gelten nicht automatisch als endgültig abgenommen. Die 0.3.0
 - Neues DOM-freies Modul `js/app/input-routing.js` für Shortcut-Normalisierung, Shortcut→Command-Abbildung und Edge-Swipe-Erkennung.
 - Konkrete DOM-Verkabelung und Ausführung der bestehenden Fachfunktionen bleiben im App-Adapter.
 - Keine beabsichtigte Änderung an Scouting-, Punkt-, Rotations- oder Undo-Verhalten.
+
+## 0.4.0 RC4-r1
+- FE-SCOUT8: direkter Start in ein zunächst temporäres Spontanscouting; Bibliothekseintrag erst ab erstem gespeicherten Ereignis.
+- FE-UI11: Gegner-Schalter im Spontanscouting sofort funktionsfähig und verständlicher erklärt.
+- FE-UI12: kompakte, vertikal scrollbar begrenzte Spielbibliothek.
+- Spontanscouting startet mit nur einer Feldhälfte; zweite Hälfte nur bei fachlich erforderlicher Zielauswahl.

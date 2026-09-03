@@ -21,4 +21,4 @@ need(archive.fullState.cameraRecording===false,'archive camera cleanup');
 need(archive.events.length===1&&archive.events[0].rally_id==='r1','archive event preservation');
 need(archive.videos.length===1,'archive video preservation');
 need(syncCount===1,'sync scheduling delegation');
-console.log('0.4.0 RC3 persistence regression: OK');
+console.log('0.4.0 RC4 persistence regression: OK');

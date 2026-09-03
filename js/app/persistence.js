@@ -1,4 +1,4 @@
-// VolleyTakt Live 0.4.0 RC3 - persistence orchestration boundary.
+// VolleyTakt Live 0.4.0 RC4-r1 - persistence orchestration boundary.
 // Storage and sync implementations remain unchanged in Preview1.
 import {cleanStateForSnapshot,cleanStateForStorage} from './state.js';
 
@@ -7,7 +7,7 @@ export function createPersistenceController({
 }){
   function archiveCurrentMatch(statusOverride=''){
     const state=getState();
-    if(!state.matchId)return;
+    if(!state.matchId||state.quickScoutDraft)return;
     const fullState=cleanStateForSnapshot(state);
     const meta=getDisplayMeta(fullState);
     const status=statusOverride||(state.matchComplete?'ended':'active');
@@ -19,7 +19,7 @@ export function createPersistenceController({
     saveState(cleanStateForStorage(state));
     saveEvents(getEvents());
     archiveCurrentMatch();
-    scheduleSync();
+    if(!state.quickScoutDraft)scheduleSync();
   }
   return {persist,archiveCurrentMatch};
 }

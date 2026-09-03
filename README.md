@@ -1,3 +1,11 @@
+# VolleyTakt Live 0.4.0 RC4-r1
+
+Release Candidate auf Basis von RC3. RC4 ergänzt den direkten Einstieg ins Spontanscouting, eine verständlichere Gegner-Seitenwahl, eine kompaktere scrollbare Spielbibliothek und korrigiert die Start-Feldansicht des Spontanscoutings.
+
+Weitere Details: `RELEASE_0.4.0_RC4.md` und `FUNCTION_CHECK_0.4.0_RC4.md`.
+
+---
+
 # VolleyTakt Live 0.4.0 Preview7
 
 Modularisierungs-Preview: Undo-Gruppierung und Zustandsrekonstruktion aus dem Eventstrom wurden in `js/scouting/history.js` ausgelagert. Sichtbares Verhalten und persistiertes Datenformat sollen unverändert bleiben.

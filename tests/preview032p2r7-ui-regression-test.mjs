@@ -4,10 +4,10 @@ const html=fs.readFileSync('index.html','utf8');
 const css=fs.readFileSync('styles.css','utf8');
 const sw=fs.readFileSync('sw.js','utf8');
 const need=(v,m)=>{if(!v)throw new Error(m)};
-need(app.includes("APP_VERSION='0.4.0 RC3'"),'r7 app version');
-need(app.includes("APP_VERSION_ID='0.4.0-rc3'"),'r7 app version id');
-need(html.includes('<title>VolleyTakt Live 0.4.0 RC3</title>'),'r7 title');
-need(sw.includes("volleytakt-live-web-v0.4.0-rc3"),'r7 cache');
+need(app.includes("APP_VERSION='0.4.0 RC4'"),'r7 app version');
+need(app.includes("APP_VERSION_ID='0.4.0-rc4'"),'r7 app version id');
+need(html.includes('<title>VolleyTakt Live 0.4.0 RC4</title>'),'r7 title');
+need(sw.includes("volleytakt-live-web-v0.4.0-rc4"),'r7 cache');
 for(const f of ['aufschlag.png','zuspiel.png','angriff.png','annahme.png','abwehr.png','block.png']){
   need(fs.existsSync(`app-icons/techniques/${f}`),`missing icon ${f}`);
   need(sw.includes(`./app-icons/techniques/${f}`),`icon not offline cached ${f}`);
