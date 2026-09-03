@@ -5,14 +5,14 @@ const mod=fs.readFileSync(new URL('../js/scouting/events.js',import.meta.url),'u
 const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const sw=fs.readFileSync(new URL('../sw.js',import.meta.url),'utf8');
 const need=(v,m)=>{if(!v)throw new Error(m)};
-need(app.includes("APP_VERSION='0.4.0 RC2'"),'app version');
+need(app.includes("APP_VERSION='0.4.0 RC3'"),'app version');
 need(app.includes("from './scouting/events.js'"),'event module import');
 need(activeApp.includes("from './scouting/events.js'"),'active app missing event module import');
 need(app.includes('buildScoutingEvent({'),'appendEvent not delegated');
 need(app.includes('buildPlayerActionExtra({side:\'own\''),'own event extras not delegated');
 need(app.includes('buildPlayerActionExtra({side:\'opponent\''),'opponent event extras not delegated');
 need(!mod.includes('document.')&&!mod.includes('localStorage')&&!mod.includes('CsvStore')&&!mod.includes('navigator'),'event module must be DOM/storage free');
-need(html.includes('0.4.0 RC2'),'visible version');
-need(sw.includes('volleytakt-live-web-v0.4.0-rc2'),'service worker cache');
+need(html.includes('0.4.0 RC3'),'visible version');
+need(sw.includes('volleytakt-live-web-v0.4.0-rc3'),'service worker cache');
 need(sw.includes("'./js/scouting/events.js'"),'event module missing from offline core assets');
 console.log('Preview4 integration checks OK');

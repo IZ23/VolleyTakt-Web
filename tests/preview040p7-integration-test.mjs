@@ -5,5 +5,5 @@ const idx=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 assert.match(app,/from '\.\/scouting\/history\.js'/);
 assert.match(app,/reconstructMatchState\(/);assert.match(app,/undoEventBatch\(/);
 assert.doesNotMatch(app,/function safeLineupJson\(/);
-assert.match(app,/0\.4\.0 RC2/);assert.match(app,/serviceWorker\.register\('\.\/sw\.js\?v=0\.4\.0-rc2'/);assert.match(sw,/scouting\/history\.js/);assert.match(sw,/0\.4\.0-rc2/);assert.match(idx,/0\.4\.0 RC2/);
+assert.match(app,/0\.4\.0 RC3/);assert.match(app,/serviceWorker\.register\('\.\/sw\.js\?v=0\.4\.0-rc3'/);assert.match(sw,/scouting\/history\.js/);assert.match(sw,/0\.4\.0-rc3/);assert.match(idx,/0\.4\.0 RC3/);
 console.log('preview040p7 integration tests passed');

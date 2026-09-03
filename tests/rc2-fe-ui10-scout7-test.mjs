@@ -30,4 +30,4 @@ const rebuilt=reconstructMatchState([{event_type:'action',action:'Annahme',rally
 assert.equal(rebuilt.rallyCounter,4);
 assert.equal(rebuilt.rallyHighWater,8);
 
-console.log('RC2 FE-UI10 / FE-SCOUT7 regression test ok');
+console.log('RC3 FE-UI10 / FE-SCOUT7 regression test ok');

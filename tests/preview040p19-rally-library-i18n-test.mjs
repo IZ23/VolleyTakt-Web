@@ -45,4 +45,4 @@ assert.equal(fs.existsSync(new URL('../js/locales/en.js',import.meta.url)),false
 const i18n=fs.readFileSync(new URL('../js/i18n.js',import.meta.url),'utf8');
 assert.doesNotMatch(i18n,/EXACT_EN/);
 assert.match(i18n,/LEGACY_KEY_BY_DE/);
-console.log('RC2 rally/library/i18n regression test ok');
+console.log('RC3 rally/library/i18n regression test ok');

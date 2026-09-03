@@ -1,3 +1,10 @@
+## 0.4.0 RC3
+
+- Startansicht korrigiert: vor einem tatsächlich vorbereiteten Match/Satz wird nur eine Feldhälfte angezeigt.
+- Detailliertes P1–P9-Feld nutzt auf allen Viewports drei gleich hohe Reihen; keine mobile Sondergeometrie.
+- FE-TIME1: lokaler Timer zählt nach App-Schließen/Reload keine Abwesenheitszeit weiter; ein persistierter laufender Timer wird beim Laden pausiert.
+- Vollständiger RC3-Build direkt aus 0.4.0 RC2.
+
 ## 0.4.0 RC2
 
 - FE-UI10: Spontanscouting-Feldzellen im kompakten Touch-Landscape vereinfacht; Positionsnummer nur einmal, redundante Standard-Kürzel P1–P6 ausgeblendet und sekundäre Spielerinfos höhenabhängig reduziert. Positionsarrays und Desktopdarstellung bleiben unverändert.

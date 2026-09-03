@@ -1,4 +1,4 @@
-// VolleyTakt Live 0.4.0 RC2 - DOM-free scouting capture engine.
+// VolleyTakt Live 0.4.0 RC3 - DOM-free scouting capture engine.
 // Responsibility: WER -> WAS -> WIE -> details -> WO -> WOHIN -> ActionDraft.
 // Rally, scoring, event persistence, rendering and status messages stay outside this module.
 

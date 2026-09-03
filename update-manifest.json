@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "app": "VolleyTakt Live",
-  "version": "0.4.0 RC2",
-  "version_id": "0.4.0-rc2",
+  "version": "0.4.0 RC3",
+  "version_id": "0.4.0-rc3",
   "data_schema": 5,
   "channel": "preview",
   "requires_confirmation": true,
@@ -84,6 +84,9 @@
     "Release candidate baseline: all former exact legacy translations resolve through stable keyed DE/EN catalogues",
     "RC2 FE-UI10: compact landscape quick-scout court cells show each position number only once and suppress redundant default P1-P6 abbreviations",
     "RC2 FE-UI10: secondary quick-scout player text is reduced by available landscape height without changing court position arrays or desktop rendering",
-    "RC2 FE-SCOUT7: rally numbering high-water is normalized on load and remains monotone across undo/new branches"
+    "RC2 FE-SCOUT7: rally numbering high-water is normalized on load and remains monotone across undo/new branches",
+    "RC3: start/unprepared view shows one court half; dual court appears only for prepared opponent scouting or target selection",
+    "RC3: detailed P1-P9 courts use three equal-height rows on desktop, tablet and smartphone with unchanged position arrays",
+    "RC3 FE-TIME1: persisted local clock is paused on load so closed-app time is never added to scouting time"
   ]
 }

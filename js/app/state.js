@@ -1,4 +1,4 @@
-// VolleyTakt Live 0.4.0 RC2 - central application state boundary.
+// VolleyTakt Live 0.4.0 RC3 - central application state boundary.
 // The persisted shape intentionally remains compatible with 0.3.2 Preview2-r7 rebuild3-fix2.
 
 export const TRANSIENT_STATE_KEYS = Object.freeze([
@@ -60,6 +60,11 @@ export function normalizeLoadedState(source = {}, defaults = createDefaultState(
   state.rallyBallZone=Math.max(0,+state.rallyBallZone||0);
   state.rallyBallSide=state.rallyBallSide==='opponent'?'opponent':state.rallyBallSide==='own'?'own':'';
   state.videoAssignments=[...(state.videoAssignments||[])];
+  // RC3 / FE-TIME1: a persisted running local clock must never count time while the app was closed.
+  // Preserve the already accumulated duration, but resume only after an explicit user action.
+  state.localClockElapsed=Number.isFinite(+state.localClockElapsed)?Math.max(0,+state.localClockElapsed):0;
+  if(state.localClockRunning||state.localClockStartedAt){state.localClockRunning=false;state.localClockStartedAt=0;}
+  if(!['local','camera'].includes(state.clockMode))state.clockMode='local';
   return state;
 }
 

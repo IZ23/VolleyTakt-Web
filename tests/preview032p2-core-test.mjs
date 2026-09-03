@@ -10,11 +10,11 @@ const storage=fs.readFileSync(new URL('../js/storage.js',import.meta.url),'utf8'
 const sync=fs.readFileSync(new URL('../js/sync.js',import.meta.url),'utf8');
 const need=(v,m)=>{if(!v)throw new Error(m)};
 
-need(app.includes("APP_VERSION='0.4.0 RC2'"),'visible version missing');
-need(html.includes('<title>VolleyTakt Live 0.4.0 RC2</title>'),'tab version wrong');
-need(html.includes('<small>0.4.0 RC2</small>'),'header version wrong');
-need(sw.includes("volleytakt-live-web-v0.4.0-rc2"),'cache version wrong');
-need(html.includes('volleytakt-192.png?v=0.4.0-rc2'),'favicon missing');
+need(app.includes("APP_VERSION='0.4.0 RC3'"),'visible version missing');
+need(html.includes('<title>VolleyTakt Live 0.4.0 RC3</title>'),'tab version wrong');
+need(html.includes('<small>0.4.0 RC3</small>'),'header version wrong');
+need(sw.includes("volleytakt-live-web-v0.4.0-rc3"),'cache version wrong');
+need(html.includes('volleytakt-192.png?v=0.4.0-rc3'),'favicon missing');
 
 need(appState.includes("captureQualityProfile:''"),'capture profile freeze missing');
 need(appState.includes("captureFieldOrientation:''"),'capture orientation freeze missing');

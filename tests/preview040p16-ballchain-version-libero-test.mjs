@@ -23,5 +23,5 @@ const sw=fs.readFileSync(new URL('../sw.js',import.meta.url),'utf8');
 const manifest=fs.readFileSync(new URL('../manifest.webmanifest',import.meta.url),'utf8');
 const update=fs.readFileSync(new URL('../update-manifest.json',import.meta.url),'utf8');
 for(const text of [app,idx,sw,manifest,update]){assert.doesNotMatch(text,/0\.4\.0 Preview(?:[1-9]|1[0-5])\b/);assert.doesNotMatch(text,/0\.4\.0-preview(?:[1-9]|1[0-5])\b/)}
-assert.match(app,/APP_VERSION='0\.4\.0 RC2'/);assert.match(sw,/0\.4\.0-rc2/);assert.doesNotMatch(app,/preview-pill\">0\.3 Preview/);
-console.log('rc2-compatible ball-chain/libero/version regression: OK');
+assert.match(app,/APP_VERSION='0\.4\.0 RC3'/);assert.match(sw,/0\.4\.0-rc3/);assert.doesNotMatch(app,/preview-pill\">0\.3 Preview/);
+console.log('rc3-compatible ball-chain/libero/version regression: OK');

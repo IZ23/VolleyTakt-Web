@@ -8,9 +8,9 @@ const sw=fs.readFileSync(new URL('../sw.js',import.meta.url),'utf8');
 const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const storage=fs.readFileSync(new URL('../js/storage.js',import.meta.url),'utf8');
 
-need(app.includes("APP_VERSION='0.4.0 RC2'"),'Preview1 app version missing');
-need(html.includes('VolleyTakt Live 0.4.0 RC2'),'Preview1 visible version missing');
-need(sw.includes("volleytakt-live-web-v0.4.0-rc2"),'Preview1 cache missing');
+need(app.includes("APP_VERSION='0.4.0 RC3'"),'Preview1 app version missing');
+need(html.includes('VolleyTakt Live 0.4.0 RC3'),'Preview1 visible version missing');
+need(sw.includes("volleytakt-live-web-v0.4.0-rc3"),'Preview1 cache missing');
 for(const file of ['./js/app/state.js','./js/app/selectors.js','./js/app/persistence.js','./js/app/commands.js']) need(sw.includes(file),`SW missing ${file}`);
 need(storage.includes('CURRENT_DATA_SCHEMA=5'),'Preview1 must keep schema 5');
 
@@ -39,4 +39,4 @@ need(findSeason(master,'s1')?.id==='s1','season selector');
 need(findMatchType(master,'m1')?.id==='m1','match type selector');
 need(matchTypeKey('  Test  Spiel ')==='test spiel','match type key');
 for(const c of ['SELECT_POSITION','SELECT_ACTION','SELECT_QUALITY','SELECT_ORIGIN_ZONE','SELECT_TARGET_ZONE','AWARD_POINT_US','AWARD_POINT_THEM','ROTATE','UNDO','CANCEL']) need(COMMANDS[c]===c,`command missing ${c}`);
-console.log('0.4.0 RC2 architecture/state regression: OK');
+console.log('0.4.0 RC3 architecture/state regression: OK');

@@ -1,0 +1,15 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const app=fs.readFileSync(new URL('../js/app.js',import.meta.url),'utf8');
+const state=fs.readFileSync(new URL('../js/app/state.js',import.meta.url),'utf8');
+const css=fs.readFileSync(new URL('../styles.css',import.meta.url),'utf8');
+const sw=fs.readFileSync(new URL('../sw.js',import.meta.url),'utf8');
+const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
+assert.match(app,/APP_VERSION='0\.4\.0 RC3'/);
+assert.match(app,/const dual=targetMode\|\|\(bothScouted&&matchConfigured\(\)&&state\.setReady\)/);
+assert.match(state,/state\.localClockRunning=false;state\.localClockStartedAt=0/);
+assert.match(css,/0\.4\.0 RC3 — one geometry model for detailed courts/);
+assert.match(css,/grid-template-rows:repeat\(3,minmax\(0,1fr\)\)!important/);
+assert.match(sw,/volleytakt-live-web-v0\.4\.0-rc3/);
+assert.match(html,/0\.4\.0 RC3/);
+console.log('0.4.0 RC3 field/start/timer regression: OK');

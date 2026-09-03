@@ -1,4 +1,4 @@
-// VolleyTakt Live 0.4.0 RC2
+// VolleyTakt Live 0.4.0 RC3
 // Pure event-history helpers for undo grouping and state reconstruction.
 // No DOM, storage, CSV I/O, rendering or persistence access.
 

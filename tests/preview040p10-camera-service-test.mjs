@@ -10,4 +10,4 @@ assert.equal(s.meta.shortName,'GoPro');
 assert.equal(s.snapshot().connected,false);
 s.configure({adapter:'dji_osmo',statusIntervalMs:15000});
 assert.equal(s.meta.shortName,'DJI');
-console.log('0.4.0 RC2 camera service regression: OK');
+console.log('0.4.0 RC3 camera service regression: OK');

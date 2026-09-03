@@ -1,4 +1,4 @@
-// VolleyTakt Live 0.4.0 RC2 - pure master-data selectors.
+// VolleyTakt Live 0.4.0 RC3 - pure master-data selectors.
 export function findPlayer(master, state, id){return master?.players?.find(x=>x.id===id)||state?.quickPlayers?.[id]}
 export function findTeam(master, id){return master?.teams?.find(x=>x.id===id)}
 export function findSeason(master, id){return master?.seasons?.find(x=>x.id===id)}

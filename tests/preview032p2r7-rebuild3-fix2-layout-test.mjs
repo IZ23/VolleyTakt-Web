@@ -3,7 +3,7 @@ const css=fs.readFileSync('styles.css','utf8');
 const app=fs.readFileSync('js/app.js','utf8');
 const html=fs.readFileSync('index.html','utf8');
 function ok(c,m){if(!c)throw new Error(m)}
-ok(html.includes('0.4.0 RC2'),'visible fix2 version missing');
+ok(html.includes('0.4.0 RC3'),'visible fix2 version missing');
 ok(css.includes('.start-card{max-height:calc(100dvh'),'start gate max-height missing');
 ok(css.includes('overflow:auto'),'scrollable start gate missing');
 ok(app.includes("const activeCaptureSide=side,otherSide=activeCaptureSide==='own'?'opponent':'own'"),'active-side orientation mapping missing');
