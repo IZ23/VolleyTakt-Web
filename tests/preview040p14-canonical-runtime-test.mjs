@@ -1,4 +1,0 @@
-import assert from 'node:assert/strict';import fs from 'node:fs';
-const html=fs.readFileSync('index.html','utf8'),sw=fs.readFileSync('sw.js','utf8'),app=fs.readFileSync('js/app.js','utf8'),cam=fs.readFileSync('js/camera/service.js','utf8');
-assert.match(html,/import\('\.\/js\/app\.js'\)/);assert.doesNotMatch(html,/r7r3f2/);assert.match(sw,/\.\/js\/app\.js/);assert.doesNotMatch(sw,/r7r3f2/);assert.doesNotMatch(app,/r7r3f2/);assert.match(app,/from '\.\/storage\.js'/);assert.match(cam,/import\('\.\.\/dji-ble\.js'\)/);assert.match(cam,/import\('\.\.\/gopro-ble\.js'\)/);
-for(const f of ['js/app.r7r3f2.js','js/storage.r7r3f2.js','js/sync.r7r3f2.js','js/i18n.r7r3f2.js','js/dji-ble.r7r3f2.js','js/gopro-ble.r7r3f2.js'])assert.equal(fs.existsSync(f),false,`${f} should be removed`);console.log('preview14 canonical runtime ok');

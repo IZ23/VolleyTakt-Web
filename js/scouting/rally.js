@@ -1,4 +1,4 @@
-// VolleyTakt Live 0.4.0 RC4-r2 - DOM-free rally lifecycle / automatic scoring domain.
+// VolleyTakt Live 0.4.0 RC5 - DOM-free rally lifecycle / automatic scoring domain.
 // Responsibility: rally identity/sequence, K1/K2/K3 transition context and automatic winner decision.
 // Event persistence, score mutation, side-out/rotation, set handling, rendering and status messages stay outside.
 

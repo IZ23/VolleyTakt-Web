@@ -1,0 +1,18 @@
+function activateSection(root,key='all'){
+  root.querySelectorAll('[data-analysis-section]').forEach(button=>button.classList.toggle('selected',button.dataset.analysisSection===key));
+  root.querySelectorAll('.analysis-detail-section').forEach(section=>{section.hidden=key!=='all'&&section.dataset.analysisDetail!==key});
+}
+
+export function createResultWindow(){
+  let root=null,onAccept=()=>{},payload=null,normalContent='',normalTitle='',normalSubtitle='';
+  const close=()=>{if(root)root.hidden=true};
+  const setError=message=>{const el=root.querySelector('#analysisResultError');el.textContent=message||'';el.hidden=!message};
+  const wireSectionNavigation=()=>root.querySelectorAll('[data-analysis-section]').forEach(button=>button.onclick=()=>activateSection(root,button.dataset.analysisSection));
+  const restoreResult=()=>{root.classList.remove('print-preview-mode');root.querySelector('#analysisResultTitle').textContent=normalTitle;root.querySelector('#analysisResultSubtitle').textContent=normalSubtitle;root.querySelector('#analysisResultWindowBody').innerHTML=normalContent;root.querySelector('#analysisResultActions').innerHTML='<button id="analysisResultCancel">Abbruch</button><button id="analysisResultOk" class="primary">OK</button><button id="analysisResultPrint">Drucken</button>';wireMainActions();wireSectionNavigation()};
+  const openPrintPreview=()=>{root.classList.add('print-preview-mode');root.querySelector('#analysisResultTitle').textContent='Druckvorschau';root.querySelector('#analysisResultSubtitle').textContent='Die Analyse wird erst nach dem nächsten Klick an den Systemdruckdialog übergeben.';root.querySelector('#analysisResultWindowBody').innerHTML=`<article class="analysis-print-sheet"><h1>${payload.title}</h1><p>${payload.subtitle}</p>${payload.content}</article>`;root.querySelector('#analysisResultActions').innerHTML='<button id="analysisPrintClose">Schließen</button><button id="analysisPrintNow" class="primary">Drucken / als PDF speichern</button>';root.querySelector('#analysisPrintClose').onclick=restoreResult;root.querySelector('#analysisPrintNow').onclick=()=>window.print()};
+  const accept=async()=>{const button=root.querySelector('#analysisResultOk');if(!button||button.disabled)return;const old=button.textContent;button.disabled=true;button.classList.add('is-busy');button.textContent='⌛ Speichern …';setError('');try{await onAccept();close()}catch(error){setError(error?.message||String(error));button.disabled=false;button.classList.remove('is-busy');button.textContent=old}};
+  const wireMainActions=()=>{root.querySelector('#analysisResultCancel').onclick=close;root.querySelector('#analysisResultOk').onclick=accept;root.querySelector('#analysisResultPrint').onclick=openPrintPreview};
+  const ensure=()=>{if(root)return root;root=document.createElement('div');root.className='analysis-result-backdrop';root.hidden=true;root.innerHTML='<section class="analysis-result-window" role="dialog" aria-modal="true" aria-labelledby="analysisResultTitle"><header><div><h2 id="analysisResultTitle">Analyseergebnis</h2><p id="analysisResultSubtitle"></p><p id="analysisResultError" class="analysis-result-error" hidden></p></div></header><main id="analysisResultWindowBody"></main><footer id="analysisResultActions"></footer></section>';document.body.appendChild(root);return root};
+  const open=({title,subtitle='',content,accept:acceptHandler,print})=>{ensure();normalTitle=title;normalSubtitle=subtitle;normalContent=content;onAccept=acceptHandler||(()=>{});payload=print||{title,subtitle,content};root.hidden=false;restoreResult();setError('')};
+  return {open,close};
+}

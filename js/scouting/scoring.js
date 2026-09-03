@@ -14,6 +14,13 @@ export function scorePointTransition({winner,scoreUs=0,scoreThem=0,servingSide='
   };
 }
 
+export function pointAwardAllowed({quickScout=false,matchConfigured=false,setReady=false,matchComplete=false,servingSide='',ownLineupReady=false,opponentCapture=false,opponentLineupReady=false}={}){
+  const baseReady=!!matchConfigured&&!!setReady&&!matchComplete&&!!ownLineupReady&&(!opponentCapture||!!opponentLineupReady);
+  // Spontanscouting may begin before the initial serving side is known. A terminal
+  // action still decides the rally; its winner becomes the next serving side.
+  return baseReady&&(!!servingSide||!!quickScout);
+}
+
 export function winningSideForTarget(scoreUs=0,scoreThem=0,target=25){
   const us=Math.max(0,+scoreUs||0),them=Math.max(0,+scoreThem||0),need=Math.max(1,+target||25);
   if(Math.max(us,them)<need||Math.abs(us-them)<2)return '';

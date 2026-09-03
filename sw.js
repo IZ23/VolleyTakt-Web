@@ -1,10 +1,10 @@
-const CACHE = 'volleytakt-live-web-v0.4.0-rc4-r2';
+const CACHE = 'volleytakt-live-web-v0.4.0';
 
 // Nur diese Kernressourcen dürfen die Installation des Service Workers blockieren.
 const CORE_ASSETS = [
   './',
   './index.html',
-  './styles.css?v=0.4.0-rc4-r2',
+  './styles.css?v=0.4.0',
   './manifest.webmanifest',
   './update-manifest.json',
   './logo.png',
@@ -14,7 +14,7 @@ const CORE_ASSETS = [
   './js/app/selectors.js',
   './js/app/persistence.js',
   './js/app/commands.js','./js/app/input-routing.js',
-  './js/analysis/domain.js','./js/analysis/ui.js',
+  './js/analysis/domain.js','./js/analysis/filters.js','./js/analysis/rallies.js','./js/analysis/basic.js','./js/analysis/chains.js','./js/analysis/opponent.js','./js/analysis/priorities.js','./js/analysis/cache.js','./js/analysis/result-window.js','./js/analysis/ui.js',
   './js/camera/service.js',
   './js/scouting/scouting.js',
   './js/scouting/rally.js',
@@ -35,12 +35,12 @@ const OPTIONAL_ASSETS = [
   './app-icons/volleytakt-96.png',
   './app-icons/volleytakt-192.png',
   './app-icons/volleytakt-512.png',
-  './app-icons/techniques/aufschlag.png?v=0.4.0-rc4-r2-pictograms',
-  './app-icons/techniques/zuspiel.png?v=0.4.0-rc4-r2-pictograms',
-  './app-icons/techniques/angriff.png?v=0.4.0-rc4-r2-pictograms',
-  './app-icons/techniques/annahme.png?v=0.4.0-rc4-r2-pictograms',
-  './app-icons/techniques/abwehr.png?v=0.4.0-rc4-r2-pictograms',
-  './app-icons/techniques/block.png?v=0.4.0-rc4-r2-pictograms',
+  './app-icons/techniques/aufschlag.png?v=0.4.0-rc5-pictograms',
+  './app-icons/techniques/zuspiel.png?v=0.4.0-rc5-pictograms',
+  './app-icons/techniques/angriff.png?v=0.4.0-rc5-pictograms',
+  './app-icons/techniques/annahme.png?v=0.4.0-rc5-pictograms',
+  './app-icons/techniques/abwehr.png?v=0.4.0-rc5-pictograms',
+  './app-icons/techniques/block.png?v=0.4.0-rc5-pictograms',
   './app-icons/volleytakt-1024.png'
 ];
 

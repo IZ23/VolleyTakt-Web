@@ -1,4 +1,4 @@
-// VolleyTakt Live 0.4.0 RC4-r2 - DOM-free keyboard/touch routing helpers.
+// VolleyTakt Live 0.4.0 RC5 - DOM-free keyboard/touch routing helpers.
 import {COMMANDS} from './commands.js';
 
 export function normalizeShortcutKey(key=''){
