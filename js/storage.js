@@ -1,4 +1,5 @@
-export const CSV_HEADER=['video','video_clip_id','seconds','timestamp','action_start_seconds','action_start_timestamp','action_end_seconds','action_end_timestamp','action_started_at','action_completed_at','set','rotation','position','player_rotation_position','action_zone','target_zone','serve_technique','set_tempo','set_distance','rally_phase','transition_no','player_id','player_abbreviation','player_name','player','action','value','event_type','rally_id','rally_no','rally_sequence','rally_event','rally_winner','quality_level','quality_profile','serving_before','serving_after','sideout','rotation_side','rotation_index_before','rotation_index_after','lineup_before','lineup_after','own_lineup','opp_lineup','player_out_id','player_in_id','player_out_jersey','player_in_jersey','set_winner','set_wins_us','set_wins_them','score_us','score_them','note'];
+import {normalizeContextEvents} from './data/context.js';
+export const CSV_HEADER=['context_id','context_schema','legacy_event_id','video','video_clip_id','seconds','timestamp','action_start_seconds','action_start_timestamp','action_end_seconds','action_end_timestamp','action_started_at','action_completed_at','set','rotation','position','player_rotation_position','action_zone','target_zone','serve_technique','set_tempo','set_distance','rally_phase','transition_no','player_id','player_abbreviation','player_name','player','action','value','event_type','rally_id','rally_no','rally_sequence','rally_event','rally_winner','quality_level','quality_profile','serving_before','serving_after','sideout','rotation_side','rotation_index_before','rotation_index_after','lineup_before','lineup_after','own_lineup','opp_lineup','player_out_id','player_in_id','player_out_jersey','player_in_jersey','set_winner','set_wins_us','set_wins_them','score_us','score_them','note'];
 const MASTER_KEY='volleytakt-masterdata-v2';
 const STATE_KEY='volleytakt-live-state-v2';
 const EVENTS_KEY='volleytakt-live-events-v2';
@@ -6,9 +7,23 @@ const SETTINGS_KEY='volleytakt-live-settings-v2';
 const MATCH_ARCHIVE_KEY='volleytakt-match-archive-v1';
 const DATA_SCHEMA_KEY='volleytakt-data-schema';
 const DATA_BACKUP_KEY='volleytakt-update-backup';
-export const CURRENT_DATA_SCHEMA=5;
+const MIGRATION_BACKUPS_KEY='volleytakt-migration-backups-v1';
+export const CURRENT_DATA_SCHEMA=6;
 
 function safeJson(raw,fallback){try{return JSON.parse(raw)}catch{return fallback}}
+function saveMigrationBackup(payload){
+  const rows=safeJson(localStorage.getItem(MIGRATION_BACKUPS_KEY)||'[]',[]);
+  const next=[payload,...(Array.isArray(rows)?rows:[])].slice(0,3);
+  localStorage.setItem(MIGRATION_BACKUPS_KEY,JSON.stringify(next));
+  return payload;
+}
+export function listMigrationBackups(){return safeJson(localStorage.getItem(MIGRATION_BACKUPS_KEY)||'[]',[])}
+export function latestMigrationBackup(){return listMigrationBackups()[0]||null}
+export function downloadLatestMigrationBackup(){
+  const backup=latestMigrationBackup();if(!backup)return false;
+  downloadJson(backup,`VolleyTakt_migration_backup_schema${backup.fromSchema}_to_${backup.toSchema}_${String(backup.createdAt||'').slice(0,10)}.json`);
+  return true;
+}
 export function createUpdateBackup(reason='update'){
   const payload={
     schema:Number(localStorage.getItem(DATA_SCHEMA_KEY)||0),
@@ -68,6 +83,28 @@ export function runDataMigrations(target=CURRENT_DATA_SCHEMA){
           const events=Array.isArray(x?.events)?x.events.map(e=>({...e,value:normalizeQuality(e?.value)})):x?.events;
           return {...x,events,fullState:full};
         })));
+      }else if(next===6){
+        // RC6-3: preserve a full pre-migration snapshot and add stable context IDs.
+        const rawArchive=localStorage.getItem(MATCH_ARCHIVE_KEY);
+        const rawEvents=localStorage.getItem(EVENTS_KEY);
+        const archive=safeJson(rawArchive||'[]',[]);
+        const currentState=safeJson(localStorage.getItem(STATE_KEY)||'{}',{});
+        const currentMatchId=String(currentState?.matchId||'');
+        const eventRows=safeJson(rawEvents||'[]',[]);
+        const migratedEvents=Array.isArray(eventRows)?normalizeContextEvents(eventRows,currentMatchId):[];
+        const migratedArchive=Array.isArray(archive)?archive.map(match=>{
+          const matchId=String(match?.matchId||'');
+          const events=normalizeContextEvents(match?.events||[],matchId);
+          return {...match,dataSchema:6,analysisContextSchema:1,legacyMigration:{fromSchema:current,migratedAt:new Date().toISOString(),backupRef:'schema6'},events};
+        }):[];
+        const mapping=[
+          ...migratedEvents.map(e=>({matchId:currentMatchId,eventId:e.id||'',legacyEventId:e.legacy_event_id||'',contextId:e.context_id||''})),
+          ...migratedArchive.flatMap(m=>(m.events||[]).map(e=>({matchId:m.matchId||'',eventId:e.id||'',legacyEventId:e.legacy_event_id||'',contextId:e.context_id||''})))
+        ];
+        saveMigrationBackup({kind:'schema-migration',fromSchema:current,toSchema:6,createdAt:new Date().toISOString(),data:{master:localStorage.getItem(MASTER_KEY),state:localStorage.getItem(STATE_KEY),events:rawEvents,settings:localStorage.getItem(SETTINGS_KEY),matchArchive:rawArchive},contextMap:mapping});
+        localStorage.setItem(EVENTS_KEY,JSON.stringify(migratedEvents));
+        localStorage.setItem(MATCH_ARCHIVE_KEY,JSON.stringify(migratedArchive));
+        if(currentState&&typeof currentState==='object'){currentState.dataSchema=6;currentState.analysisContextSchema=1;localStorage.setItem(STATE_KEY,JSON.stringify(currentState))}
       }
       current=next;localStorage.setItem(DATA_SCHEMA_KEY,String(current));
     }
@@ -88,8 +125,14 @@ function normalizeMatchSnapshot(x={}){
   const state=x.fullState||x.state||{};
   return {...x,status:x.status||(state.matchComplete?'ended':'interrupted'),videos:[...(x.videos||state.videoAssignments||[])],fullState:x.fullState||null};
 }
-export function loadMatchArchive(){try{return (JSON.parse(localStorage.getItem(MATCH_ARCHIVE_KEY)||'[]')||[]).map(normalizeMatchSnapshot)}catch{return []}}
-export function saveMatchArchive(v){localStorage.setItem(MATCH_ARCHIVE_KEY,JSON.stringify((v||[]).map(normalizeMatchSnapshot)))}
+export function loadMatchArchive(){try{return (JSON.parse(localStorage.getItem(MATCH_ARCHIVE_KEY)||'[]')||[]).map(x=>{const n=normalizeMatchSnapshot(x);return {...n,dataSchema:Number(n.dataSchema||CURRENT_DATA_SCHEMA),analysisContextSchema:1,events:normalizeContextEvents(n.events||[],n.matchId||'')}})}catch{return []}}
+export function saveMatchArchive(v){
+  const rows=(v||[]).map(x=>{
+    const n=normalizeMatchSnapshot(x);
+    return {...n,dataSchema:CURRENT_DATA_SCHEMA,analysisContextSchema:1,events:normalizeContextEvents(n.events||[],n.matchId||'')};
+  });
+  localStorage.setItem(MATCH_ARCHIVE_KEY,JSON.stringify(rows));
+}
 export function upsertMatchArchive(snapshot){
   if(!snapshot?.matchId)return;
   const next=normalizeMatchSnapshot(snapshot),all=loadMatchArchive(),i=all.findIndex(x=>x.matchId===next.matchId);
@@ -114,8 +157,8 @@ export function loadMaster(){try{const m={...seedMaster(),...JSON.parse(localSto
 export function saveMaster(m){localStorage.setItem(MASTER_KEY,JSON.stringify(m))}
 export function loadState(){try{return JSON.parse(localStorage.getItem(STATE_KEY)||'{}')}catch{return {}}}
 export function saveState(v){localStorage.setItem(STATE_KEY,JSON.stringify(v))}
-export function loadEvents(){try{return JSON.parse(localStorage.getItem(EVENTS_KEY)||'[]')}catch{return []}}
-export function saveEvents(v){localStorage.setItem(EVENTS_KEY,JSON.stringify(v))}
+export function loadEvents(){try{const rows=JSON.parse(localStorage.getItem(EVENTS_KEY)||'[]');const st=loadState();return normalizeContextEvents(rows,st?.matchId||'')}catch{return []}}
+export function saveEvents(v){const st=loadState();localStorage.setItem(EVENTS_KEY,JSON.stringify(normalizeContextEvents(v,st?.matchId||'')))}
 export function loadSettings(){try{return JSON.parse(localStorage.getItem(SETTINGS_KEY)||'{}')}catch{return {}}}
 export function saveSettings(v){localStorage.setItem(SETTINGS_KEY,JSON.stringify(v))}
 export const newId=id;

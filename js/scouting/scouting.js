@@ -1,5 +1,6 @@
-// VolleyTakt Live 0.4.0 RC5 - DOM-free scouting capture engine.
-// Responsibility: WER -> WAS -> WIE -> details -> WO -> WOHIN -> ActionDraft.
+// VolleyTakt Live 0.4.1 - DOM-free scouting capture engine.
+// Responsibility: WER/WAS/WIE may be selected in any order; semantics remain fixed.
+// After the core fields are complete, capture continues with details -> WO -> WOHIN -> ActionDraft.
 // Rally, scoring, event persistence, rendering and status messages stay outside this module.
 
 export const SCOUTING_STEPS=Object.freeze({WHO:'WER',ACTION:'WAS',QUALITY:'WIE',SET_DETAIL:'SETDETAIL',ORIGIN:'WO',TARGET:'TARGET'});
@@ -71,18 +72,35 @@ export function createScoutingController({
       actionStartedAt:state.actionStartedAt||''
     });
   }
+  function coreWhoSatisfied(){
+    const state=s();
+    return !!state.selectedPlayerPos || (state.pendingSide==='opponent'&&state.pendingAction==='Aufschlag'&&state.servingSide==='them');
+  }
+  function ensureCaptureContext(side=currentCaptureSide()){
+    const state=s(),normalized=sideOf(side);
+    if(!state.captureQualityProfile)state.captureQualityProfile=getQualityProfileForSide(normalized);
+    if(!state.captureFieldOrientation)state.captureFieldOrientation=state.fieldOrientation;
+  }
+  function advanceAfterCore(){
+    const state=s();
+    if(!coreWhoSatisfied()){state.inputStep=SCOUTING_STEPS.WHO;return {ok:true,type:'CORE_PENDING',nextStep:SCOUTING_STEPS.WHO}}
+    if(!state.pendingAction){state.inputStep=SCOUTING_STEPS.ACTION;return {ok:true,type:'CORE_PENDING',nextStep:SCOUTING_STEPS.ACTION}}
+    if(!state.pendingQuality){state.inputStep=SCOUTING_STEPS.QUALITY;return {ok:true,type:'CORE_PENDING',nextStep:SCOUTING_STEPS.QUALITY}}
+    if(state.pendingAction==='Aufschlag'&&['=','#'].includes(state.pendingQuality))return {ok:true,type:'ACTION_COMPLETE',immediateServeResult:true,draft:buildActionDraft({allowServeErrorWithoutZone:true})};
+    if(state.pendingAction==='Zuspiel'&&detailedCapture(state.pendingSide)){state.inputStep=SCOUTING_STEPS.SET_DETAIL;return {ok:true,type:'CORE_COMPLETE',nextStep:SCOUTING_STEPS.SET_DETAIL,detailed:true}}
+    const inherited=applyInheritedOrigin();if(inherited)return {...inherited,type:'CORE_COMPLETE',inheritedOrigin:true};
+    state.inputStep=SCOUTING_STEPS.ORIGIN;return {ok:true,type:'CORE_COMPLETE',nextStep:SCOUTING_STEPS.ORIGIN,detailed:detailedCapture(state.pendingSide),maxZone:originMaxZone(state.pendingAction)};
+  }
   function selectWhoPosition(side,pos){
     const state=s(),p=+pos;
     if(!WHO_POSITIONS.includes(p))return {ok:false,reason:'WHO_INVALID'};
-    const lineup=getLineup(side)||{},pid=lineup[p]||'';
+    const normalized=sideOf(side),lineup=getLineup(normalized)||{},pid=lineup[p]||'';
     if(!pid&&!state.allowPositionOnly)return {ok:false,reason:'WHO_UNASSIGNED',pos:p};
-    if(side==='own'){state.selectedPos=p;state.selectedOppPos=0}else{state.selectedOppPos=p;state.selectedPos=0}
-    const firstWer=!state.pendingSide&&!state.selectedPlayerPos;
-    if(firstWer){state.captureQualityProfile=getQualityProfileForSide(side);state.captureFieldOrientation=state.fieldOrientation}
-    if(firstWer||state.autoServePreset)ensureActionStarted();
-    state.pendingSide=side;state.selectedPlayerPos=p;state.selectedPlayerId=pid;state.actionZone=0;state.targetZone=0;state.targetSide='';
-    if(!state.pendingAction)state.inputStep=SCOUTING_STEPS.ACTION;else if(!state.pendingQuality)state.inputStep=SCOUTING_STEPS.QUALITY;
-    return {ok:true,type:'WHO_SELECTED',side,pos:p,pid,nextStep:state.inputStep};
+    if(normalized==='own'){state.selectedPos=p;state.selectedOppPos=0}else{state.selectedOppPos=p;state.selectedPos=0}
+    ensureCaptureContext(normalized);ensureActionStarted();
+    state.pendingSide=normalized;state.captureQualityProfile=getQualityProfileForSide(normalized);state.selectedPlayerPos=p;state.selectedPlayerId=pid;state.actionZone=0;state.targetZone=0;state.targetSide='';
+    const progress=advanceAfterCore();
+    return {...progress,whoSelected:true,side:normalized,pos:p,pid};
   }
   function selectOriginZone(side,pos){
     const state=s(),p=+pos;
@@ -96,21 +114,19 @@ export function createScoutingController({
   function selectPosition(side,pos){return s().inputStep===SCOUTING_STEPS.ORIGIN?selectOriginZone(side,pos):selectWhoPosition(side,pos)}
   function chooseAction(action){
     const state=s(),directOpponentServe=action==='Aufschlag'&&opponentServeDirectReady();
-    if(!state.selectedPlayerPos&&!directOpponentServe)return {ok:false,reason:'WHO_REQUIRED'};
-    ensureActionStarted();
+    ensureCaptureContext(state.pendingSide||currentCaptureSide());ensureActionStarted();
     if(directOpponentServe){state.pendingSide='opponent';state.selectedPlayerPos=0;state.selectedPlayerId='';state.selectedOppPos=0;state.selectedPos=0;state.captureQualityProfile=getQualityProfileForSide('opponent');state.captureFieldOrientation=state.fieldOrientation}
-    state.pendingAction=action;state.pendingQuality=null;state.actionZone=0;state.targetZone=0;state.targetSide='';state.setTempo='';state.setDistance='';state.serveTechnique='';state.inputStep=SCOUTING_STEPS.QUALITY;
-    return {ok:true,type:'ACTION_SELECTED',action,directOpponentServe,detailed:detailedCapture(state.pendingSide),nextStep:SCOUTING_STEPS.QUALITY};
+    else if(!state.pendingSide)state.pendingSide=sideOf(currentCaptureSide());
+    state.pendingAction=action;state.actionZone=0;state.targetZone=0;state.targetSide='';state.setTempo='';state.setDistance='';state.serveTechnique='';
+    const progress=advanceAfterCore();
+    return {...progress,actionSelected:true,action,directOpponentServe,detailed:detailedCapture(state.pendingSide)};
   }
   function chooseQuality(quality){
-    const state=s();if(!state.pendingAction)return {ok:false,reason:'ACTION_REQUIRED'};
-    const directOpponentServe=state.pendingSide==='opponent'&&state.pendingAction==='Aufschlag'&&state.servingSide==='them';
-    if(!state.selectedPlayerPos&&!directOpponentServe)return {ok:false,reason:'WHO_REQUIRED'};
-    ensureActionStarted();state.pendingQuality=quality;state.actionZone=0;state.targetZone=0;state.targetSide='';
-    if(state.pendingAction==='Aufschlag'&&['=','#'].includes(quality))return {ok:true,type:'ACTION_COMPLETE',immediateServeResult:true,draft:buildActionDraft({allowServeErrorWithoutZone:true})};
-    if(state.pendingAction==='Zuspiel'&&detailedCapture(state.pendingSide)){state.inputStep=SCOUTING_STEPS.SET_DETAIL;return {ok:true,type:'QUALITY_SELECTED',quality,nextStep:SCOUTING_STEPS.SET_DETAIL,detailed:true}}
-    const inherited=applyInheritedOrigin();if(inherited)return {...inherited,quality,inheritedOrigin:true};
-    state.inputStep=SCOUTING_STEPS.ORIGIN;return {ok:true,type:'QUALITY_SELECTED',quality,nextStep:SCOUTING_STEPS.ORIGIN,detailed:detailedCapture(state.pendingSide),maxZone:originMaxZone(state.pendingAction)};
+    const state=s();ensureCaptureContext(state.pendingSide||currentCaptureSide());ensureActionStarted();
+    if(!state.pendingSide)state.pendingSide=sideOf(currentCaptureSide());
+    state.pendingQuality=quality;state.actionZone=0;state.targetZone=0;state.targetSide='';
+    const progress=advanceAfterCore();
+    return {...progress,qualitySelected:true,quality};
   }
   function chooseServeTechnique(value){const state=s();ensureActionStarted();state.serveTechnique=value;state.inputStep=SCOUTING_STEPS.QUALITY;return {ok:true,type:'SERVE_TECHNIQUE_SELECTED',value,nextStep:SCOUTING_STEPS.QUALITY}}
   function chooseSetDetail(kind,value){const state=s();if(kind==='tempo')state.setTempo=value;else state.setDistance=value;if(state.setTempo&&state.setDistance){const inherited=applyInheritedOrigin();if(inherited)return {...inherited,type:inherited.type==='ACTION_COMPLETE'?'ACTION_COMPLETE':'SET_DETAILS_COMPLETE',tempo:state.setTempo,distance:state.setDistance,inheritedOrigin:true};state.inputStep=SCOUTING_STEPS.ORIGIN;return {ok:true,type:'SET_DETAILS_COMPLETE',tempo:state.setTempo,distance:state.setDistance,nextStep:SCOUTING_STEPS.ORIGIN}}return {ok:true,type:'SET_DETAIL_SELECTED',kind,value,nextStep:SCOUTING_STEPS.SET_DETAIL}}

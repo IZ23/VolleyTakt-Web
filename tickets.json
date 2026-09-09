@@ -1,0 +1,1075 @@
+{
+  "schema": 1,
+  "project": "VolleyTakt Live",
+  "release": "0.4.1",
+  "generated": "2026-09-09",
+  "statusValues": [
+    "open",
+    "in_progress",
+    "implemented",
+    "verified",
+    "closed"
+  ],
+  "tickets": [
+    {
+      "id": "SCOUT-DATA1",
+      "title": "Scouting-Datenmodell weiter entkoppeln",
+      "type": "feature",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": null,
+      "description": "Aktionswirkung und Rally-Ergebnis im Erfassungs-/Datenmodell noch sauberer voneinander trennen.",
+      "releaseClosed": null
+    },
+    {
+      "id": "SCOUT-K3",
+      "title": "K3 im Live-Scouting erweitern",
+      "type": "feature",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": null,
+      "description": "K3/Transition ist analytisch umgesetzt; eine weitergehende explizite Erfassungslogik im Live-Scouting bleibt offen.",
+      "releaseClosed": null
+    },
+    {
+      "id": "UI-SCOUT2",
+      "title": "Scouting-UI – offener Ausbaupunkt 2",
+      "type": "ui",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": null,
+      "description": "Historischer offener Scouting-UI-Punkt; vor Umsetzung gegen die ursprüngliche Detailanforderung im Entwicklungskontext präzisieren.",
+      "releaseClosed": null
+    },
+    {
+      "id": "UI-SCOUT3",
+      "title": "Scouting-UI – offener Ausbaupunkt 3",
+      "type": "ui",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": null,
+      "description": "Historischer offener Scouting-UI-Punkt; vor Umsetzung gegen die ursprüngliche Detailanforderung im Entwicklungskontext präzisieren.",
+      "releaseClosed": null
+    },
+    {
+      "id": "UI-MOBILE10",
+      "title": "Mobile Startscreen-Funktionen absichern",
+      "type": "bug",
+      "status": "open",
+      "priority": "high",
+      "targetVersion": "high",
+      "description": "Startscreen-Funktionen im mobilen Browser gezielt gegen reale Geräte/Browser prüfen und verbleibende Sichtbarkeitsprobleme schließen.",
+      "releaseClosed": null
+    },
+    {
+      "id": "UI-MOBILE-IOS1",
+      "title": "iOS/Safari Viewport-Härtung",
+      "type": "bug",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": null,
+      "description": "Safari/WebKit-spezifische Viewport-Themen wie dvh/svh, Safe Area und visualViewport gezielt absichern.",
+      "releaseClosed": null
+    },
+    {
+      "id": "VIDEO2",
+      "title": "Video – Ausbaupunkt 2",
+      "type": "feature",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": null,
+      "description": "Weiterer Video-Ausbaupunkt aus der bestehenden Roadmap; Detailumfang vor Umsetzung aus dem Entwicklungskontext übernehmen.",
+      "releaseClosed": null
+    },
+    {
+      "id": "VIDEO3",
+      "title": "Video – Ausbaupunkt 3",
+      "type": "feature",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": null,
+      "description": "Weiterer Video-Ausbaupunkt aus der bestehenden Roadmap; Detailumfang vor Umsetzung aus dem Entwicklungskontext übernehmen.",
+      "releaseClosed": null
+    },
+    {
+      "id": "CAMERA1",
+      "title": "Kamera – Ausbaupunkt 1",
+      "type": "feature",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": null,
+      "description": "Weiterer Kamera-Ausbaupunkt der modularen DJI/GoPro-Anbindung.",
+      "releaseClosed": null
+    },
+    {
+      "id": "CAMERA2",
+      "title": "Kamera – Ausbaupunkt 2",
+      "type": "feature",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": null,
+      "description": "Weiterer Kamera-Ausbaupunkt der modularen DJI/GoPro-Anbindung.",
+      "releaseClosed": null
+    },
+    {
+      "id": "SYNC1",
+      "title": "Synchronisation – Ausbaupunkt 1",
+      "type": "feature",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": null,
+      "description": "Weiterer Cloud-/Synchronisations-Ausbaupunkt; bestehende Konfliktlogik bleibt davon unberührt.",
+      "releaseClosed": null
+    },
+    {
+      "id": "SYNC2",
+      "title": "Synchronisation – Ausbaupunkt 2",
+      "type": "feature",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": null,
+      "description": "Weiterer Cloud-/Synchronisations-Ausbaupunkt.",
+      "releaseClosed": null
+    },
+    {
+      "id": "SYNC3",
+      "title": "Synchronisation – Ausbaupunkt 3",
+      "type": "feature",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": null,
+      "description": "Weiterer Cloud-/Synchronisations-Ausbaupunkt.",
+      "releaseClosed": null
+    },
+    {
+      "id": "UPDATE1",
+      "title": "Update-Mechanismus weiterentwickeln",
+      "type": "feature",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": null,
+      "description": "Weiterer Ausbau des Update-/Release-Mechanismus.",
+      "releaseClosed": null
+    },
+    {
+      "id": "DOC1",
+      "title": "Dokumentation – Ausbaupunkt 1",
+      "type": "documentation",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": null,
+      "description": "Offener Dokumentationspunkt.",
+      "releaseClosed": null
+    },
+    {
+      "id": "DOC2",
+      "title": "Dokumentation – Ausbaupunkt 2",
+      "type": "documentation",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": null,
+      "description": "Offener Dokumentationspunkt.",
+      "releaseClosed": null
+    },
+    {
+      "id": "WEB1",
+      "title": "Web/Homepage – Ausbaupunkt 1",
+      "type": "web",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": null,
+      "description": "Offener Web-/Außendarstellungs-Punkt.",
+      "releaseClosed": null
+    },
+    {
+      "id": "WEB2",
+      "title": "Web/Homepage – Ausbaupunkt 2",
+      "type": "web",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": null,
+      "description": "Offener Web-/Außendarstellungs-Punkt.",
+      "releaseClosed": null
+    },
+    {
+      "id": "WEB3",
+      "title": "Web/Homepage – Ausbaupunkt 3",
+      "type": "web",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": null,
+      "description": "Offener Web-/Außendarstellungs-Punkt.",
+      "releaseClosed": null
+    },
+    {
+      "id": "QUAL-CORE1",
+      "title": "Neutrales Qualitäts-Kernmodell",
+      "type": "architecture",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": "0.5.0",
+      "description": "Neutrales internes Bewertungsmodell als gemeinsame Grundlage für unterschiedliche Erfassungsprofile.",
+      "releaseClosed": null
+    },
+    {
+      "id": "QUAL-PROFILE1",
+      "title": "Konfigurierbare Qualitätsprofile 1",
+      "type": "feature",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": "0.5.0",
+      "description": "DataVolley-nahe bzw. konfigurierbare Erfassungs-/Bewertungsprofile auf gemeinsamem Datenmodell.",
+      "releaseClosed": null
+    },
+    {
+      "id": "QUAL-PROFILE2",
+      "title": "Konfigurierbare Qualitätsprofile 2",
+      "type": "feature",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": "0.5.0",
+      "description": "Weiterer Profil-Ausbau auf dem gemeinsamen Qualitätsmodell.",
+      "releaseClosed": null
+    },
+    {
+      "id": "QUAL-PROFILE3",
+      "title": "Konfigurierbare Qualitätsprofile 3",
+      "type": "feature",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": "0.5.0",
+      "description": "Weiterer Profil-Ausbau auf dem gemeinsamen Qualitätsmodell.",
+      "releaseClosed": null
+    },
+    {
+      "id": "QUAL-PRECISION1",
+      "title": "Qualitätspräzision",
+      "type": "feature",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": "0.5.0",
+      "description": "Präzisierung/Granularität des Qualitätsmodells.",
+      "releaseClosed": null
+    },
+    {
+      "id": "QUAL-MAP1",
+      "title": "Qualitäts-Mapping",
+      "type": "architecture",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": "0.5.0",
+      "description": "Mapping zwischen Profilwerten und neutralem Kernmodell.",
+      "releaseClosed": null
+    },
+    {
+      "id": "QUAL-IMPORT1",
+      "title": "Qualitätsprofil-Import",
+      "type": "feature",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": "0.5.0",
+      "description": "Import-/Übernahmefähigkeit für Qualitätsprofile.",
+      "releaseClosed": null
+    },
+    {
+      "id": "QUAL-UI1",
+      "title": "UI für Qualitätsprofile",
+      "type": "ui",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": "0.5.0",
+      "description": "Konfigurations- und Bedienoberfläche für Qualitätsprofile.",
+      "releaseClosed": null
+    },
+    {
+      "id": "CHAIN1",
+      "title": "Aktionsketten – nächster Ausbau",
+      "type": "analysis",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": "0.5.0",
+      "description": "Weiterer Ausbau der Aktionsketten auf Basis des gemeinsamen Datenmodells.",
+      "releaseClosed": null
+    },
+    {
+      "id": "SCOUT-FLOW1",
+      "title": "SCOUT-FLOW1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "SCOUT-SIDE1",
+      "title": "SCOUT-SIDE1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "SCOUT-WOHIN1",
+      "title": "SCOUT-WOHIN1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "SCOUT-VIDEO1",
+      "title": "SCOUT-VIDEO1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "SCOUT-SYNC1",
+      "title": "SCOUT-SYNC1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "SCOUT-SYNC2",
+      "title": "SCOUT-SYNC2",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "UI-SCOUT4",
+      "title": "UI-SCOUT4",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "UI-SETTINGS1",
+      "title": "UI-SETTINGS1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "UI-LIBRARY1",
+      "title": "UI-LIBRARY1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "UI-LIBRARY-EDIT1",
+      "title": "UI-LIBRARY-EDIT1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "UI-ANALYSIS1",
+      "title": "UI-ANALYSIS1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "UI-MATCH1",
+      "title": "UI-MATCH1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "LEGAL-AI1",
+      "title": "LEGAL-AI1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "VIDEO-TIMESTAMP1",
+      "title": "VIDEO-TIMESTAMP1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "VIDEO-TIMESTAMP1a",
+      "title": "VIDEO-TIMESTAMP1a",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "VIDEO-TIMESTAMP1b",
+      "title": "VIDEO-TIMESTAMP1b",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "VIDEO-TIMESTAMP1c",
+      "title": "VIDEO-TIMESTAMP1c",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "VIDEO-TIMESTAMP1d",
+      "title": "VIDEO-TIMESTAMP1d",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "VIDEO-TIMESTAMP1e",
+      "title": "VIDEO-TIMESTAMP1e",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "VIDEO-TIMESTAMP1f",
+      "title": "VIDEO-TIMESTAMP1f",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-HELP1",
+      "title": "ANALYSIS-HELP1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-CHAIN2",
+      "title": "ANALYSIS-CHAIN2",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-CONTEXT1",
+      "title": "ANALYSIS-CONTEXT1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-INSIGHT1",
+      "title": "ANALYSIS-INSIGHT1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-INSIGHT2",
+      "title": "ANALYSIS-INSIGHT2",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-SERVE1",
+      "title": "ANALYSIS-SERVE1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-K3",
+      "title": "ANALYSIS-K3",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-ROT1",
+      "title": "ANALYSIS-ROT1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-FIRSTBALL1",
+      "title": "ANALYSIS-FIRSTBALL1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-SET1",
+      "title": "ANALYSIS-SET1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-ATTACK1",
+      "title": "ANALYSIS-ATTACK1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-RECEPTION1",
+      "title": "ANALYSIS-RECEPTION1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-BLOCKDEF1",
+      "title": "ANALYSIS-BLOCKDEF1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-PLAYER1",
+      "title": "ANALYSIS-PLAYER1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-OPP1",
+      "title": "ANALYSIS-OPP1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-CHAIN3",
+      "title": "ANALYSIS-CHAIN3",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-TARGET1",
+      "title": "ANALYSIS-TARGET1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-COMPARE2",
+      "title": "ANALYSIS-COMPARE2",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-CONFIDENCE2",
+      "title": "ANALYSIS-CONFIDENCE2",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-INSIGHT3",
+      "title": "ANALYSIS-INSIGHT3",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "UI-SCOUT-QUALITY1",
+      "title": "UI-SCOUT-QUALITY1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-REPORT1",
+      "title": "ANALYSIS-REPORT1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-REPORT2",
+      "title": "ANALYSIS-REPORT2",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-REPORT2A",
+      "title": "ANALYSIS-REPORT2A",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-REPORT3",
+      "title": "ANALYSIS-REPORT3",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-REPORT3A",
+      "title": "ANALYSIS-REPORT3A",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-SHARE1",
+      "title": "ANALYSIS-SHARE1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-SHARE2",
+      "title": "ANALYSIS-SHARE2",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "UI-REPORT1",
+      "title": "UI-REPORT1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "REPORT-PRINT1",
+      "title": "REPORT-PRINT1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "REPORT-PRINT2",
+      "title": "REPORT-PRINT2",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "REPORT-PRINT3",
+      "title": "REPORT-PRINT3",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "REPORT-FORMAT1",
+      "title": "REPORT-FORMAT1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "REPORT-FORMAT1A",
+      "title": "REPORT-FORMAT1A",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "REPORT-LAYOUT1",
+      "title": "REPORT-LAYOUT1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "REPORT-PLAYER1",
+      "title": "REPORT-PLAYER1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "REPORT-TRAINER1",
+      "title": "REPORT-TRAINER1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "REPORT-TYPO1",
+      "title": "REPORT-TYPO1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "REPORT-STYLE1",
+      "title": "REPORT-STYLE1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "REPORT-SHARE2A",
+      "title": "REPORT-SHARE2A",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "REPORT-SHARE2B",
+      "title": "REPORT-SHARE2B",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "UI-MOBILE1",
+      "title": "UI-MOBILE1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "UI-MOBILE2",
+      "title": "UI-MOBILE2",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "UI-MOBILE3",
+      "title": "UI-MOBILE3",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "UI-MOBILE4",
+      "title": "UI-MOBILE4",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "UI-MOBILE5",
+      "title": "UI-MOBILE5",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "UI-MOBILE5A",
+      "title": "UI-MOBILE5A",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "UI-MOBILE5B",
+      "title": "UI-MOBILE5B",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "UI-MOBILE5C",
+      "title": "UI-MOBILE5C",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "UI-MOBILE6",
+      "title": "UI-MOBILE6",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "UI-MOBILE7",
+      "title": "UI-MOBILE7",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "UI-MOBILE8",
+      "title": "UI-MOBILE8",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "UI-MOBILE9",
+      "title": "UI-MOBILE9",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "UI-MOBILE11",
+      "title": "UI-MOBILE11",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "UI-TABLET1",
+      "title": "UI-TABLET1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "PWA1",
+      "title": "PWA1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "PWA2",
+      "title": "PWA2",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "DATA-MATCHDATE1",
+      "title": "DATA-MATCHDATE1",
+      "type": "historical",
+      "status": "closed",
+      "priority": null,
+      "targetVersion": null,
+      "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
+      "releaseClosed": "0.4.1"
+    }
+  ]
+}

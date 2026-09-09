@@ -1,4 +1,4 @@
-// VolleyTakt Live 0.4.0 RC5 - central application state boundary.
+// VolleyTakt Live 0.4.1 - central application state boundary.
 // The persisted shape intentionally remains compatible with 0.3.2 Preview2-r7 rebuild3-fix2.
 
 export const TRANSIENT_STATE_KEYS = Object.freeze([
@@ -9,7 +9,7 @@ export const TRANSIENT_STATE_KEYS = Object.freeze([
 
 export function createDefaultState(today = new Date().toISOString().slice(0,10)) {
   return {
-    quickScout:false,quickScoutDraft:false,quickOwnName:'Wir',quickOppName:'Gegner',quickPlayers:{},matchDate:today,seasonId:'',ownTeamId:'',oppTeamId:'',matchTypeId:'',matchTypeName:'',matchMode:'regular',fixedSetCount:3,fixedFinalSetTarget:25,ownQualityProfile:'',opponentQualityProfile:'',setNo:1,setWinsUs:0,setWinsThem:0,firstSetServing:'',setReady:false,matchComplete:false,scoreUs:0,scoreThem:0,rotationIndex:0,oppRotationIndex:0,ownLineup:{},oppLineup:{},ownBaseLineup:{},oppBaseLineup:{},setLineupsOwn:{},setLineupsOpp:{},currentLiberosOwn:[],currentLiberosOpp:[],setLiberosOwn:{},setLiberosOpp:{},selectedPos:0,selectedOppPos:0,pendingSide:null,pendingAction:null,pendingQuality:null,opponentCapture:true,allowPositionOnly:false,autoRotate:true,servingSide:'',localClockRunning:false,localClockStartedAt:0,localClockElapsed:0,sessionStartedAt:0,clockMode:'local',activeTeamContext:'own',matchId:'',syncGeneration:0,currentRallyId:'',currentRallyNo:0,currentRallySeq:0,rallyCounter:0,rallyHighWater:0,rallyStartServing:'',currentRallyPhase:'',currentTransitionNo:1,lastActionSide:'',rallyBallZone:0,rallyBallSide:'',inputStep:'WER',selectedPlayerId:'',selectedPlayerPos:0,actionZone:0,targetZone:0,targetSide:'',actionStartedSeconds:null,actionStartedAt:'',setTempo:'',setDistance:'',serveTechnique:'',autoServePreset:false,captureQualityProfile:'',captureFieldOrientation:'',videoClipId:'',videoClipCounter:0,cameraRecording:false,fieldOrientation:'activeBottom',videoAssignments:[]
+    quickScout:false,quickScoutDraft:false,quickOwnName:'Wir',quickOppName:'Gegner',quickPlayers:{},matchDate:today,seasonId:'',ownTeamId:'',oppTeamId:'',matchTypeId:'',matchTypeName:'',matchMode:'regular',fixedSetCount:3,fixedFinalSetTarget:25,ownQualityProfile:'',opponentQualityProfile:'',setNo:1,setWinsUs:0,setWinsThem:0,firstSetServing:'',setReady:false,matchComplete:false,scoreUs:0,scoreThem:0,rotationIndex:0,oppRotationIndex:0,ownLineup:{},oppLineup:{},ownBaseLineup:{},oppBaseLineup:{},setLineupsOwn:{},setLineupsOpp:{},currentLiberosOwn:[],currentLiberosOpp:[],setLiberosOwn:{},setLiberosOpp:{},selectedPos:0,selectedOppPos:0,pendingSide:null,pendingAction:null,pendingQuality:null,opponentCapture:true,allowPositionOnly:false,autoRotate:true,servingSide:'',localClockRunning:false,localClockStartedAt:0,localClockElapsed:0,sessionStartedAt:0,clockMode:'local',activeTeamContext:'own',matchId:'',syncGeneration:0,currentRallyId:'',currentRallyNo:0,currentRallySeq:0,rallyCounter:0,rallyHighWater:0,rallyStartServing:'',currentRallyPhase:'',currentTransitionNo:1,lastActionSide:'',rallyBallZone:0,rallyBallSide:'',inputStep:'WER',selectedPlayerId:'',selectedPlayerPos:0,actionZone:0,targetZone:0,targetSide:'',actionStartedSeconds:null,actionStartedAt:'',setTempo:'',setDistance:'',serveTechnique:'',autoServePreset:false,captureQualityProfile:'',captureFieldOrientation:'',videoClipId:'',videoClipCounter:0,cameraRecording:false,fieldOrientation:'activeBottom',videoAssignments:[],videoClockInitialized:false
   };
 }
 
@@ -61,6 +61,7 @@ export function normalizeLoadedState(source = {}, defaults = createDefaultState(
   state.rallyBallZone=Math.max(0,+state.rallyBallZone||0);
   state.rallyBallSide=state.rallyBallSide==='opponent'?'opponent':state.rallyBallSide==='own'?'own':'';
   state.videoAssignments=[...(state.videoAssignments||[])];
+  state.videoClockInitialized=state.videoClockInitialized===true;
   // RC3 / FE-TIME1: a persisted running local clock must never count time while the app was closed.
   // Preserve the already accumulated duration, but resume only after an explicit user action.
   state.localClockElapsed=Number.isFinite(+state.localClockElapsed)?Math.max(0,+state.localClockElapsed):0;

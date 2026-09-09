@@ -1,10 +1,10 @@
-const CACHE = 'volleytakt-live-web-v0.4.0';
+const CACHE = 'volleytakt-live-web-v0.4.1';
 
 // Nur diese Kernressourcen dürfen die Installation des Service Workers blockieren.
 const CORE_ASSETS = [
   './',
   './index.html',
-  './styles.css?v=0.4.0',
+  './styles.css?v=0.4.1',
   './manifest.webmanifest',
   './update-manifest.json',
   './logo.png',
@@ -13,8 +13,8 @@ const CORE_ASSETS = [
   './js/app/state.js',
   './js/app/selectors.js',
   './js/app/persistence.js',
-  './js/app/commands.js','./js/app/input-routing.js',
-  './js/analysis/domain.js','./js/analysis/filters.js','./js/analysis/rallies.js','./js/analysis/basic.js','./js/analysis/chains.js','./js/analysis/opponent.js','./js/analysis/priorities.js','./js/analysis/cache.js','./js/analysis/result-window.js','./js/analysis/ui.js',
+  './js/app/commands.js','./js/app/input-routing.js','./js/ui/layout/device-layout.js',
+  './js/library/metadata.js','./js/data/context.js','./js/analysis/domain.js','./js/analysis/deep.js','./js/analysis/filters.js','./js/analysis/rallies.js','./js/analysis/basic.js','./js/analysis/chains.js','./js/analysis/chains2.js','./js/analysis/context.js','./js/analysis/insights.js','./js/analysis/insights-advanced.js','./js/analysis/opponent.js','./js/analysis/priorities.js','./js/analysis/cache.js','./js/analysis/result-window.js','./js/analysis/team-report.js','./js/analysis/report-export.js','./js/analysis/trainer-report.js','./js/analysis/ui.js',
   './js/camera/service.js',
   './js/scouting/scouting.js',
   './js/scouting/rally.js',

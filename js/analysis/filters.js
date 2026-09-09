@@ -1,7 +1,13 @@
 import {analysisDate,actionName} from './domain.js';
 export function filterMatches(matches,filters={},pinnedMatchId=''){
   const {from='',to='',seasonId='',teamId='',oppId='',typeId=''}=filters;
-  return (matches||[]).filter(match=>{if(pinnedMatchId&&match.matchId!==pinnedMatchId)return false;const date=analysisDate(match);return (!from||date>=from)&&(!to||date<=to)&&(!seasonId||match.seasonId===seasonId)&&(!teamId||match.ownTeamId===teamId)&&(!oppId||match.oppTeamId===oppId)&&(!typeId||match.matchTypeId===typeId);});
+  const explicit=!!(from||to||seasonId||teamId||oppId||typeId);
+  return (matches||[]).filter(match=>{
+    if(pinnedMatchId&&!explicit&&match.matchId!==pinnedMatchId)return false;
+    const date=analysisDate(match);
+    if((from||to)&&!/^\d{4}-\d{2}-\d{2}$/.test(date))return false;
+    return (!from||date>=from)&&(!to||date<=to)&&(!seasonId||match.seasonId===seasonId)&&(!teamId||match.ownTeamId===teamId)&&(!oppId||match.oppTeamId===oppId)&&(!typeId||match.matchTypeId===typeId);
+  });
 }
 export function filterEvents(matches,filters={},actions=[]){
   const {playerId='',technique='',rotation='',setNo=''}=filters;const out=[];

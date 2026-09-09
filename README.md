@@ -1,23 +1,70 @@
-# VolleyTakt Live 0.4.0
+# VolleyTakt Live 0.4.1
 
-Browserbasierte, offline-first Volleyball-Scouting-WebApp/PWA.
+VolleyTakt Live ist die browserbasierte, offline-first Scouting-Anwendung des VolleyTakt-Projekts.
 
-## Kernumfang
+## Funktionen
 
-- reguläres und spontanes Livescouting
-- WER → WAS → WIE → WO → WOHIN, einfache und detaillierte Bewertung
-- Rally-, Punkt-, Satz-, Rotations-, Wechsel- und Libero-Logik mit Undo/Redo
-- Spielbibliothek, Videozuordnung und Scouting↔Video-Zeitabgleich
-- optionale Nextcloud/WebDAV-Synchronisation
-- modulare DJI-Osmo-Action- und GoPro-HERO-Kameraanbindung über BLE
-- Analyse von Spiel/Satz, Rotation, K1/K2, First-Ball-Sideout, Aufschlag, Annahme, Zuspiel, Angriff, Spielerinnen, Kontextketten, Gegner-Tendenzen, Techniken und Rallys
-- A/B-Vergleich, gespeicherte Analyseergebnisse und Drucken/PDF
-- deutsche und englische Oberfläche/Hilfe
+- Live-Scouting mit WER → WAS → WIE → WO → WOHIN
+- freie Auswahlreihenfolge für WER/WAS/WIE bei unveränderter gespeicherter Semantik
+- 5:1-orientierte Rotations-/Aufstellungsunterstützung, Satzwechsel und Seitenlogik
+- Spielbibliothek mit lokalem Speicher und optionaler Cloud-Synchronisation
+- Nextcloud/WebDAV-Synchronisation mit Konflikterkennung und bewusster Cloud-/Lokal-Entscheidung
+- Videozuordnung und nachträgliche Timestamp-Bearbeitung
+- modulare BLE-Kameraanbindung für unterstützte DJI-Osmo-Action- und GoPro-HERO-Modelle
+- integrierte Analyse für K1/K2/K3, Sideout, First Ball, Aufschlag, Annahme, Zuspiel, Angriff, Block/Abwehr, Rotationen, Spielerinnen, Gegner, Zielzonen und Aktionsketten
+- A/B-Vergleiche und datenbasierte Hinweise
+- Spielerinnenreport sowie Trainer-Kurz- und Trainer-Detailreport
+- PDF/Druck, Text- und PNG-Ausgabe; mobile Teilen-Funktion nur bei passender Plattformunterstützung
+- responsive Browser-/PWA-Oberfläche mit mobilem Landscape-Fokus
+- deutsche und englische Oberfläche
+- Offline-Nutzung über Service Worker/PWA
 
-## Installation
+## Version
 
-Den Inhalt des Webspace-Pakets in das Stammverzeichnis von `DEINE-DOMAIN` kopieren. Die App benötigt keinen Build-Schritt.
+**VolleyTakt Live 0.4.1**
 
-## Lizenz
+- Release-Kanal: `stable`
+- Datenschema: `6`
+- Lizenz: PolyForm Perimeter License 1.0.1
+- Copyright: © 2026 Ingo Zech
 
-Copyright © 2026 Ingo Zech. VolleyTakt wird unter der PolyForm Perimeter License 1.0.1 bereitgestellt. Siehe `LICENSE.md`.
+VolleyTakt ist **quelloffen / source available**, aber nicht als OSI-Open-Source-Projekt lizenziert.
+
+## Installation auf einem Webspace
+
+Für die Installation ist das separate Web-Space-ZIP vorgesehen. Dessen Inhalt direkt in das Zielverzeichnis des Webservers entpacken. Für Nextcloud/WebDAV muss PHP für `sync/nextcloud.php` verfügbar sein.
+
+Nach einem Update empfiehlt sich ein vollständiges Neuladen der WebApp; als PWA kann je nach Browser zusätzlich ein Service-Worker-Refresh erforderlich sein.
+
+## Entwicklung und Tests
+
+Das GitHub-Paket enthält zusätzlich die Test- und Release-Dateien.
+
+```bash
+./tests/run_checks.sh
+```
+
+Die Prüfkette deckt unter anderem ab:
+
+- JavaScript-/JSON-/PHP-Grundprüfungen
+- i18n-Coverage
+- WER/WAS/WIE-Permutationen
+- Timestamp-Editor
+- Cloud-Konfliktlogik
+- Datenschema-Migration 5 → 6
+- Analyse-/Report-Regressionen
+- WebDAV-Relay-Sicherheitsprüfungen
+- Service-Worker-Dateien und statische Imports
+- finale Versionskonsistenz
+
+## Tickets
+
+- `TODO.md` – offene Tickets
+- `tickets.json` – maschinenlesbare Gesamtübersicht
+- `CLOSED_TICKETS.md` – abgeschlossene Tickets
+
+## Rechtlicher Hinweis
+
+© 2026 Ingo Zech. Nutzung gemäß PolyForm Perimeter License 1.0.1.
+
+VolleyTakt wurde teilweise mit Unterstützung von KI-Werkzeugen entwickelt.

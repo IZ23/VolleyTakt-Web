@@ -91,7 +91,7 @@
 .correction-dock{
   grid-area:corrections;
   display:grid;
-  grid-template-columns:auto repeat(6,minmax(120px,1fr));
+  grid-template-columns:auto repeat(7,minmax(105px,1fr));
   align-items:stretch;
   gap:6px;
   min-width:0;
@@ -174,7 +174,7 @@
   .note-label textarea{height:66px;min-height:66px;max-height:66px;font-size:1rem}
   .court{gap:5px;padding:5px}.court .net{font-size:.62rem}.pos b{font-size:1rem}.pos span{font-size:.82rem}.pos small{font-size:.60rem}
   .rotation-controls{gap:5px;margin-top:5px}.rotation-controls button{min-height:46px;padding:.35rem;font-size:.82rem}
-  .correction-dock{grid-template-columns:auto repeat(6,minmax(95px,1fr));padding:5px;gap:5px}
+  .correction-dock{grid-template-columns:auto repeat(7,minmax(82px,1fr));padding:5px;gap:5px}
   .correction-dock button{min-height:46px;font-size:.75rem;padding:.3rem}.correction-label{font-size:.60rem}
 }
 
@@ -290,7 +290,7 @@ body{min-width:0}
 .rotation-controls{gap:clamp(3px,calc(6px * var(--vsw-scale)),6px);margin-top:clamp(3px,calc(7px * var(--vsw-hscale)),7px)}
 .rotation-controls button{min-height:clamp(38px,calc(54px * var(--vsw-hscale)),54px);font-size:clamp(.68rem,calc(.9rem * var(--vsw-scale)),.9rem);padding:.25rem}
 .correction-dock{
-  grid-template-columns:auto repeat(6,minmax(0,1fr))!important;
+  grid-template-columns:auto repeat(7,minmax(0,1fr))!important;
   gap:clamp(3px,calc(6px * var(--vsw-scale)),6px)!important;
   padding:clamp(4px,calc(7px * var(--vsw-hscale)),7px)!important;
   min-width:0;
@@ -312,7 +312,7 @@ body{min-width:0}
   .header-pill{padding:.20rem .28rem}
   .workspace.scout-layout{grid-template-columns:minmax(0,25fr) minmax(0,43fr) minmax(0,32fr)!important}
   .correction-label{display:none}
-  .correction-dock{grid-template-columns:repeat(6,minmax(0,1fr))!important}
+  .correction-dock{grid-template-columns:repeat(7,minmax(0,1fr))!important}
 }
 @media (max-width:820px) and (orientation:landscape){
   .topbar{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)!important}
@@ -330,7 +330,7 @@ body{min-width:0}
    DeX und frei skalierte Desktopfenster ohne Geräteerkennung. */
 .viewport-compact .header-set{display:none}.viewport-compact .brand-copy small{display:block!important}
 .viewport-compact .correction-label{display:none}
-.viewport-compact .correction-dock{grid-template-columns:repeat(6,minmax(0,1fr))!important}
+.viewport-compact .correction-dock{grid-template-columns:repeat(7,minmax(0,1fr))!important}
 .viewport-low .technique-grid button{min-height:42px!important}
 .viewport-low .quality-stack button{min-height:38px!important}
 .viewport-low .inline-quality-toggle{min-height:42px!important;margin-bottom:4px!important}
@@ -1317,7 +1317,7 @@ body{min-width:0}
   .pos{gap:0!important;padding:1px!important;border-width:1px!important;border-radius:4px!important;min-height:0!important}.pos-position{font-size:clamp(.74rem,3.1vh,1.12rem)!important;line-height:1!important}.pos-playerline{font-size:clamp(.48rem,1.8vh,.67rem)!important;line-height:1!important}.pos-name{font-size:clamp(.43rem,1.45vh,.58rem)!important;line-height:1!important}.pos:empty{display:none!important}
   .rotation-controls,.player-change-controls{gap:3px!important;margin-top:3px!important}.rotation-controls button,.player-change-controls button{min-height:32px!important;height:32px!important;padding:.15rem .25rem!important;font-size:.63rem!important;border-radius:7px!important}
   .target-hint{margin-top:2px!important;padding:2px 5px!important;font-size:.56rem!important;line-height:1.05!important}
-  .correction-dock{grid-column:1/-1!important;grid-row:2!important;height:44px!important;padding:3px!important;gap:3px!important;grid-template-columns:repeat(6,minmax(0,1fr))!important}.correction-label{display:none!important}.correction-dock button{height:36px!important;min-height:36px!important;padding:.15rem .25rem!important;font-size:.59rem!important;border-radius:7px!important}
+  .correction-dock{grid-column:1/-1!important;grid-row:2!important;height:44px!important;padding:3px!important;gap:3px!important;grid-template-columns:repeat(7,minmax(0,1fr))!important}.correction-label{display:none!important}.correction-dock button{height:36px!important;min-height:36px!important;padding:.15rem .25rem!important;font-size:.59rem!important;border-radius:7px!important}
   .statusbar{height:22px!important;padding:0 5px!important;font-size:.55rem!important}.status-right{gap:3px!important}.statusbar .badge{min-height:18px!important;height:18px!important;padding:0 .25rem!important;font-size:.52rem!important}
   .note-label textarea{height:50px!important;min-height:50px!important;max-height:50px!important;font-size:.78rem!important;padding:5px!important}
   .protocol-wrap table{font-size:.65rem!important}.protocol-wrap th,.protocol-wrap td{padding:4px!important}
@@ -1605,3 +1605,1647 @@ button.is-busy{cursor:progress;opacity:.82}
 .match-library-summary strong{flex:0 1 auto;font-size:.92rem;white-space:normal}
 .match-library-summary .match-library-meta{flex:0 1 auto;font-size:.7rem!important;color:var(--muted,#9fb0c2);white-space:normal}
 @media(max-width:700px){.match-library-main{align-items:flex-start!important}.match-library-summary .match-library-meta{flex-basis:100%}}
+
+/* ==============================================================
+   0.4.1 RC1 — device-class layouts without duplicated app logic
+   Classification is applied by js/ui/layout/device-layout.js from the
+   usable CSS viewport. Components and scouting behaviour remain shared.
+   ============================================================== */
+.portrait-rotate-overlay{display:none}
+html.layout-phone-portrait .portrait-rotate-overlay{
+  position:fixed;inset:0;z-index:10000;display:grid!important;place-items:center;
+  padding:max(20px,env(safe-area-inset-top)) max(20px,env(safe-area-inset-right)) max(20px,env(safe-area-inset-bottom)) max(20px,env(safe-area-inset-left));
+  background:rgba(2,6,23,.72);backdrop-filter:blur(16px) saturate(.75);-webkit-backdrop-filter:blur(16px) saturate(.75);
+  color:#f8fafc;text-align:center;touch-action:none;overscroll-behavior:none
+}
+html.layout-phone-portrait body{overflow:hidden!important}
+html.layout-phone-portrait #app,html.layout-phone-portrait #startGate{filter:blur(13px) brightness(.42);pointer-events:none;user-select:none}
+.portrait-rotate-card{width:min(92vw,430px);padding:30px 24px 28px;border:1px solid rgba(148,163,184,.32);border-radius:24px;background:rgba(15,23,42,.92);box-shadow:0 22px 70px rgba(0,0,0,.45)}
+.portrait-rotate-card h1{margin:18px 0 9px;font-size:clamp(1.45rem,6vw,2rem);line-height:1.12;letter-spacing:-.02em}
+.portrait-rotate-card p{margin:0;color:#cbd5e1;font-size:clamp(.95rem,3.7vw,1.08rem);line-height:1.45}
+.rotate-device-icon{position:relative;width:92px;height:72px;margin:0 auto}
+.rotate-device-icon span{position:absolute;left:25px;top:9px;width:44px;height:66px;border:4px solid #38bdf8;border-radius:10px;transform:rotate(90deg);box-shadow:0 0 28px rgba(56,189,248,.22)}
+.rotate-device-icon span:after{content:"";position:absolute;left:50%;bottom:4px;width:10px;height:2px;border-radius:2px;background:#38bdf8;transform:translateX(-50%)}
+.rotate-device-icon i{position:absolute;right:-2px;top:-5px;font-style:normal;font-size:38px;line-height:1;color:#f8fafc}
+
+html.layout-phone-landscape{
+  --phone-gap:5px;
+  --vsw-ui-scale:.64!important
+}
+html.layout-phone-landscape .app-shell{min-height:0!important;height:100dvh!important;grid-template-rows:44px minmax(0,1fr) 20px!important}
+html.layout-phone-landscape .topbar{height:44px!important;min-height:44px!important;padding:2px 5px!important;grid-template-columns:auto minmax(0,1fr) auto!important;gap:4px!important}
+html.layout-phone-landscape .brand-menu{height:34px!important;min-height:34px!important;width:43px!important;padding:2px!important}
+html.layout-phone-landscape .brand-menu img{width:28px!important;height:28px!important;min-width:28px!important}
+html.layout-phone-landscape .brand-copy{display:none!important}
+html.layout-phone-landscape .head-actions{gap:2px!important;grid-column:auto!important}
+html.layout-phone-landscape .header-pill{min-height:30px!important;height:30px!important;padding:.14rem .30rem!important;font-size:.58rem!important}
+html.layout-phone-landscape .header-set{display:none!important}
+html.layout-phone-landscape .clock-pill #clockMode{display:none!important}
+html.layout-phone-landscape .clock-pill strong{font-size:.70rem!important}
+html.layout-phone-landscape .workspace.scout-layout{
+  height:100%!important;min-height:0!important;padding:4px!important;gap:var(--phone-gap)!important;overflow:hidden!important;
+  grid-template-columns:minmax(285px,44%) minmax(0,56%)!important;
+  grid-template-rows:minmax(0,1fr) 40px!important;
+  grid-template-areas:"controls court" "corrections corrections"!important
+}
+html.layout-phone-landscape .control-panel{grid-area:controls!important;display:grid!important;grid-template-rows:auto auto auto auto auto auto auto auto!important;align-content:start!important;padding:4px!important;overflow:auto!important;overscroll-behavior:contain;scrollbar-width:thin}
+html.layout-phone-landscape .control-panel .section-title{min-height:18px!important;margin-bottom:1px!important;font-size:.67rem!important}
+html.layout-phone-landscape .control-panel #selectionLabel{max-width:68%;font-size:.54rem!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html.layout-phone-landscape .input-step-indicator{font-size:.51rem!important;gap:1px!important;margin:0 0 2px!important}
+html.layout-phone-landscape .input-step-indicator span{padding:2px 2px!important;border-radius:4px!important}
+html.layout-phone-landscape .scout-mode-toggles{grid-template-columns:1fr 1fr!important;gap:3px!important;margin:1px 0 2px!important}
+html.layout-phone-landscape .inline-quality-toggle{min-height:26px!important;height:26px!important;padding:1px 4px!important;margin:0!important;font-size:.56rem!important;border-radius:6px!important}
+html.layout-phone-landscape .inline-quality-toggle .switch{transform:scale(.66)!important;transform-origin:right center!important;margin-left:-13px!important}
+html.layout-phone-landscape .subheading{font-size:.53rem!important;margin:2px 0 1px!important;letter-spacing:.03em!important}
+html.layout-phone-landscape .technique-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:3px!important;grid-auto-rows:39px!important}
+html.layout-phone-landscape .technique-grid .technique-button{height:39px!important;min-height:39px!important;max-height:39px!important;display:flex!important;flex-direction:row!important;justify-content:flex-start!important;gap:4px!important;padding:2px 5px!important;border-radius:6px!important}
+html.layout-phone-landscape .technique-button .technique-icon{width:24px!important;height:24px!important;flex-basis:24px!important}
+html.layout-phone-landscape .technique-button .technique-label{font-size:.55rem!important;text-align:left!important}
+html.layout-phone-landscape .quality-stack{display:grid!important;grid-template-columns:repeat(var(--quality-count,6),minmax(0,1fr))!important;gap:3px!important;grid-auto-rows:34px!important;overflow:visible!important}
+html.layout-phone-landscape .quality-stack button{display:block!important;height:34px!important;min-height:34px!important;max-height:34px!important;font-size:.92rem!important;padding:0!important;border-radius:6px!important}
+html.layout-phone-landscape .quality-meaning{display:none!important}
+html.layout-phone-landscape .set-detail-panel{max-height:58px!important;overflow:auto!important;padding:2px!important;margin-top:2px!important}
+html.layout-phone-landscape .set-detail-buttons button{min-height:26px!important;height:26px!important;font-size:.52rem!important;padding:.08rem!important}
+html.layout-phone-landscape .court-panel{grid-area:court!important;position:relative!important;padding:4px!important;min-height:0!important;overflow:hidden!important}
+html.layout-phone-landscape .court-title{min-height:27px!important;margin-bottom:2px!important;padding-right:0!important}
+html.layout-phone-landscape .court-title #captureTitle{font-size:.60rem!important}
+html.layout-phone-landscape .court-title-tools{gap:3px!important}
+html.layout-phone-landscape .court-title-tools .switch{transform:scale(.66)!important;transform-origin:center!important}
+html.layout-phone-landscape .opponent-switch{font-size:.56rem!important;gap:1px!important}
+html.layout-phone-landscape .field-orientation-btn{width:27px!important;min-width:27px!important;height:27px!important;min-height:27px!important}
+html.layout-phone-landscape .court-wrap{min-height:0!important;overflow:hidden!important}
+html.layout-phone-landscape .court{gap:2px!important;padding:2px!important;border-width:1px!important}
+html.layout-phone-landscape .court .pos{min-height:0!important;padding:1px!important}
+html.layout-phone-landscape .court .pos-position{font-size:clamp(.78rem,3.5vh,1.05rem)!important}
+html.layout-phone-landscape .court .pos-playerline{font-size:.50rem!important}
+html.layout-phone-landscape .rotation-controls,html.layout-phone-landscape .player-change-controls{gap:3px!important;margin-top:2px!important}
+html.layout-phone-landscape .rotation-controls button,html.layout-phone-landscape .player-change-controls button{height:28px!important;min-height:28px!important;padding:.1rem!important;font-size:.55rem!important}
+html.layout-phone-landscape .protocol-panel{display:none!important;position:fixed!important;z-index:900;inset:48px 5px 24px 5px;border:2px solid #38bdf8;box-shadow:0 12px 45px #000d;padding:6px!important;background:#0f172af7!important}
+html.layout-phone-landscape body.phone-protocol-open .protocol-panel{display:grid!important}
+html.layout-phone-landscape .phone-only{display:inline-flex!important}
+html.layout-phone-landscape .phone-protocol-btn{position:fixed!important;right:max(7px,env(safe-area-inset-right));bottom:max(27px,calc(env(safe-area-inset-bottom) + 27px));z-index:80;min-height:32px!important;height:32px!important;padding:.18rem .55rem!important;font-size:.62rem!important;border-radius:999px!important;box-shadow:0 5px 18px #0009;background:#1e293b!important;border-color:#38bdf8!important}
+html.layout-phone-landscape .phone-protocol-close{min-height:28px!important;height:28px!important;padding:.1rem .42rem!important}
+html.layout-phone-landscape .correction-dock{grid-area:corrections!important;height:40px!important;display:grid!important;grid-template-columns:repeat(7,minmax(0,1fr))!important;gap:3px!important;padding:3px!important}
+html.layout-phone-landscape .correction-label{display:none!important}
+html.layout-phone-landscape .correction-dock button{height:34px!important;min-height:34px!important;padding:.08rem .15rem!important;font-size:.50rem!important;line-height:1!important}
+html.layout-phone-landscape .statusbar{height:20px!important;min-height:20px!important;font-size:.51rem!important;padding:0 5px!important}
+html.layout-phone-landscape .status-right{gap:2px!important}
+html.layout-phone-landscape .statusbar .badge{font-size:.48rem!important;padding:.08rem .20rem!important}
+/* WER/WAS/WIE collapse only after the workflow has advanced to location capture. */
+html.layout-phone-landscape[data-scout-step="wo"] .technique-grid,html.layout-phone-landscape[data-scout-step="wohin"] .technique-grid,html.layout-phone-landscape[data-scout-step="wo"] .technique-heading,html.layout-phone-landscape[data-scout-step="wohin"] .technique-heading{display:none!important}
+html.layout-phone-landscape[data-scout-step="wo"] .quality-stack,html.layout-phone-landscape[data-scout-step="wohin"] .quality-stack,html.layout-phone-landscape[data-scout-step="wo"] .quality-heading,html.layout-phone-landscape[data-scout-step="wohin"] .quality-heading{display:none!important}
+
+/* 0.4.1 RC1 · DOC-HELP1 — Bewertungssymbole sind echte Tabellenkopfzeile.
+   Die historische Hilfsklasse .compact darf diese Tabelle nicht zu flex machen. */
+.help-quality-table .data-table.compact{display:table!important;width:100%!important;min-width:820px;border-collapse:collapse;table-layout:auto;color:inherit}
+.help-quality-table .data-table.compact thead{display:table-header-group!important}
+.help-quality-table .data-table.compact tbody{display:table-row-group!important}
+.help-quality-table .data-table.compact tr{display:table-row!important}
+.help-quality-table .data-table.compact th,.help-quality-table .data-table.compact td{display:table-cell!important;vertical-align:middle}
+.help-quality-table .data-table.compact thead th{font-weight:900;color:#e2e8f0;background:#111c2e;white-space:nowrap}
+
+
+/* ==============================================================
+   0.4.1 RC2 — UI-MOBILE1..8 browser hardening
+   One shared component tree; only layout/visibility changes by viewport class.
+   ============================================================== */
+:root{--safe-top:env(safe-area-inset-top,0px);--safe-right:env(safe-area-inset-right,0px);--safe-bottom:env(safe-area-inset-bottom,0px);--safe-left:env(safe-area-inset-left,0px)}
+html,body{min-width:0;width:100%;max-width:100%;min-height:100%;min-height:100dvh}
+.start-gate{min-width:0;width:100%;max-width:100%;min-height:100%;min-height:100dvh}
+.start-card,.start-card>*{min-width:0;max-width:100%}
+
+/* Mobile browser start gate: keep the desktop visual hierarchy instead of a
+   sideways compressed card. Explicit rows prevent Firefox from creating an
+   implicit grid column when browserCameraNotice becomes visible. */
+html.layout-phone-landscape .start-gate{
+  place-items:center!important;
+  overflow:auto!important;
+  padding:max(6px,var(--safe-top)) max(10px,var(--safe-right)) max(6px,var(--safe-bottom)) max(10px,var(--safe-left))!important;
+}
+html.layout-phone-landscape .start-card{
+  width:min(690px,calc(100dvw - max(20px,var(--safe-left)) - max(20px,var(--safe-right))))!important;
+  max-width:100%!important;
+  max-height:calc(100dvh - max(12px,var(--safe-top)) - max(12px,var(--safe-bottom)))!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-areas:"logo" "title" "meta" "notice" "button" "note"!important;
+  justify-items:center!important;
+  align-content:center!important;
+  gap:clamp(3px,1.2dvh,8px)!important;
+  padding:clamp(10px,2.7dvh,18px) clamp(16px,3.5dvw,30px)!important;
+  text-align:center!important;
+  overflow:auto!important;
+  border-radius:20px!important;
+}
+html.layout-phone-landscape .start-card>img{grid-area:logo!important;width:clamp(66px,16dvh,102px)!important;height:auto!important;justify-self:center!important}
+html.layout-phone-landscape .start-card>h1{grid-area:title!important;margin:0!important;font-size:clamp(1.25rem,5dvh,1.85rem)!important;line-height:1.05!important;text-align:center!important}
+html.layout-phone-landscape .start-card>p{grid-area:meta!important;margin:0!important;font-size:clamp(.66rem,2.35dvh,.86rem)!important;line-height:1.25!important;text-align:center!important;white-space:normal!important;overflow-wrap:anywhere!important}
+html.layout-phone-landscape .start-card>.browser-camera-notice{grid-area:notice!important;width:min(100%,620px)!important;margin:2px 0!important;padding:clamp(6px,1.7dvh,10px) clamp(9px,1.8dvw,13px)!important;font-size:clamp(.63rem,2.05dvh,.78rem)!important;line-height:1.3!important;text-align:left!important}
+html.layout-phone-landscape .start-card>.start-actions{grid-area:button!important;width:min(360px,78%)!important;margin:2px 0!important;justify-self:center!important}
+html.layout-phone-landscape .start-card>.start-actions #startAppBtn{width:100%!important;min-height:40px!important;height:auto!important;margin:0!important;padding:clamp(.45rem,1.8dvh,.7rem)!important;font-size:clamp(.9rem,2.8dvh,1.08rem)!important}
+html.layout-phone-landscape .start-card>small{grid-area:note!important;margin:0!important;font-size:clamp(.55rem,1.75dvh,.70rem)!important;line-height:1.25!important;text-align:center!important;white-space:normal!important;overflow-wrap:anywhere!important}
+
+/* Extra-short browser viewport: preserve hierarchy but reduce decoration, never
+   hide the feature/meta row. */
+@media (orientation:landscape) and (max-height:390px){
+  html.layout-phone-landscape .start-card{gap:2px!important;padding:7px 14px!important}
+  html.layout-phone-landscape .start-card>img{width:58px!important}
+  html.layout-phone-landscape .start-card>h1{font-size:1.16rem!important}
+  html.layout-phone-landscape .start-card>.browser-camera-notice{padding:5px 8px!important;font-size:.60rem!important}
+  html.layout-phone-landscape .start-card>.start-actions{width:min(330px,72%)!important}
+  html.layout-phone-landscape .start-card>small{font-size:.53rem!important}
+}
+
+/* Portrait blocking overlay: brand + rotation instruction; use dvh/safe areas and
+   block underlying controls. */
+html.layout-phone-portrait .portrait-rotate-overlay{min-height:100dvh!important;overflow:auto!important}
+.portrait-rotate-logo{display:block;width:clamp(72px,20vw,104px);height:auto;margin:0 auto 12px;filter:drop-shadow(0 8px 24px rgba(0,0,0,.28))}
+.portrait-rotate-card{max-height:calc(100dvh - max(40px,var(--safe-top)) - max(40px,var(--safe-bottom)));overflow:auto}
+.portrait-rotate-card .rotate-device-icon{margin-top:2px}
+
+/* Low-height landscape always uses the same compact scouting structure. Make the
+   control column internally scrollable as a last-resort fallback, while WIE is
+   part of the initial visible grid at normal phone heights. */
+html.layout-phone-landscape .workspace.scout-layout{
+  width:100%!important;max-width:100%!important;
+  grid-template-columns:minmax(300px,44%) minmax(0,56%)!important;
+}
+html.layout-phone-landscape .control-panel{min-width:0!important;max-width:100%!important;overflow-y:auto!important;overflow-x:hidden!important}
+html.layout-phone-landscape .technique-grid,html.layout-phone-landscape .quality-stack{min-width:0!important;width:100%!important}
+html.layout-phone-landscape .court-panel{min-width:0!important;max-width:100%!important}
+html.layout-phone-landscape .court-title{grid-template-columns:minmax(0,1fr) auto!important}
+html.layout-phone-landscape .court-title-tools{min-width:0!important;grid-template-columns:30px minmax(94px,112px) minmax(62px,78px)!important}
+html.layout-phone-landscape .court-title-tools .opponent-switch{width:auto!important;min-width:0!important}
+html.layout-phone-landscape .court-title-tools #rotationLabel{width:auto!important;min-width:0!important}
+html.layout-phone-landscape .phone-protocol-btn{top:auto!important;left:auto!important}
+
+/* iOS/WebKit hardening without separate Safari logic. */
+@supports(height:100svh){html.layout-phone-landscape .app-shell{height:100svh!important;min-height:0!important}}
+@supports(height:100dvh){html.layout-phone-landscape .app-shell{height:100dvh!important}}
+@media (hover:none) and (pointer:coarse){button:hover{transform:none}}
+input,select,textarea{min-width:0}
+@media(max-width:640px){input,select,textarea{font-size:max(16px,1rem)}}
+
+
+/* ==============================================================
+   0.4.1 RC5 — scouting, sync, security and i18n hardening
+   UI-MOBILE5A-C, 6, 9, 10, UI-TABLET1 and PWA1.
+   ============================================================== */
+/* UI-MOBILE6: in phone portrait the app is never painted behind the rotation
+   gate. The synchronous head classifier sets the class before first paint. */
+html.layout-phone-portrait #app,
+html.layout-phone-portrait #startGate{visibility:hidden!important;filter:none!important;pointer-events:none!important}
+html.layout-phone-portrait .portrait-rotate-overlay{visibility:visible!important}
+
+/* UI-MOBILE5A-C: mobile start gate uses the available landscape canvas rather
+   than looking like a scaled-down desktop card. All browsers share geometry. */
+html.layout-phone-landscape .start-card{
+  width:min(820px,88dvw)!important;
+  min-height:clamp(250px,72dvh,330px)!important;
+  max-height:calc(100dvh - max(12px,var(--safe-top)) - max(12px,var(--safe-bottom)))!important;
+  gap:clamp(5px,1.55dvh,10px)!important;
+  padding:clamp(12px,3.1dvh,22px) clamp(20px,4.2dvw,38px)!important;
+  align-content:center!important;
+}
+html.layout-phone-landscape .start-card>img{width:clamp(84px,21dvh,122px)!important}
+html.layout-phone-landscape .start-card>h1{font-size:clamp(1.48rem,5.8dvh,2.08rem)!important;letter-spacing:-.015em!important}
+html.layout-phone-landscape .start-card>p{font-size:clamp(.72rem,2.5dvh,.92rem)!important}
+html.layout-phone-landscape .start-card>.browser-camera-notice{
+  width:min(100%,650px)!important;padding:clamp(5px,1.4dvh,8px) 10px!important;
+  font-size:clamp(.60rem,1.85dvh,.72rem)!important;line-height:1.24!important;border-radius:10px!important
+}
+html.layout-phone-landscape .start-card>.start-actions{width:min(430px,74%)!important;display:grid!important;gap:5px!important}
+html.layout-phone-landscape .start-card>.start-actions #startAppBtn{min-height:44px!important;font-size:clamp(.98rem,3.05dvh,1.16rem)!important}
+html.layout-phone-landscape .start-card>small{font-size:clamp(.56rem,1.75dvh,.69rem)!important}
+
+/* PWA1: deterministic in-app entry point. Direct prompt when available,
+   otherwise browser-specific manual instructions. */
+.pwa-install-btn{min-height:34px!important;padding:.30rem .65rem!important;font-size:.72rem!important;background:transparent!important;border-color:#475569!important;color:#cbd5e1!important}
+.pwa-install-hint{width:min(100%,650px);margin:2px auto 0;padding:7px 10px;border:1px solid #475569;border-radius:9px;background:rgba(2,6,23,.58);color:#cbd5e1;font-size:.67rem;line-height:1.3;text-align:left}
+html.layout-phone-landscape .start-card>.pwa-install-hint{grid-area:notice;width:min(100%,650px)!important;margin-top:2px!important}
+html.layout-phone-landscape .start-card>.browser-camera-notice:not([hidden]) + .start-actions + .pwa-install-hint{margin-top:0!important}
+/* If both camera notice and install help are visible they remain normal flow
+   children; explicit order prevents an implicit Firefox grid column. */
+html.layout-phone-landscape .start-card>.browser-camera-notice{grid-row:4}
+html.layout-phone-landscape .start-card>.start-actions{grid-row:5}
+html.layout-phone-landscape .start-card>.pwa-install-hint{grid-row:6}
+html.layout-phone-landscape .start-card>small{grid-row:7}
+
+/* UI-MOBILE9/10: utility controls are part of the court header, not floating over
+   correction buttons. Fullscreen appears only when JS says it is useful. */
+html.layout-phone-landscape .court-title-tools{
+  grid-template-columns:30px minmax(64px,78px) 30px minmax(92px,108px) minmax(62px,76px)!important;
+  gap:3px!important;align-items:center!important
+}
+html.layout-phone-landscape .court-title-tools .phone-fullscreen-btn{grid-column:1!important;position:static!important;width:30px!important;min-width:30px!important;height:30px!important;min-height:30px!important;padding:0!important;font-size:.90rem!important;border-radius:8px!important}
+html.layout-phone-landscape .court-title-tools .phone-protocol-btn{grid-column:2!important;position:static!important;right:auto!important;bottom:auto!important;width:100%!important;min-width:0!important;height:30px!important;min-height:30px!important;padding:.10rem .28rem!important;font-size:.55rem!important;border-radius:8px!important;box-shadow:none!important;white-space:nowrap!important}
+html.layout-phone-landscape .court-title-tools .field-orientation-btn{grid-column:3!important}
+html.layout-phone-landscape .court-title-tools .opponent-switch{grid-column:4!important;width:auto!important;min-width:0!important}
+html.layout-phone-landscape .court-title-tools #rotationLabel{grid-column:5!important;width:auto!important;min-width:0!important}
+
+/* UI-TABLET1: the five-value simple profile had auto rows smaller than its
+   fixed-height buttons in Chromium. Give the simple profile the same explicit
+   two-row contract that already keeps detailed mode stable. */
+@media (orientation:landscape) and (min-width:900px) and (min-height:600px) and (pointer:coarse){
+  html:not(.layout-phone-landscape) .control-panel .quality-stack:not(.detailed){
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    grid-template-rows:repeat(2,var(--vsw-quality-h))!important;
+    grid-auto-rows:var(--vsw-quality-h)!important;
+    column-gap:8px!important;row-gap:8px!important;
+    align-content:start!important;overflow:visible!important
+  }
+  html:not(.layout-phone-landscape) .control-panel .quality-stack:not(.detailed) button{
+    height:var(--vsw-quality-h)!important;min-height:var(--vsw-quality-h)!important;max-height:var(--vsw-quality-h)!important;margin:0!important
+  }
+}
+
+@media (orientation:landscape) and (max-height:390px){
+  html.layout-phone-landscape .start-card{width:min(800px,90dvw)!important;min-height:clamp(235px,76dvh,285px)!important;padding:8px 18px!important;gap:3px!important}
+  html.layout-phone-landscape .start-card>img{width:70px!important}
+  html.layout-phone-landscape .start-card>h1{font-size:1.34rem!important}
+  html.layout-phone-landscape .start-card>.start-actions{width:min(390px,70%)!important}
+  html.layout-phone-landscape .pwa-install-btn{min-height:30px!important;font-size:.64rem!important;padding:.18rem .5rem!important}
+  html.layout-phone-landscape .pwa-install-hint{font-size:.57rem!important;padding:5px 8px!important}
+}
+/* RC3 start-grid explicit install row (prevents any implicit-column behavior). */
+html.layout-phone-landscape .start-card{grid-template-areas:"logo" "title" "meta" "notice" "button" "install" "note"!important}
+html.layout-phone-landscape .start-card>.pwa-install-hint{grid-area:install!important}
+html.layout-phone-landscape .phone-fullscreen-btn[hidden]{display:none!important}
+
+/* 0.4.1 RC5 — cloud/library busy state and overlay-safe mobile tools */
+body.overlay-open #phoneProtocolBtn,
+body.overlay-open #phoneFullscreenBtn{display:none!important}
+body.global-busy{cursor:progress}
+body.global-busy::before{content:"";position:fixed;inset:0;background:rgba(2,6,23,.46);z-index:5000;backdrop-filter:blur(1px)}
+body.global-busy::after{content:"⌛";position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:5001;font-size:2.2rem;background:#0f172a;border:1px solid #475569;border-radius:14px;padding:.65rem .9rem;box-shadow:0 12px 34px #0009}
+.library-cloud-icon,.library-device-icon{transition:color .15s,border-color .15s,background .15s}
+.library-cloud-icon.sync-equal,.library-cloud-icon.sync-present{color:#22c55e}
+.library-cloud-icon.sync-newer{color:#f59e0b}
+.library-device-icon.sync-equal,.library-device-icon.sync-present{border-color:#22c55e!important}
+.library-device-icon.sync-stale{border-color:#f59e0b!important;box-shadow:inset 0 0 0 2px rgba(245,158,11,.22)}
+.library-sync{border-color:#f59e0b!important;color:#fde68a!important}
+
+/* Analysis headers and cells must always share the same table geometry. */
+.analysis-table-wrap{min-width:0;overflow:auto}
+.analysis-table-wrap>.data-table.compact{display:table!important;width:100%!important;border-collapse:collapse!important;table-layout:auto!important}
+.analysis-table-wrap>.data-table.compact thead{display:table-header-group!important}
+.analysis-table-wrap>.data-table.compact tbody{display:table-row-group!important}
+.analysis-table-wrap>.data-table.compact tr{display:table-row!important}
+.analysis-table-wrap>.data-table.compact th,.analysis-table-wrap>.data-table.compact td{display:table-cell!important;vertical-align:middle!important}
+
+/* 0.4.1 RC5 draft — analysis help + timestamp post-processing */
+.analysis-help-button{min-width:36px;min-height:36px;padding:.25rem .55rem;font-weight:800;border-radius:999px}
+.analysis-view-help{margin:.45rem 0 .2rem;padding:.55rem .7rem;border:1px solid #334155;border-radius:8px;background:#0b1220;color:#cbd5e1}
+.analysis-help-glossary h4{margin:.9rem 0 .3rem}.analysis-help-glossary p{margin:.35rem 0;line-height:1.45}
+.protocol-time-edit{border:0;background:transparent;color:inherit;padding:0;min-height:auto;font:inherit;white-space:nowrap;text-decoration:underline dotted;text-underline-offset:3px}
+.protocol-time-edit:hover,.protocol-time-edit:focus{color:#7dd3fc;background:transparent}
+.timestamp-help{padding:.55rem .7rem;border:1px solid #334155;border-radius:8px;background:#0b1220}
+.timestamp-inline{display:grid;grid-template-columns:minmax(70px,1fr) auto;align-items:center;gap:6px;margin:0}
+.timestamp-inline input,[data-timestamp-input]{font-variant-numeric:tabular-nums}
+[data-timestamp-preview]{font-size:.72rem;color:#93c5fd;white-space:nowrap}
+[data-timestamp-preview].error{color:#fca5a5}
+.timestamp-editor-wrap{max-height:min(58dvh,520px);overflow:auto}
+.timestamp-editor-wrap input{width:100%;min-width:80px}
+@media(max-width:700px){.timestamp-editor-wrap{max-height:52dvh}.timestamp-inline{grid-template-columns:1fr}.analysis-view-help{font-size:.72rem}}
+
+.timestamp-insert{margin:.7rem 0;border:1px solid #334155;border-radius:10px;background:#0b1220;padding:.55rem .7rem}
+.timestamp-insert summary{cursor:pointer;font-weight:700}
+.timestamp-insert-grid{display:grid;grid-template-columns:repeat(4,minmax(120px,1fr));gap:.55rem;margin-top:.6rem}
+.timestamp-insert-grid label{margin:0;min-width:0}
+.timestamp-insert-grid input,.timestamp-insert-grid select{width:100%;min-width:0}
+@media(max-width:900px){.timestamp-insert-grid{grid-template-columns:repeat(2,minmax(120px,1fr))}}
+@media(max-width:540px){.timestamp-insert-grid{grid-template-columns:1fr}}
+
+/* RC5 Draft VIDEO-TIMESTAMP1a: visible per-row insertion control */
+.timestamp-row-actions{width:44px;text-align:center;vertical-align:middle}
+.timestamp-insert-row{min-width:36px;width:36px;height:36px;padding:0;border-radius:9px;font-size:1.25rem;line-height:1;font-weight:800}
+.timestamp-insert-focus{outline:2px solid var(--accent,#38bdf8);outline-offset:2px}
+@media(max-width:700px){.timestamp-row-actions{width:38px}.timestamp-insert-row{min-width:32px;width:32px;height:32px;font-size:1.1rem}.timestamp-editor-wrap table{min-width:620px}}
+
+/* 0.4.1 RC5 — VIDEO-TIMESTAMP1b-d */
+.protocol-head-actions{display:flex;align-items:center;gap:.45rem}
+.protocol-insert-btn{min-width:32px;width:32px;height:30px;padding:0;border-radius:8px;font-size:1.05rem;font-weight:800}
+.protocol-insert-btn:disabled{opacity:.38;cursor:not-allowed}
+#protocolBody tr[data-protocol-event-id]{cursor:pointer}
+#protocolBody tr[data-protocol-event-id].selected{outline:2px solid var(--accent,#38bdf8);outline-offset:-2px;background:color-mix(in srgb,var(--accent,#38bdf8) 14%,transparent)}
+.timestamp-sort{display:inline-flex;align-items:center;gap:.3rem;border:0;background:transparent;padding:.1rem .2rem;font:inherit;font-weight:700;color:inherit;white-space:nowrap}
+.timestamp-sort:hover{background:rgba(148,163,184,.12)}
+.timestamp-editor-table th{position:sticky;top:0;z-index:2;background:var(--panel,#111827)}
+.protocol-insert-grid{display:grid;grid-template-columns:repeat(3,minmax(130px,1fr));gap:.65rem}
+.protocol-insert-grid label{margin:0;min-width:0}
+.protocol-insert-grid select,.protocol-insert-grid input{width:100%;min-width:0}
+@media(max-width:700px){.protocol-insert-grid{grid-template-columns:repeat(2,minmax(110px,1fr))}}
+@media(max-width:470px){.protocol-insert-grid{grid-template-columns:1fr}}
+
+/* 0.4.1 RC5 timestamp editor density + viewport fit */
+.dialog:has(.timestamp-editor-wrap){
+  width:min(900px,96vw);
+  height:min(88dvh,780px);
+  max-height:88dvh;
+  overflow:hidden;
+  display:grid;
+  grid-template-rows:auto minmax(0,1fr) auto;
+}
+.dialog:has(.timestamp-editor-wrap) #dialogBody{
+  min-height:0;
+  overflow:hidden;
+  display:grid;
+  grid-template-rows:auto auto auto minmax(0,1fr);
+  gap:.45rem;
+}
+.dialog:has(.timestamp-editor-wrap) .dialog-actions{margin-top:.55rem}
+.timestamp-editor-wrap{
+  min-height:0;
+  max-height:none;
+  overflow:auto;
+  overscroll-behavior:contain;
+}
+.timestamp-editor-table{
+  width:100%;
+  table-layout:fixed;
+  border-collapse:collapse;
+  font-size:.78rem;
+}
+.timestamp-editor-table th,.timestamp-editor-table td{
+  padding:.26rem .32rem;
+  line-height:1.15;
+  vertical-align:middle;
+}
+.timestamp-editor-table th:nth-child(1),.timestamp-editor-table td:nth-child(1){width:7%}
+.timestamp-editor-table th:nth-child(2),.timestamp-editor-table td:nth-child(2){width:10%}
+.timestamp-editor-table th:nth-child(3),.timestamp-editor-table td:nth-child(3){width:10%}
+.timestamp-editor-table th:nth-child(4),.timestamp-editor-table td:nth-child(4){width:17%}
+.timestamp-editor-table th:nth-child(5),.timestamp-editor-table td:nth-child(5){width:20%}
+.timestamp-editor-table th:nth-child(6),.timestamp-editor-table td:nth-child(6){width:29%}
+.timestamp-editor-table th:nth-child(7),.timestamp-editor-table td:nth-child(7){width:7%}
+.timestamp-inline{display:grid;grid-template-columns:minmax(0,1fr);gap:1px;align-items:center}
+.timestamp-inline input{min-width:0!important;width:100%;min-height:30px!important;padding:.22rem .35rem!important}
+.timestamp-inline [data-timestamp-preview]{font-size:.64rem;line-height:1.05;overflow:hidden;text-overflow:ellipsis}
+.timestamp-row-actions{width:auto!important}
+.timestamp-insert-row{min-width:30px;width:30px;height:30px;font-size:1rem}
+.timestamp-sort{max-width:100%;font-size:.74rem;gap:.15rem;padding:0;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:700px){
+ .dialog:has(.timestamp-editor-wrap){width:98vw;height:90dvh;max-height:90dvh;padding:9px!important}
+ .timestamp-editor-table{font-size:.68rem;table-layout:fixed;min-width:0!important}
+ .timestamp-editor-table th,.timestamp-editor-table td{padding:.20rem .20rem}
+ .timestamp-editor-table th:nth-child(1),.timestamp-editor-table td:nth-child(1){width:7%}
+ .timestamp-editor-table th:nth-child(2),.timestamp-editor-table td:nth-child(2){width:10%}
+ .timestamp-editor-table th:nth-child(3),.timestamp-editor-table td:nth-child(3){width:9%}
+ .timestamp-editor-table th:nth-child(4),.timestamp-editor-table td:nth-child(4){width:15%}
+ .timestamp-editor-table th:nth-child(5),.timestamp-editor-table td:nth-child(5){width:19%}
+ .timestamp-editor-table th:nth-child(6),.timestamp-editor-table td:nth-child(6){width:33%}
+ .timestamp-editor-table th:nth-child(7),.timestamp-editor-table td:nth-child(7){width:7%}
+ .timestamp-inline input{min-height:28px!important;font-size:.72rem!important}
+ .timestamp-inline [data-timestamp-preview]{font-size:.58rem}
+ .timestamp-insert-row{min-width:28px;width:28px;height:28px}
+}
+
+
+/* 0.4.1 RC5-1 — VIDEO-TIMESTAMP1d/e regression fixes */
+.dialog .protocol-insert-grid{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(170px,1fr))!important;
+  gap:14px 16px!important;
+  align-items:start;
+}
+.dialog .protocol-insert-grid label{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  gap:6px!important;
+  min-width:0!important;
+  width:100%!important;
+}
+.dialog .protocol-insert-grid select,
+.dialog .protocol-insert-grid input{
+  display:block!important;
+  width:100%!important;
+  min-width:150px!important;
+  min-height:42px!important;
+  height:auto!important;
+  box-sizing:border-box!important;
+  font-size:.92rem!important;
+  padding:.52rem .62rem!important;
+}
+.dialog .protocol-insert-grid small{
+  min-height:1em;
+  line-height:1.15;
+}
+@media(max-width:760px){
+  .dialog .protocol-insert-grid{grid-template-columns:repeat(2,minmax(150px,1fr))!important;gap:10px 12px!important}
+  .dialog .protocol-insert-grid select,.dialog .protocol-insert-grid input{min-width:0!important;min-height:40px!important}
+}
+@media(max-width:480px){
+  .dialog .protocol-insert-grid{grid-template-columns:1fr!important}
+}
+
+/* 0.4.1 RC6 — timestamp pagination + insert-dialog spacing */
+.timestamp-editor-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:.35rem 0 .55rem}
+.timestamp-editor-toolbar>label{display:flex!important;grid-template-columns:none!important;flex-direction:row!important;align-items:center!important;gap:7px!important;margin:0!important;width:auto!important}
+.timestamp-editor-toolbar select{min-width:76px;width:auto!important;min-height:32px!important;padding:.25rem .45rem!important}
+.timestamp-pager{display:flex;align-items:center;gap:8px;margin-left:auto}
+.timestamp-pager button{min-width:34px!important;width:34px;height:32px;padding:0!important}
+#timestampPageInfo{font-size:.74rem;color:var(--muted);white-space:nowrap}
+.dialog:has(.protocol-insert-grid){width:min(720px,95vw)!important}
+.dialog .protocol-insert-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;padding-inline:10px!important;box-sizing:border-box!important}
+.dialog .protocol-insert-grid select,.dialog .protocol-insert-grid input{min-width:0!important}
+@media(max-width:760px){.dialog .protocol-insert-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;padding-inline:8px!important}}
+@media(max-width:480px){.dialog .protocol-insert-grid{grid-template-columns:1fr!important;padding-inline:4px!important}.timestamp-editor-toolbar{align-items:flex-start}.timestamp-pager{margin-left:0}}
+/* 0.4.1 RC6 — VIDEO-TIMESTAMP1c/d pagination, semantic WER/WOHIN and spacing */
+
+/* 0.4.1 RC6 — VIDEO-TIMESTAMP1f: visible page-size/pager toolbar */
+.dialog:has(.timestamp-editor-wrap) #dialogBody{
+  grid-template-rows:auto auto auto auto minmax(0,1fr)!important;
+}
+.timestamp-editor-toolbar{
+  min-width:0;
+  width:100%;
+  box-sizing:border-box;
+  overflow:visible;
+  padding:2px 3px;
+  position:relative;
+  z-index:3;
+}
+.timestamp-editor-toolbar>label{
+  flex:0 0 auto;
+  min-width:max-content;
+  color:var(--text,#e5e7eb)!important;
+}
+.timestamp-editor-toolbar select{
+  display:inline-block!important;
+  visibility:visible!important;
+  opacity:1!important;
+}
+.timestamp-pager{
+  flex:0 1 auto;
+  min-width:0;
+  overflow:visible;
+}
+.timestamp-pager button{
+  display:inline-flex!important;
+  align-items:center;
+  justify-content:center;
+  visibility:visible!important;
+  opacity:1!important;
+}
+@media(max-width:560px){
+  .timestamp-editor-toolbar{align-items:flex-start;gap:6px 10px}
+  .timestamp-pager{margin-left:0;flex:1 1 100%;justify-content:flex-start}
+}
+
+/* 0.4.1 RC6 — VIDEO-TIMESTAMP1d semantic insert-dialog usability */
+.dialog:has(.protocol-insert-grid){width:min(900px,96vw)!important}
+.dialog .protocol-insert-grid{
+  grid-template-columns:repeat(3,minmax(210px,1fr))!important;
+  gap:12px 18px!important;
+  padding-inline:16px!important;
+}
+.dialog .protocol-insert-grid label{
+  gap:4px!important;
+}
+.dialog .protocol-insert-grid label>span{
+  display:block;
+  margin:0 0 2px;
+  line-height:1.1;
+  font-weight:600;
+}
+.dialog .protocol-insert-grid select,
+.dialog .protocol-insert-grid input{
+  min-width:0!important;
+  width:100%!important;
+  min-height:44px!important;
+  font-size:.96rem!important;
+  padding:.56rem .68rem!important;
+}
+.timestamp-insert-grid{grid-template-columns:repeat(3,minmax(190px,1fr))!important;gap:.55rem .8rem!important}
+.timestamp-insert-grid label{display:flex!important;flex-direction:column!important;gap:4px!important}
+.timestamp-insert-grid select,.timestamp-insert-grid input{min-height:40px!important;width:100%!important}
+@media(max-width:800px){
+  .dialog .protocol-insert-grid{grid-template-columns:repeat(2,minmax(180px,1fr))!important;padding-inline:10px!important}
+  .timestamp-insert-grid{grid-template-columns:repeat(2,minmax(160px,1fr))!important}
+}
+@media(max-width:520px){
+  .dialog .protocol-insert-grid,.timestamp-insert-grid{grid-template-columns:1fr!important;padding-inline:4px!important}
+}
+
+
+/* === 0.4.1 RC6: side navigation + responsive analysis dashboard === */
+.drawer-backdrop{align-items:stretch!important}
+.drawer{
+  width:min(1180px,96vw)!important;
+  max-width:96vw!important;
+  grid-template-columns:clamp(150px,18vw,205px) minmax(0,1fr)!important;
+  grid-template-rows:58px minmax(0,1fr)!important;
+}
+.drawer>header{grid-column:1/-1!important;grid-row:1!important}
+.drawer-nav{
+  grid-column:1!important;grid-row:2!important;
+  display:flex!important;flex-direction:column!important;
+  align-items:stretch!important;justify-content:flex-start!important;
+  gap:6px!important;padding:10px 8px!important;
+  border-right:1px solid var(--line)!important;border-bottom:0!important;
+  overflow-y:auto!important;overflow-x:hidden!important;
+  background:#0b1220!important;
+}
+.drawer-nav button{width:100%!important;min-width:0!important;text-align:left!important;white-space:normal!important}
+.drawer-body{grid-column:2!important;grid-row:2!important;min-width:0!important;overflow:auto!important;padding:14px!important}
+.drawer-body>.card:first-child{margin-top:0!important}
+.analysis-card{max-width:none!important}
+.analysis-dashboard{margin-top:12px;padding:2px 0 12px}
+.analysis-dashboard-head{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:0 0 10px}
+.analysis-dashboard-head h3{margin:0 0 3px;font-size:1.12rem}
+.analysis-dashboard-head p{margin:0}
+.analysis-dashboard-grid{
+  --analysis-tile-min:270px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(var(--analysis-tile-min),100%),1fr));
+  gap:10px;
+  align-items:stretch;
+}
+.analysis-dashboard-card{display:grid;grid-template-rows:auto 1fr auto;min-width:0;min-height:185px;background:#111c2e;border:1px solid #334155;border-radius:12px;overflow:hidden;box-shadow:0 8px 22px #0002}
+.analysis-dashboard-card>header{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;padding:11px 12px;border-bottom:1px solid #26364c}
+.analysis-dashboard-card h4{margin:0;font-size:.95rem}
+.analysis-dashboard-icon{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:#082f49;color:#38bdf8;font-weight:800;font-size:1rem}
+.analysis-card-help{width:30px!important;min-width:30px!important;min-height:30px!important;height:30px;padding:0!important;border-radius:50%;background:#0f172a;color:#93c5fd}
+.analysis-card-help.active{background:#164e63;border-color:#38bdf8}
+.analysis-card-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:12px}
+.analysis-card-metrics>div{min-width:0;background:#0b1424;border:1px solid #26364c;border-radius:9px;padding:9px 10px}
+.analysis-card-metrics strong{display:block;font-size:1.25rem;color:#f8fafc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.analysis-card-metrics span{display:block;margin-top:2px;color:#cbd5e1;font-size:.72rem}
+.analysis-card-metrics small{display:block;margin-top:4px;color:#7dd3fc;font-size:.67rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.analysis-card-detail{border:0!important;border-top:1px solid #26364c!important;border-radius:0!important;background:transparent!important;color:#7dd3fc!important;text-align:left!important;min-height:38px!important;padding:8px 12px!important}
+.analysis-card-detail:hover{background:#0b2239!important;color:#e0f2fe!important}
+#analysisResult{min-width:0}
+@media(max-width:900px){
+  .drawer{grid-template-columns:145px minmax(0,1fr)!important;width:98vw!important;max-width:98vw!important}
+  .drawer-nav{padding:8px 6px!important}
+  .analysis-dashboard-grid{--analysis-tile-min:245px;gap:8px}
+  .analysis-dashboard-card{min-height:168px}
+}
+@media(max-width:620px){
+  .drawer{grid-template-columns:118px minmax(0,1fr)!important}
+  .drawer-nav button{font-size:.72rem!important;padding:.38rem .42rem!important}
+  .drawer-body{padding:8px!important}
+  .analysis-dashboard-grid{--analysis-tile-min:220px}
+}
+html.layout-phone-landscape .drawer{grid-template-columns:112px minmax(0,1fr)!important;width:100vw!important;max-width:100vw!important}
+html.layout-phone-landscape .drawer-nav{padding:5px!important;gap:4px!important}
+html.layout-phone-landscape .drawer-nav button{min-height:31px!important;font-size:.63rem!important;padding:.25rem .35rem!important}
+html.layout-phone-landscape .drawer-body{padding:6px!important}
+html.layout-phone-landscape .analysis-dashboard-grid{--analysis-tile-min:205px;gap:6px}
+html.layout-phone-landscape .analysis-dashboard-card{min-height:150px}
+html.layout-phone-landscape .analysis-dashboard-card>header{padding:7px 8px}
+html.layout-phone-landscape .analysis-card-metrics{padding:7px;gap:5px}
+html.layout-phone-landscape .analysis-card-metrics>div{padding:6px 7px}
+html.layout-phone-landscape .analysis-card-metrics strong{font-size:1rem}
+/* === 0.4.1 RC6-7: visual dashboard cards === */
+.analysis-card-body{display:grid;grid-template-columns:minmax(0,.88fr) minmax(120px,1.12fr);gap:8px;align-items:stretch;min-width:0;padding:10px 11px}
+.analysis-card-body .analysis-card-metrics{padding:0;grid-template-columns:1fr;align-content:start}
+.analysis-card-viz{display:flex;flex-direction:column;justify-content:center;gap:8px;min-width:0;overflow:hidden}
+.analysis-mini-donut{--p:0;position:relative;width:74px;height:74px;margin:auto;border-radius:50%;background:conic-gradient(#38bdf8 calc(var(--p)*1%),#243247 0);display:grid;place-items:center}
+.analysis-mini-donut:after{content:"";position:absolute;inset:9px;border-radius:50%;background:#0b1424;border:1px solid #26364c}
+.analysis-mini-donut>span,.analysis-mini-donut>small{position:relative;z-index:1;text-align:center}
+.analysis-mini-donut>span{font-size:.93rem;font-weight:800;color:#f8fafc}
+.analysis-mini-donut>small{position:absolute;top:48px;font-size:.52rem;color:#94a3b8}
+.analysis-mini-bars-chart{display:grid;gap:5px;min-width:0}
+.analysis-mini-bars-chart>div{display:grid;grid-template-columns:minmax(28px,.7fr) minmax(56px,2fr) auto;gap:5px;align-items:center;min-width:0}
+.analysis-mini-bars-chart span{font-size:.58rem;color:#cbd5e1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.analysis-mini-bars-chart i{height:8px;border-radius:999px;background:#243247;overflow:hidden;display:block}
+.analysis-mini-bars-chart b{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#0284c7,#38bdf8)}
+.analysis-mini-bars-chart strong{font-size:.58rem;color:#e2e8f0;font-weight:700}
+.analysis-mini-bars-chart em{font-size:.62rem;color:#64748b;font-style:normal}
+.drawer-subnav{display:flex;gap:6px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.drawer-subnav button{min-height:34px}
+@media(max-width:760px){.analysis-card-body{grid-template-columns:1fr}.analysis-card-viz{min-height:70px}.analysis-mini-donut{width:64px;height:64px}.analysis-mini-donut:after{inset:8px}.analysis-mini-donut>small{top:41px}}
+html.layout-phone-landscape .analysis-card-body{padding:6px 7px;gap:5px;grid-template-columns:minmax(0,.95fr) minmax(92px,1.05fr)}
+html.layout-phone-landscape .analysis-mini-donut{width:54px;height:54px}.analysis-mini-donut:after{inset:7px}html.layout-phone-landscape .analysis-mini-donut>small{display:none}
+
+
+/* RC6-2 · analysis dashboard/detail/help/insights */
+.analysis-dashboard-card{position:relative}
+.analysis-card-popover{
+  position:absolute;z-index:8;top:52px;right:12px;width:min(330px,calc(100% - 24px));
+  padding:11px 12px;border:1px solid #475569;border-radius:10px;background:#08111f;
+  box-shadow:0 12px 28px #0009;color:#dbeafe;font-size:.78rem;line-height:1.4
+}
+.analysis-card-popover[hidden]{display:none!important}
+.analysis-card-help.active{outline:2px solid #38bdf8;background:#0c4a6e}
+.analysis-dashboard-context{display:inline-flex;margin-top:5px;padding:3px 8px;border:1px solid #334155;border-radius:999px;color:#93c5fd;font-size:.7rem}
+.analysis-compare-summary{margin-top:12px;padding:12px;border:1px solid #334155;border-radius:12px;background:#0b1424}
+.analysis-compare-summary h4{margin:0 0 8px}.analysis-compare-summary>div{display:grid;grid-template-columns:28px 1fr;gap:8px;padding:6px 0;border-top:1px solid #223047}
+.analysis-compare-summary span{font-weight:900;color:#60a5fa}
+.analysis-empty{text-align:center;padding:28px}
+
+.analysis-modern-detail{display:grid;gap:14px}
+.analysis-detail-viz,.analysis-insights,.analysis-detail-table{
+  border:1px solid #334155;border-radius:13px;background:#0b1424;padding:13px
+}
+.analysis-detail-viz h4,.analysis-insights h4,.analysis-detail-table>h4{margin:0 0 10px}
+.analysis-big-donuts{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.analysis-detail-bars{display:grid;gap:8px}
+.analysis-detail-bars>div{display:grid;grid-template-columns:minmax(90px,170px) minmax(110px,1fr) minmax(48px,auto);gap:9px;align-items:center}
+.analysis-detail-bars span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.76rem;color:#cbd5e1}
+.analysis-detail-bars i,.analysis-dual-row i{height:11px;background:#111827;border:1px solid #273449;border-radius:999px;overflow:hidden}
+.analysis-detail-bars b,.analysis-dual-row b{display:block;height:100%;background:linear-gradient(90deg,#0284c7,#22d3ee);border-radius:inherit}
+.analysis-detail-bars strong{font-size:.72rem;text-align:right}
+.analysis-dual-bars{display:grid;gap:8px}
+.analysis-dual-row{display:grid;grid-template-columns:38px 24px minmax(90px,1fr) 54px 24px minmax(90px,1fr) 54px;gap:7px;align-items:center}
+.analysis-dual-row>strong{color:#f8fafc}.analysis-dual-row>span{font-size:.68rem;color:#94a3b8}.analysis-dual-row>em{font-style:normal;font-size:.7rem;text-align:right;color:#e2e8f0}
+.analysis-insights>header{display:flex;align-items:center;gap:8px}
+.analysis-insights>header h4{margin-right:auto}
+.analysis-insight-info{width:31px;height:31px;border-radius:999px;padding:0}
+.analysis-insight-explain{margin:0 0 10px;padding:9px 10px;border-radius:9px;background:#111c2e;color:#cbd5e1;font-size:.75rem;line-height:1.4}
+.analysis-insight{padding:11px 12px;margin-top:8px;border:1px solid #334155;border-left-width:4px;border-radius:10px;background:#101b2d}
+.analysis-insight.warning{border-left-color:#f59e0b}.analysis-insight.positive{border-left-color:#22c55e}.analysis-insight.uncertain{border-left-color:#94a3b8}.analysis-insight.neutral{border-left-color:#38bdf8}
+.analysis-insight strong{display:block;margin-bottom:5px}.analysis-insight p{margin:4px 0;font-size:.8rem;line-height:1.42}.analysis-insight small{display:block;margin-top:6px;color:#94a3b8}
+.analysis-detail-table .analysis-table-wrap{max-height:none}
+.analysis-detail-table>.analysis-cluster,.analysis-detail-table>.analysis-table-wrap{border:0;padding:0;background:transparent}
+#runSync.is-busy{cursor:progress;opacity:.8}
+@media(max-width:760px){
+ .analysis-dual-row{grid-template-columns:34px 22px minmax(70px,1fr) 50px;row-gap:5px}
+ .analysis-dual-row>span:nth-of-type(2){grid-column:2}.analysis-dual-row>i:nth-of-type(2){grid-column:3}.analysis-dual-row>em:nth-of-type(2){grid-column:4}
+ .analysis-detail-bars>div{grid-template-columns:minmax(78px,120px) 1fr 48px}
+}
+
+
+/* RC6-4 · deep analysis and semantic serve cleanup */
+.serve-semantic-table thead tr:first-child th{background:#101b2d;text-align:center}
+.serve-semantic-table thead tr:nth-child(2) th{background:#16243a}
+.analysis-triple-bars{display:grid;gap:8px}
+.analysis-triple-row{
+  display:grid;
+  grid-template-columns:38px 24px minmax(80px,1fr) 54px 24px minmax(80px,1fr) 54px 24px minmax(80px,1fr) 54px;
+  gap:7px;align-items:center
+}
+.analysis-triple-row>span{font-size:.68rem;color:#94a3b8}
+.analysis-triple-row>i{height:11px;background:#111827;border:1px solid #273449;border-radius:999px;overflow:hidden}
+.analysis-triple-row>i>b{display:block;height:100%;background:linear-gradient(90deg,#0284c7,#22d3ee);border-radius:inherit}
+.analysis-triple-row>em{font-style:normal;font-size:.7rem;text-align:right}
+.analysis-target-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px}
+.analysis-compare-deltas{grid-column:1/-1!important;display:grid!important;grid-template-columns:repeat(auto-fit,minmax(130px,1fr))!important;gap:8px!important;border-top:1px solid #334155!important;padding-top:10px!important}
+.analysis-compare-deltas>span{display:flex;justify-content:space-between;gap:8px;padding:8px;border:1px solid #334155;border-radius:9px;background:#101b2d}
+.analysis-compare-deltas strong.up{color:#4ade80}.analysis-compare-deltas strong.down{color:#fb7185}.analysis-compare-deltas strong.same{color:#cbd5e1}.analysis-compare-deltas strong.na{color:#94a3b8}
+.analysis-confidence-legend{margin-top:10px;padding:8px 10px;border:1px dashed #475569;border-radius:9px;color:#94a3b8;font-size:.72rem;line-height:1.4}
+@media(max-width:900px){
+  .analysis-triple-row{grid-template-columns:34px 22px minmax(60px,1fr) 48px}
+  .analysis-triple-row>span:nth-of-type(2){grid-column:2}.analysis-triple-row>i:nth-of-type(2){grid-column:3}.analysis-triple-row>em:nth-of-type(2){grid-column:4}
+  .analysis-triple-row>span:nth-of-type(3){grid-column:2}.analysis-triple-row>i:nth-of-type(3){grid-column:3}.analysis-triple-row>em:nth-of-type(3){grid-column:4}
+}
+@media print{
+  .analysis-insights,.analysis-detail-viz,.analysis-detail-table{break-inside:avoid}
+  .analysis-insight{background:#fff!important;color:#111!important;border-color:#bbb!important}
+  .analysis-detail-bars i,.analysis-triple-row>i{border-color:#999!important;background:#eee!important}
+}
+
+/* RC6-5 · compact metadata editor in match library */
+.match-library-date-wrap{display:inline-flex;align-items:center;gap:5px;flex:0 0 auto;white-space:nowrap}
+.library-edit-meta{width:26px!important;height:26px!important;min-width:26px!important;min-height:26px!important;padding:0!important;border-radius:7px!important;font-size:.82rem!important;line-height:1!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;background:#111c2e!important;border:1px solid #41506a!important;color:#c9d5e5!important}
+.library-edit-meta:hover,.library-edit-meta:focus-visible{border-color:#38bdf8!important;color:#e0f2fe!important;background:#13243a!important}
+.match-library-date-wrap .match-library-date{margin:0!important}
+@media(max-width:700px){.library-edit-meta{width:24px!important;height:24px!important;min-width:24px!important;min-height:24px!important}}
+
+
+/* RC6-6 · ANALYSIS-REPORT2 / ANALYSIS-SHARE1 */
+.analysis-dashboard-head{gap:12px}
+.analysis-dashboard-actions{display:flex;align-items:flex-start;justify-content:flex-end;flex-wrap:wrap;gap:8px}
+.analysis-dashboard-actions button{white-space:nowrap}
+.analysis-result-window.team-report-mode{max-width:min(1120px,96vw)}
+.team-report{
+  width:min(100%,980px);margin:0 auto;padding:24px;border:1px solid #334155;border-radius:18px;
+  background:#0b1627;color:#eaf2fb;display:grid;gap:18px
+}
+.team-report-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;padding-bottom:16px;border-bottom:1px solid #2a3b52}
+.team-report-head h1{margin:5px 0 4px;font-size:clamp(1.45rem,2.5vw,2rem)}
+.team-report-head p{margin:0;color:#9fb3c8}
+.team-report-brand{color:#38bdf8;font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.team-report-badge{padding:6px 10px;border:1px solid #2f6b8e;border-radius:999px;background:#0c2940;color:#bfe9ff;font-size:.72rem;font-weight:800;white-space:nowrap}
+.team-report-intro{padding:14px 16px;border-radius:13px;background:#102237;border:1px solid #27405a}
+.team-report-intro strong{font-size:1.05rem}.team-report-intro p{margin:5px 0 0;color:#b4c5d7}
+.team-report-columns{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.team-report-columns>div,.team-report-training,.team-report-metrics,.team-report-rotations{padding:16px;border-radius:14px;border:1px solid #31445b;background:#101d2e}
+.team-report h2{font-size:1rem;margin:0 0 11px;color:#f8fafc}
+.team-report-columns article{padding:11px 12px;border-radius:11px;background:#0c1726;border:1px solid #27384c;margin-top:9px}
+.team-report-columns article h4{margin:0 0 5px;font-size:.92rem}.team-report-columns article p{margin:0;color:#b9c8d8;line-height:1.45}
+.team-report-good{border-color:#245b45!important}.team-report-focus{border-color:#65433c!important}
+.team-report-training ol{margin:0;padding-left:1.3rem;display:grid;gap:8px}.team-report-training li{color:#d9e7f4;line-height:1.45}
+.team-report-metrics>div{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.team-report-metrics article{min-width:0;padding:13px;border-radius:11px;background:#0b1726;border:1px solid #2d4158;display:flex;flex-direction:column;gap:4px}
+.team-report-metrics article strong{font-size:1.35rem;color:#fff}.team-report-metrics article span{font-size:.78rem;font-weight:800}.team-report-metrics article small{font-size:.68rem;color:#8298ae}
+.team-report-rotations>div{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.team-report-rotations>div>span{display:grid;grid-template-columns:auto auto;align-items:center;gap:3px 8px;padding:9px;border-radius:10px;background:#0b1726;border:1px solid #293c51}
+.team-report-rotations b{font-size:.9rem}.team-report-rotations em{font-style:normal;font-weight:900;text-align:right}.team-report-rotations em.good{color:#4ade80}.team-report-rotations em.bad{color:#fb7185}.team-report-rotations em.even{color:#cbd5e1}
+.team-report-rotations small{grid-column:1/-1;color:#859bb1}.team-report-rotations p{font-size:.7rem;color:#879db2;margin:8px 0 0}
+.team-report footer{font-size:.7rem;color:#74899e;border-top:1px solid #2b3c50;padding-top:12px;line-height:1.4}
+.team-report-status{margin:12px auto 0;width:min(100%,980px);padding:8px 10px;border-radius:9px;background:#0f2438;color:#c8e9ff;border:1px solid #2f5979;font-size:.76rem}
+.analysis-result-backdrop.team-report-mode #analysisResultActions{flex-wrap:wrap}
+
+@media(max-width:760px){
+ .team-report{padding:15px}.team-report-columns{grid-template-columns:1fr}
+ .team-report-metrics>div{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .team-report-rotations>div{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .team-report-head{flex-direction:column}.team-report-badge{align-self:flex-start}
+}
+@media print{
+ body *{visibility:hidden!important}
+ .analysis-result-backdrop:not([hidden]),.analysis-result-backdrop:not([hidden]) *{visibility:visible!important}
+ .analysis-result-backdrop{position:absolute!important;inset:0!important;background:#fff!important;padding:0!important}
+ .analysis-result-window{position:static!important;max-width:none!important;width:100%!important;height:auto!important;box-shadow:none!important;border:0!important;background:#fff!important;color:#111!important}
+ .analysis-result-window>header,.analysis-result-window>footer{display:none!important}
+ .analysis-result-window>main{overflow:visible!important;padding:0!important}
+ .team-report{width:100%!important;max-width:none!important;border:0!important;border-radius:0!important;background:#fff!important;color:#111!important;padding:10mm!important;gap:12px!important}
+ .team-report *{color:#111!important;background:#fff!important;box-shadow:none!important}
+ .team-report-head,.team-report footer{border-color:#999!important}
+ .team-report-columns>div,.team-report-training,.team-report-metrics,.team-report-rotations,.team-report-columns article,.team-report-metrics article,.team-report-rotations>div>span,.team-report-intro{border-color:#aaa!important}
+ .team-report-status{display:none!important}
+}
+
+
+/* RC6-6 rebuild · ANALYSIS-REPORT2A glossary */
+.team-report-glossary{padding:16px;border-radius:14px;border:1px solid #31445b;background:#101d2e}
+.team-report-glossary h2{margin:0 0 10px}
+.team-report-glossary dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;margin:0}
+.team-report-glossary dl>div{display:grid;grid-template-columns:auto 1fr;gap:8px;padding:8px 10px;border-radius:10px;background:#0b1726;border:1px solid #293c51}
+.team-report-glossary dt{font-weight:900;color:#eaf2fb}
+.team-report-glossary dd{margin:0;color:#aebfd0;line-height:1.35}
+@media print{
+ .team-report-glossary{break-inside:avoid}
+ .team-report-glossary dl{grid-template-columns:repeat(2,1fr)}
+}
+
+
+/* RC6-6 · Team-Report visual polish */
+.team-report{
+  background:
+    radial-gradient(circle at 88% 2%,rgba(56,189,248,.13),transparent 25%),
+    radial-gradient(circle at 8% 96%,rgba(34,197,94,.08),transparent 24%),
+    #091525!important;
+  border-color:#35506c!important;
+  box-shadow:0 18px 60px rgba(0,0,0,.28)
+}
+.team-report-head{
+  margin:-24px -24px 0!important;
+  padding:22px 24px 19px!important;
+  border-radius:17px 17px 0 0;
+  border-bottom:1px solid #245879!important;
+  background:linear-gradient(110deg,#0b3150 0%,#0d466a 52%,#12617f 100%)
+}
+.team-report-brand{color:#d7f4ff!important}
+.team-report-head h1{color:#fff!important}
+.team-report-head p{color:#cae6f5!important}
+.team-report-badge{
+  background:#e0f2fe!important;
+  border-color:#7dd3fc!important;
+  color:#075985!important
+}
+.team-report-intro{
+  background:linear-gradient(100deg,rgba(14,116,144,.22),rgba(30,64,175,.13))!important;
+  border-color:#2b6f91!important;
+  box-shadow:inset 4px 0 0 #38bdf8
+}
+.team-report-good{
+  background:linear-gradient(160deg,#10281f 0%,#102019 100%)!important;
+  border-color:#2d7555!important;
+  box-shadow:inset 4px 0 0 #22c55e
+}
+.team-report-good h2{color:#86efac!important}
+.team-report-good article{border-color:#285b45!important;background:#0d1d17!important}
+.team-report-focus{
+  background:linear-gradient(160deg,#302219 0%,#251b17 100%)!important;
+  border-color:#8b5b35!important;
+  box-shadow:inset 4px 0 0 #f59e0b
+}
+.team-report-focus h2{color:#fcd34d!important}
+.team-report-focus article{border-color:#63452c!important;background:#211812!important}
+.team-report-training{
+  background:linear-gradient(120deg,#17243a,#18233a)!important;
+  border-color:#465f8e!important;
+  box-shadow:inset 4px 0 0 #818cf8
+}
+.team-report-training h2{color:#c7d2fe!important}
+.team-report-metrics{
+  background:linear-gradient(120deg,#102535,#122233)!important;
+  border-color:#2d657d!important
+}
+.team-report-metrics h2{color:#bae6fd!important}
+.team-report-metrics article:nth-child(1){border-top:3px solid #38bdf8!important}
+.team-report-metrics article:nth-child(2){border-top:3px solid #22c55e!important}
+.team-report-metrics article:nth-child(3){border-top:3px solid #f59e0b!important}
+.team-report-metrics article:nth-child(4){border-top:3px solid #a78bfa!important}
+.team-report-rotations{
+  background:linear-gradient(120deg,#1b1e35,#161b2c)!important;
+  border-color:#555a8d!important;
+  box-shadow:inset 4px 0 0 #8b5cf6
+}
+.team-report-rotations h2{color:#ddd6fe!important}
+.team-report-rotations>div>span{background:#11182a!important;border-color:#3d4268!important}
+.team-report-glossary{
+  background:linear-gradient(120deg,#122332,#10202d)!important;
+  border-color:#355e78!important;
+  box-shadow:inset 4px 0 0 #06b6d4
+}
+.team-report-glossary h2{color:#a5f3fc!important}
+.team-report-glossary dl>div{background:#0c1925!important;border-color:#2a485b!important}
+.team-report footer{color:#8ba3b9!important}
+
+/* Color-preserving, ink-friendly PDF/print version. */
+@media print{
+  .team-report,.team-report *{
+    -webkit-print-color-adjust:exact!important;
+    print-color-adjust:exact!important
+  }
+  .team-report{
+    background:#fff!important;
+    color:#172033!important;
+    border:0!important;
+    box-shadow:none!important
+  }
+  .team-report-head{
+    margin:-10mm -10mm 0!important;
+    padding:9mm 10mm 7mm!important;
+    background:linear-gradient(110deg,#075985,#0e7490)!important;
+    border-bottom:0!important;
+    border-radius:0!important
+  }
+  .team-report-head h1,.team-report-head p,.team-report-brand{color:#fff!important}
+  .team-report-badge{
+    background:#e0f2fe!important;
+    border-color:#7dd3fc!important;
+    color:#075985!important
+  }
+  .team-report-intro{
+    background:#eff9ff!important;
+    border:1px solid #7dd3fc!important;
+    border-left:5px solid #0284c7!important
+  }
+  .team-report-intro strong,.team-report-intro p{color:#164e63!important}
+  .team-report-good{
+    background:#f0fdf4!important;
+    border:1px solid #86efac!important;
+    border-left:5px solid #16a34a!important;
+    box-shadow:none!important
+  }
+  .team-report-good h2{color:#166534!important}
+  .team-report-good article{background:#fff!important;border-color:#bbf7d0!important}
+  .team-report-focus{
+    background:#fffbeb!important;
+    border:1px solid #fcd34d!important;
+    border-left:5px solid #d97706!important;
+    box-shadow:none!important
+  }
+  .team-report-focus h2{color:#92400e!important}
+  .team-report-focus article{background:#fff!important;border-color:#fde68a!important}
+  .team-report-training{
+    background:#eef2ff!important;
+    border:1px solid #a5b4fc!important;
+    border-left:5px solid #6366f1!important;
+    box-shadow:none!important
+  }
+  .team-report-training h2{color:#3730a3!important}
+  .team-report-metrics{
+    background:#f0f9ff!important;
+    border:1px solid #bae6fd!important
+  }
+  .team-report-metrics h2{color:#075985!important}
+  .team-report-metrics article{
+    background:#fff!important;
+    border-color:#cbd5e1!important
+  }
+  .team-report-metrics article strong,.team-report-metrics article span{color:#172033!important}
+  .team-report-metrics article small{color:#52647a!important}
+  .team-report-rotations{
+    background:#f5f3ff!important;
+    border:1px solid #c4b5fd!important;
+    border-left:5px solid #7c3aed!important;
+    box-shadow:none!important
+  }
+  .team-report-rotations h2{color:#5b21b6!important}
+  .team-report-rotations>div>span{
+    background:#fff!important;
+    border-color:#ddd6fe!important
+  }
+  .team-report-rotations em.good{color:#15803d!important}
+  .team-report-rotations em.bad{color:#b91c1c!important}
+  .team-report-rotations em.even{color:#475569!important}
+  .team-report-glossary{
+    background:#ecfeff!important;
+    border:1px solid #a5f3fc!important;
+    border-left:5px solid #0891b2!important;
+    box-shadow:none!important
+  }
+  .team-report-glossary h2{color:#155e75!important}
+  .team-report-glossary dl>div{
+    background:#fff!important;
+    border-color:#bae6fd!important
+  }
+  .team-report-glossary dt{color:#0f172a!important}
+  .team-report-glossary dd{color:#475569!important}
+  .team-report footer{color:#64748b!important}
+}
+
+
+/* RC6-6 report corrections: header metadata + report branching */
+.team-report-head-main{min-width:0;flex:1}
+.team-report-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}
+.team-report-meta>span{display:flex;flex-direction:column;gap:2px;min-width:112px;padding:7px 10px;border-radius:10px;background:rgba(3,20,34,.26);border:1px solid rgba(186,230,253,.28)}
+.team-report-meta small{font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:#bae6fd}
+.team-report-meta strong{font-size:.78rem;color:#fff;line-height:1.25}
+.analysis-report-menu{max-width:820px;margin:10px auto;padding:22px;border:1px solid #34485e;border-radius:16px;background:#0d1b2c}
+.analysis-report-menu h3{margin:0 0 6px;font-size:1.35rem}
+.analysis-report-menu>p{margin:0 0 18px;color:#9fb2c8;line-height:1.45}
+.analysis-report-choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.analysis-report-choice-grid button{min-height:150px;padding:20px;text-align:left;border-radius:15px;border:1px solid #3b5875;background:linear-gradient(145deg,#132940,#102033);display:flex;flex-direction:column;gap:9px}
+.analysis-report-choice-grid button:hover{border-color:#58bce8;transform:translateY(-1px)}
+.analysis-report-choice-grid button strong{font-size:1.1rem;color:#fff}
+.analysis-report-choice-grid button span{font-size:.85rem;line-height:1.45;color:#a9bdd1}
+.analysis-report-choice-grid button:first-child{box-shadow:inset 4px 0 0 #22c55e}
+.analysis-report-choice-grid button:last-child{box-shadow:inset 4px 0 0 #38bdf8}
+@media(max-width:680px){
+  .analysis-report-choice-grid{grid-template-columns:1fr}
+  .analysis-report-choice-grid button{min-height:120px}
+  .team-report-meta>span{min-width:calc(50% - 4px)}
+}
+
+/* Fix print header: child containers must stay transparent, otherwise white text disappeared on white rectangles. */
+@media print{
+  .team-report *{
+    -webkit-print-color-adjust:exact!important;
+    print-color-adjust:exact!important;
+    background-color:transparent!important
+  }
+  .team-report-head,.team-report-head-main{background:linear-gradient(110deg,#075985,#0e7490)!important}
+  .team-report-head-main{background-color:transparent!important}
+  .team-report-meta>span{background:rgba(255,255,255,.12)!important;border-color:rgba(255,255,255,.35)!important}
+  .team-report-meta small{color:#dff6ff!important}
+  .team-report-meta strong{color:#fff!important}
+  .team-report-good article,.team-report-focus article,.team-report-metrics article,.team-report-rotations>div>span,.team-report-glossary dl>div{background:#fff!important}
+  .team-report-intro{background:#eff9ff!important}
+  .team-report-good{background:#f0fdf4!important}
+  .team-report-focus{background:#fffbeb!important}
+  .team-report-training{background:#eef2ff!important}
+  .team-report-metrics{background:#f0f9ff!important}
+  .team-report-rotations{background:#f5f3ff!important}
+  .team-report-glossary{background:#ecfeff!important}
+}
+
+
+/* RC6-8 · UI-REPORT1 compact responsive chooser */
+.analysis-result-backdrop.report-menu-mode .analysis-result-window{
+  width:clamp(520px,65vw,780px);
+  height:auto;
+  max-height:min(620px,calc(100dvh - 32px));
+  grid-template-rows:auto auto auto;
+}
+.analysis-result-backdrop.report-menu-mode .analysis-result-window>main{overflow:visible;padding:18px}
+.analysis-result-backdrop.report-menu-mode .analysis-report-menu{
+  width:100%;max-width:none;margin:0;padding:18px;
+}
+.analysis-result-backdrop.report-menu-mode .analysis-report-choice-grid button{
+  min-height:132px;padding:18px;
+}
+@media(max-width:620px){
+  .analysis-result-backdrop.report-menu-mode{padding:10px}
+  .analysis-result-backdrop.report-menu-mode .analysis-result-window{
+    width:calc(100vw - 20px);height:auto;max-height:calc(100dvh - 20px);border-radius:14px;
+  }
+  .analysis-result-backdrop.report-menu-mode .analysis-report-choice-grid{grid-template-columns:1fr}
+  .analysis-result-backdrop.report-menu-mode .analysis-report-choice-grid button{min-height:104px}
+}
+
+/* RC6-8 · ANALYSIS-REPORT3 dedicated coach report */
+.analysis-result-backdrop.trainer-report-mode .analysis-result-window{max-width:min(1180px,calc(100vw - 24px))}
+.trainer-report{
+  width:min(100%,1040px);margin:0 auto;display:grid;gap:16px;padding:22px;
+  background:#0b1627;color:#e8f1fb;border:1px solid #34506a;border-radius:17px
+}
+.trainer-report h2{margin:0 0 11px;font-size:1.08rem;color:#f8fafc}
+.trainer-report h3{margin:0}
+.trainer-report-head{
+  margin:-22px -22px 0;padding:22px;border-radius:16px 16px 0 0;
+  display:flex;justify-content:space-between;gap:20px;align-items:flex-start;
+  background:linear-gradient(110deg,#12375a,#0d5571 62%,#0f6b78)
+}
+.trainer-report-brand{font-size:.7rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#d8f3ff}
+.trainer-report-head h1{margin:5px 0 12px;font-size:clamp(1.5rem,2.4vw,2rem);color:#fff}
+.trainer-report-badge{padding:6px 10px;border-radius:999px;background:#dbeafe;color:#1e3a8a;font-size:.72rem;font-weight:900;white-space:nowrap}
+.trainer-report-meta,.trainer-report-summary>div,.trainer-phase-metrics,.trainer-opponent-metrics{
+  display:flex;flex-wrap:wrap;gap:8px
+}
+.trainer-report-meta>span,.trainer-report-summary span,.trainer-phase-metrics span,.trainer-opponent-metrics span{
+  display:flex;flex-direction:column;gap:2px;min-width:115px;padding:8px 10px;border:1px solid #37536c;border-radius:10px;background:#0c1c2d
+}
+.trainer-report-head .trainer-report-meta>span{background:rgba(3,20,34,.25);border-color:rgba(255,255,255,.25)}
+.trainer-report-meta small,.trainer-report-summary small,.trainer-phase-metrics small,.trainer-opponent-metrics small{
+  font-size:.62rem;text-transform:uppercase;letter-spacing:.04em;color:#8fb0c9
+}
+.trainer-report-meta strong,.trainer-report-summary strong,.trainer-phase-metrics strong,.trainer-opponent-metrics strong{font-size:.9rem;color:#fff}
+.trainer-report-head .trainer-report-meta small{color:#c3e8f7}
+.trainer-report-summary,.trainer-report-priorities,.trainer-report-phases,.trainer-report-rotations,
+.trainer-report-techniques,.trainer-report-context-grid>div,.trainer-report-training{
+  padding:16px;border:1px solid #31475e;border-radius:14px;background:#101d2e
+}
+.trainer-report-summary{border-left:4px solid #38bdf8}
+.trainer-report-priorities{border-left:4px solid #f59e0b}
+.trainer-report-priorities>article{
+  display:grid;grid-template-columns:34px 1fr;gap:12px;padding:13px 0;border-bottom:1px solid #27394c
+}
+.trainer-report-priorities>article:last-child{border-bottom:0;padding-bottom:0}
+.trainer-priority-no{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#78350f;color:#fde68a;font-weight:900}
+.trainer-report-priorities article h3{font-size:1rem;color:#fcd34d;margin-bottom:4px}
+.trainer-report-priorities article>div>strong{font-size:.86rem;color:#f8fafc}
+.trainer-report-priorities p{margin:6px 0;color:#b7c7d8;line-height:1.43}
+.trainer-report-priorities small{color:#7891aa}
+.trainer-next{padding:7px 9px;border-radius:8px;background:#0b1726}
+.trainer-report-phases{border-left:4px solid #22c55e}
+.trainer-report-phases>div{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.trainer-report-phases article{padding:13px;border-radius:12px;background:#0b1726;border:1px solid #2b4558}
+.trainer-report-phases article h3{font-size:.92rem;color:#bbf7d0;margin-bottom:9px}
+.trainer-report-phases article p{font-size:.8rem;color:#aebfd0;line-height:1.4;margin:9px 0 0}
+.trainer-report-rotations{border-left:4px solid #8b5cf6}
+.trainer-report-table-wrap{overflow:auto}
+.trainer-report table{width:100%;border-collapse:collapse;font-size:.76rem}
+.trainer-report th,.trainer-report td{padding:7px 9px;border-bottom:1px solid #2b3c50;text-align:left;white-space:nowrap}
+.trainer-report th{color:#9fb7cb;font-weight:800}
+.trainer-report td.pos{color:#4ade80;font-weight:900}.trainer-report td.neg{color:#fb7185;font-weight:900}
+.trainer-report-help{margin:8px 0 0;font-size:.7rem;color:#8198ad;line-height:1.4}
+.trainer-report-techniques{border-left:4px solid #06b6d4}
+.trainer-report-techniques>div{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.trainer-report-techniques article{padding:12px;border:1px solid #2d4c61;border-radius:11px;background:#0b1726}
+.trainer-report-techniques article>strong{font-size:1.15rem;color:#67e8f9}
+.trainer-report-techniques article h3{font-size:.9rem;margin:3px 0}.trainer-report-techniques article span{font-size:.69rem;color:#8eabc0}
+.trainer-report-techniques article p{font-size:.74rem;line-height:1.4;color:#aebfd0;margin:8px 0 0}
+.trainer-report-context-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:12px}
+.trainer-report-context-grid>div:first-child{border-left:4px solid #60a5fa}
+.trainer-report-context-grid>div:last-child{border-left:4px solid #f97316}
+.trainer-report-training{border-left:4px solid #ec4899}
+.trainer-report-training ol,.trainer-report-training ul{margin:0;padding-left:1.3rem;display:grid;gap:6px;color:#d5e1ed}
+.trainer-report-training h3{font-size:.86rem;margin:14px 0 7px;color:#fbcfe8}
+.trainer-report footer{padding-top:10px;border-top:1px solid #2b3c50;font-size:.7rem;color:#7f95aa}
+
+@media(max-width:820px){
+  .trainer-report-phases>div{grid-template-columns:1fr}
+  .trainer-report-techniques>div{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .trainer-report-context-grid{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .trainer-report{padding:14px}
+  .trainer-report-head{margin:-14px -14px 0;padding:16px;flex-direction:column}
+  .trainer-report-techniques>div{grid-template-columns:1fr}
+}
+
+/* RC6-8 print: dedicated report pages and colour accents */
+@media print{
+  .analysis-result-backdrop.trainer-report-mode .trainer-report{
+    width:100%!important;max-width:none!important;margin:0!important;padding:8mm!important;
+    background:#fff!important;color:#172033!important;border:0!important;border-radius:0!important
+  }
+  .trainer-report,.trainer-report *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  .trainer-report-head{margin:-8mm -8mm 0!important;padding:8mm!important;background:linear-gradient(110deg,#075985,#0e7490)!important;border-radius:0!important}
+  .trainer-report-head h1,.trainer-report-brand,.trainer-report-head .trainer-report-meta strong{color:#fff!important}
+  .trainer-report-head .trainer-report-meta small{color:#dff6ff!important}
+  .trainer-report-summary,.trainer-report-priorities,.trainer-report-phases,.trainer-report-rotations,.trainer-report-techniques,.trainer-report-context-grid>div,.trainer-report-training{
+    background:#fff!important;color:#111!important;box-shadow:none!important;break-inside:avoid
+  }
+  .trainer-report-priorities{background:#fffbeb!important;border-color:#f59e0b!important}
+  .trainer-report-phases{background:#f0fdf4!important;border-color:#22c55e!important}
+  .trainer-report-rotations{background:#f5f3ff!important;border-color:#8b5cf6!important}
+  .trainer-report-techniques{background:#ecfeff!important;border-color:#06b6d4!important}
+  .trainer-report-training{background:#fdf2f8!important;border-color:#ec4899!important}
+  .trainer-report h2,.trainer-report h3,.trainer-report strong,.trainer-report td,.trainer-report li{color:#172033!important}
+  .trainer-report p,.trainer-report small,.trainer-report span{color:#475569!important}
+  .trainer-report table{font-size:8pt}
+  .trainer-report th,.trainer-report td{border-color:#cbd5e1!important}
+}
+
+
+/* RC6-8 rebuild · trainer PDF pagination/contrast fix */
+@media print{
+  /* Let the long report flow naturally across pages. Keeping whole sections
+     together caused large white gaps and almost-empty pages. */
+  .trainer-report-summary,
+  .trainer-report-priorities,
+  .trainer-report-phases,
+  .trainer-report-rotations,
+  .trainer-report-techniques,
+  .trainer-report-context-grid,
+  .trainer-report-context-grid>div,
+  .trainer-report-training{
+    break-inside:auto!important;
+    page-break-inside:auto!important;
+  }
+
+  /* Keep only small semantic units together. */
+  .trainer-report-priorities>article,
+  .trainer-report-phases article,
+  .trainer-report-techniques article,
+  .trainer-report-training li,
+  .trainer-report table tr{
+    break-inside:avoid!important;
+    page-break-inside:avoid!important;
+  }
+
+  /* Do not carry screen dark tiles into the light print report. */
+  .trainer-report-summary span,
+  .trainer-phase-metrics span,
+  .trainer-opponent-metrics span{
+    background:#fff!important;
+    border-color:#cbd5e1!important;
+  }
+  .trainer-report-summary span small,
+  .trainer-phase-metrics span small,
+  .trainer-opponent-metrics span small{
+    color:#64748b!important;
+  }
+  .trainer-report-summary span strong,
+  .trainer-phase-metrics span strong,
+  .trainer-opponent-metrics span strong{
+    color:#0f172a!important;
+  }
+
+  /* Header metadata remains readable on the coloured header. */
+  .trainer-report-head .trainer-report-meta>span{
+    background:rgba(255,255,255,.14)!important;
+    border-color:rgba(255,255,255,.42)!important;
+  }
+  .trainer-report-head .trainer-report-meta small{color:#dff6ff!important}
+  .trainer-report-head .trainer-report-meta strong{color:#fff!important}
+
+  /* More economical paper spacing so page 1 contains actual analysis content. */
+  .trainer-report{gap:4mm!important}
+  .trainer-report-head{padding:6mm 7mm!important;margin:-8mm -8mm 0!important}
+  .trainer-report-head h1{margin:2mm 0 3mm!important}
+  .trainer-report-summary,
+  .trainer-report-priorities,
+  .trainer-report-phases,
+  .trainer-report-rotations,
+  .trainer-report-techniques,
+  .trainer-report-context-grid>div,
+  .trainer-report-training{
+    padding:4mm!important;
+    border-radius:3mm!important;
+  }
+  .trainer-report-priorities>article{padding:3mm 0!important}
+  .trainer-report-phases>div{gap:2.5mm!important}
+  .trainer-report-phases article{padding:3mm!important}
+  .trainer-report-techniques>div{gap:2.5mm!important}
+  .trainer-report-techniques article{padding:3mm!important}
+
+  /* Prevent the screen two-column context grid from creating awkward print
+     fragmentation; on paper, stack the two coach sections. */
+  .trainer-report-context-grid{
+    display:block!important;
+  }
+  .trainer-report-context-grid>div+div{margin-top:4mm!important}
+
+  /* Repeat table headers on subsequent pages. */
+  .trainer-report thead{display:table-header-group!important}
+  .trainer-report tfoot{display:table-footer-group!important}
+}
+
+
+/* RC6-8 bugfix · REPORT-PRINT1 / REPORT-FORMAT1 */
+@media print{
+  html,body,.team-report,.trainer-report{
+    font-variant-ligatures:none!important;
+    font-feature-settings:"liga" 0,"clig" 0!important;
+  }
+
+  /* Long reports must be normal block flow on paper; grid was still causing
+     oversized blank regions in Chromium print pagination. */
+  .trainer-report,.team-report{
+    display:block!important;
+  }
+
+  /* Player report: compress spacing and allow glossary to use the remaining
+     space on page 2 instead of forcing a separate third page. */
+  .team-report{
+    padding:7mm!important;
+  }
+  .team-report>*+*{margin-top:3mm!important}
+  .team-report-columns,.team-report-metrics>div,.team-report-rotations>div,.team-report-glossary dl{
+    gap:2.2mm!important;
+  }
+  .team-report-columns>div,.team-report-training,.team-report-metrics,.team-report-rotations,.team-report-glossary{
+    padding:3.5mm!important;
+    break-inside:auto!important;
+    page-break-inside:auto!important;
+  }
+  .team-report-columns article,.team-report-metrics article,.team-report-rotations>div>span,.team-report-glossary dl>div{
+    break-inside:avoid!important;
+    page-break-inside:avoid!important;
+  }
+  .team-report-glossary dl{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+  .team-report-glossary dl>div{
+    padding:2.2mm!important;
+    font-size:9pt!important;
+  }
+  .team-report footer{margin-top:3mm!important}
+
+  /* Trainer report print contrast: all inner cards are light on paper. */
+  .trainer-next,
+  .trainer-report-phases article,
+  .trainer-report-techniques article{
+    background:#fff!important;
+    border-color:#cbd5e1!important;
+    color:#172033!important;
+  }
+  .trainer-next,.trainer-next *,.trainer-report-phases article *,.trainer-report-techniques article *{
+    color:#172033!important;
+  }
+  .trainer-report-priorities article>div>strong{color:#172033!important}
+}
+
+
+/* RC6-8 report layout redesign · REPORT-LAYOUT1 / REPORT-PLAYER1 / REPORT-TRAINER1 */
+.analysis-report-choice-grid{align-items:stretch}
+.analysis-report-player-card,.analysis-report-trainer-card{
+  min-height:156px;padding:18px;border-radius:15px;border:1px solid #3b5875;
+  background:linear-gradient(145deg,#132940,#102033);text-align:left
+}
+.analysis-report-player-card{
+  display:flex!important;flex-direction:column;justify-content:flex-start;gap:9px;
+  box-shadow:inset 4px 0 0 #22c55e
+}
+.analysis-report-trainer-card{
+  display:flex;flex-direction:column;gap:9px;box-shadow:inset 4px 0 0 #38bdf8
+}
+.analysis-report-player-card strong,.analysis-report-trainer-card>strong{font-size:1.1rem;color:#fff}
+.analysis-report-player-card span,.analysis-report-trainer-card>span{font-size:.85rem;line-height:1.45;color:#a9bdd1}
+.analysis-report-trainer-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:auto}
+.analysis-report-trainer-actions button{
+  min-height:38px!important;padding:8px 10px!important;border-radius:9px!important;
+  text-align:center!important;font-weight:800;background:#0a2034!important
+}
+.analysis-report-trainer-actions button:first-child{border-color:#38bdf8!important}
+.analysis-report-trainer-actions button:last-child{border-color:#818cf8!important}
+@media(max-width:620px){
+  .analysis-report-player-card,.analysis-report-trainer-card{min-height:auto}
+  .analysis-report-trainer-actions{grid-template-columns:1fr 1fr}
+}
+
+/* Trainer short report on screen */
+.trainer-report-short{max-width:1040px}
+.trainer-short-overview,.trainer-short-priorities,.trainer-short-phases,.trainer-short-rotation,.trainer-short-technique,.trainer-short-training{
+  padding:14px;border:1px solid #31475e;border-radius:14px;background:#101d2e
+}
+.trainer-short-overview{border-left:4px solid #38bdf8}
+.trainer-short-priorities{border-left:4px solid #f59e0b}
+.trainer-short-phases{border-left:4px solid #22c55e}
+.trainer-short-rotation{border-left:4px solid #8b5cf6}
+.trainer-short-technique{border-left:4px solid #06b6d4}
+.trainer-short-training{border-left:4px solid #ec4899}
+.trainer-short-overview-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.trainer-short-overview-grid span,.trainer-short-phases article span{
+  display:flex;flex-direction:column;gap:2px;padding:8px;border:1px solid #37536c;border-radius:9px;background:#0c1c2d
+}
+.trainer-short-overview-grid small,.trainer-short-phases article small{font-size:.62rem;color:#8fb0c9;text-transform:uppercase}
+.trainer-short-overview-grid strong,.trainer-short-phases article strong{color:#fff}
+.trainer-short-priorities{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.trainer-short-priorities>h2{grid-column:1/-1}
+.trainer-short-priorities>article{display:grid;grid-template-columns:26px 1fr;gap:8px;padding:10px;border:1px solid #5f4a2b;border-radius:10px;background:#17140e}
+.trainer-short-priorities>article>b{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:#78350f;color:#fde68a}
+.trainer-short-priorities h3{font-size:.9rem;color:#fcd34d}.trainer-short-priorities p{font-size:.75rem;line-height:1.35;color:#b7c7d8;margin:5px 0}
+.trainer-short-phases>div{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.trainer-short-phases article{padding:10px;border:1px solid #2b4558;border-radius:10px;background:#0b1726}
+.trainer-short-phases article>div{display:flex;flex-wrap:wrap;gap:5px}.trainer-short-phases article p{font-size:.72rem;line-height:1.35;color:#aebfd0}
+.trainer-short-technique>div{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.trainer-short-technique article{padding:9px;border:1px solid #2d4c61;border-radius:10px;background:#0b1726;display:flex;flex-direction:column}
+.trainer-short-technique article>strong{font-size:1.1rem;color:#67e8f9}.trainer-short-technique article>small{color:#8eabc0}
+.trainer-short-training ol{margin:0;padding-left:1.2rem}.trainer-short-training p{margin:6px 0 0;color:#b9c8d8}
+
+/* Dedicated paper composition. Browser screen styles stay unchanged. */
+@page{size:A4 portrait;margin:6mm}
+
+@media print{
+  /* Keep player wording unchanged, fit via composition rather than truncation. */
+  .analysis-result-backdrop.team-report-mode .team-report{
+    box-sizing:border-box!important;
+    width:198mm!important;max-width:198mm!important;min-height:0!important;
+    padding:0!important;margin:0 auto!important;
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    grid-template-areas:
+      "head head"
+      "intro intro"
+      "strengths strengths"
+      "training metrics"
+      "rotations glossary"
+      "foot foot"!important;
+    gap:2.2mm!important;
+    font-size:8.25pt!important;
+    line-height:1.22!important;
+  }
+  .team-report-head{grid-area:head!important;margin:0!important;padding:4.2mm 5mm!important;min-height:0!important}
+  .team-report-head h1{font-size:16pt!important;margin:1mm 0!important}
+  .team-report-head p{font-size:8.3pt!important}
+  .team-report-brand{font-size:6.6pt!important}
+  .team-report-meta{gap:1.5mm!important;margin-top:2mm!important}
+  .team-report-meta>span{min-width:0!important;padding:1.5mm 2mm!important}
+  .team-report-meta small{font-size:5.7pt!important}.team-report-meta strong{font-size:7.2pt!important}
+  .team-report-badge{font-size:6.5pt!important;padding:1.3mm 2.4mm!important;background:#e0f2fe!important;color:#075985!important}
+  .team-report-intro{grid-area:intro!important;padding:2.4mm 3mm!important;margin:0!important}
+  .team-report-intro strong{font-size:9pt!important}.team-report-intro p{font-size:8pt!important;margin:1mm 0 0!important}
+  .team-report-columns{grid-area:strengths!important;display:grid!important;grid-template-columns:1fr 1fr!important;gap:2.2mm!important;margin:0!important}
+  .team-report-columns>div{padding:2.5mm!important;margin:0!important}
+  .team-report h2{font-size:9pt!important;margin:0 0 1.5mm!important}
+  .team-report-columns article{padding:1.8mm 2.2mm!important;margin-top:1.4mm!important}
+  .team-report-columns article h4{font-size:7.9pt!important;margin:0 0 .7mm!important}
+  .team-report-columns article p{font-size:7.7pt!important;line-height:1.24!important}
+  .team-report-training{grid-area:training!important;padding:2.6mm!important;margin:0!important}
+  .team-report-training ol{font-size:7.6pt!important;line-height:1.27!important;gap:1mm!important;padding-left:4mm!important}
+  .team-report-metrics{grid-area:metrics!important;padding:2.6mm!important;margin:0!important}
+  .team-report-metrics>div{grid-template-columns:1fr 1fr!important;gap:1.5mm!important}
+  .team-report-metrics article{padding:1.8mm!important}
+  .team-report-metrics article strong{font-size:12pt!important}.team-report-metrics article span{font-size:6.7pt!important;line-height:1.18!important}.team-report-metrics article small{font-size:5.8pt!important}
+  .team-report-rotations{grid-area:rotations!important;padding:2.6mm!important;margin:0!important}
+  .team-report-rotations>div{grid-template-columns:repeat(3,1fr)!important;gap:1.4mm!important}
+  .team-report-rotations>div>span{padding:1.7mm!important}
+  .team-report-rotations b,.team-report-rotations em{font-size:7.8pt!important}.team-report-rotations small,.team-report-rotations p{font-size:5.8pt!important}
+  .team-report-glossary{grid-area:glossary!important;padding:2.6mm!important;margin:0!important}
+  .team-report-glossary dl{grid-template-columns:1fr 1fr!important;gap:1.3mm!important}
+  .team-report-glossary dl>div{grid-template-columns:auto 1fr!important;gap:1.2mm!important;padding:1.5mm!important;font-size:6.5pt!important;line-height:1.18!important}
+  .team-report-glossary dt{font-size:6.7pt!important}.team-report-glossary dd{font-size:6.4pt!important}
+  .team-report footer{grid-area:foot!important;margin:0!important;padding-top:1.8mm!important;font-size:5.8pt!important}
+  .team-report>*{break-inside:avoid!important;page-break-inside:avoid!important}
+
+  /* Trainer short report = one-page working sheet. */
+  .analysis-result-backdrop.trainer-report-mode.trainer-short-mode .trainer-report-short{
+    width:198mm!important;max-width:198mm!important;margin:0!important;padding:0!important;
+    display:grid!important;
+    grid-template-columns:1.08fr .92fr!important;
+    grid-template-areas:
+      "head head"
+      "overview overview"
+      "priority phase"
+      "rotation rotation"
+      "tech training"
+      "foot foot"!important;
+    gap:2.1mm!important;font-size:7.7pt!important;line-height:1.2!important
+  }
+  .trainer-report-short .trainer-report-head{grid-area:head!important;margin:0!important;padding:4mm 5mm!important}
+  .trainer-report-short .trainer-report-head h1{font-size:15.5pt!important;margin:1mm 0 2mm!important}
+  .trainer-report-short .trainer-short-overview{grid-area:overview!important}
+  .trainer-report-short .trainer-short-priorities{grid-area:priority!important}
+  .trainer-report-short .trainer-short-phases{grid-area:phase!important}
+  .trainer-report-short .trainer-short-rotation{grid-area:rotation!important}
+  .trainer-report-short .trainer-short-technique{grid-area:tech!important}
+  .trainer-report-short .trainer-short-training{grid-area:training!important}
+  .trainer-report-short>footer{grid-area:foot!important}
+  .trainer-report-short .trainer-short-overview,.trainer-report-short .trainer-short-priorities,.trainer-report-short .trainer-short-phases,.trainer-report-short .trainer-short-rotation,.trainer-report-short .trainer-short-technique,.trainer-report-short .trainer-short-training{padding:2.5mm!important;margin:0!important;background:#fff!important;color:#172033!important}
+  .trainer-report-short h2{font-size:9pt!important;margin:0 0 1.5mm!important}
+  .trainer-short-overview-grid{grid-template-columns:repeat(4,1fr)!important;gap:1.5mm!important}
+  .trainer-short-overview-grid span,.trainer-short-phases article span{padding:1.5mm!important;background:#fff!important;border-color:#cbd5e1!important}
+  .trainer-short-overview-grid small,.trainer-short-phases article small{font-size:5.5pt!important;color:#64748b!important}
+  .trainer-short-overview-grid strong,.trainer-short-phases article strong{font-size:7.6pt!important;color:#172033!important}
+  .trainer-short-priorities{grid-template-columns:1fr!important;gap:1.2mm!important}
+  .trainer-short-priorities>article{padding:1.6mm!important;grid-template-columns:6mm 1fr!important;background:#fff!important;border-color:#fde68a!important}
+  .trainer-short-priorities>article>b{width:5mm!important;height:5mm!important;font-size:6.5pt!important}
+  .trainer-short-priorities h3{font-size:7.6pt!important}.trainer-short-priorities article>div>strong{font-size:6.8pt!important;color:#172033!important}.trainer-short-priorities p{font-size:6.6pt!important;line-height:1.18!important;color:#475569!important;margin:.8mm 0!important}
+  .trainer-short-phases>div{grid-template-columns:1fr!important;gap:1.2mm!important}
+  .trainer-short-phases article{padding:1.5mm!important;background:#fff!important;border-color:#bbf7d0!important}
+  .trainer-short-phases article h3{font-size:7.3pt!important}.trainer-short-phases article p{font-size:6.3pt!important;line-height:1.18!important;margin:1mm 0 0!important;color:#475569!important}
+  .trainer-report-short table{font-size:6.7pt!important}.trainer-report-short th,.trainer-report-short td{padding:1.2mm 1.6mm!important}
+  .trainer-short-technique>div{grid-template-columns:1fr 1fr!important;gap:1.2mm!important}
+  .trainer-short-technique article{padding:1.7mm!important;background:#fff!important;border-color:#bae6fd!important}
+  .trainer-short-technique article>strong{font-size:9pt!important;color:#075985!important}.trainer-short-technique article>span{font-size:6.8pt!important}.trainer-short-technique article>small{font-size:5.8pt!important}
+  .trainer-short-training ol{font-size:6.6pt!important;line-height:1.2!important;padding-left:4mm!important}.trainer-short-training h3{font-size:7pt!important;margin:1.5mm 0 .6mm!important}.trainer-short-training p{font-size:6.3pt!important}
+  .trainer-report-short>footer{font-size:5.5pt!important;padding-top:1.5mm!important}
+  .trainer-report-short>*{break-inside:avoid!important;page-break-inside:avoid!important}
+
+  /* Trainer detail report: denser two-page target while retaining all detail text. */
+  .analysis-result-backdrop.trainer-report-mode:not(.trainer-short-mode) .trainer-report-detail{
+    width:198mm!important;max-width:198mm!important;margin:0!important;padding:0!important;
+    display:grid!important;grid-template-columns:1fr 1fr!important;gap:2.2mm!important;
+    font-size:7.4pt!important;line-height:1.18!important
+  }
+  .trainer-report-detail .trainer-report-head,.trainer-report-detail .trainer-report-summary,.trainer-report-detail .trainer-report-rotations,.trainer-report-detail .trainer-report-training,.trainer-report-detail>footer{grid-column:1/-1!important}
+  .trainer-report-detail .trainer-report-head{margin:0!important;padding:4mm 5mm!important}
+  .trainer-report-detail .trainer-report-head h1{font-size:15pt!important;margin:1mm 0 2mm!important}
+  .trainer-report-detail .trainer-report-summary,.trainer-report-detail .trainer-report-priorities,.trainer-report-detail .trainer-report-phases,.trainer-report-detail .trainer-report-rotations,.trainer-report-detail .trainer-report-techniques,.trainer-report-detail .trainer-report-context-grid>div,.trainer-report-detail .trainer-report-training{padding:2.7mm!important;margin:0!important}
+  .trainer-report-detail h2{font-size:9pt!important;margin:0 0 1.3mm!important}
+  .trainer-report-detail .trainer-report-priorities>article{padding:1.8mm 0!important;grid-template-columns:6mm 1fr!important;gap:1.5mm!important}
+  .trainer-report-detail .trainer-priority-no{width:5mm!important;height:5mm!important;font-size:6pt!important}
+  .trainer-report-detail .trainer-report-priorities article h3{font-size:7.6pt!important}.trainer-report-detail .trainer-report-priorities article>div>strong{font-size:6.8pt!important}.trainer-report-detail .trainer-report-priorities p{font-size:6.5pt!important;line-height:1.18!important;margin:.8mm 0!important}
+  .trainer-report-detail .trainer-next{padding:1.3mm!important;font-size:6.3pt!important}
+  .trainer-report-detail .trainer-report-phases>div{grid-template-columns:1fr!important;gap:1.2mm!important}
+  .trainer-report-detail .trainer-report-phases article{padding:1.7mm!important}
+  .trainer-report-detail .trainer-report-phases article h3{font-size:7.2pt!important}.trainer-report-detail .trainer-report-phases article p{font-size:6.3pt!important;margin:1mm 0 0!important}
+  .trainer-report-detail table{font-size:6.5pt!important}.trainer-report-detail th,.trainer-report-detail td{padding:1.1mm 1.4mm!important}
+  .trainer-report-detail .trainer-report-techniques>div{grid-template-columns:1fr 1fr!important;gap:1.2mm!important}
+  .trainer-report-detail .trainer-report-techniques article{padding:1.6mm!important}
+  .trainer-report-detail .trainer-report-context-grid{display:contents!important}
+  .trainer-report-detail .trainer-report-context-grid>div{display:block!important}
+  .trainer-report-detail .trainer-report-training ol,.trainer-report-detail .trainer-report-training ul{font-size:6.5pt!important;gap:.8mm!important}
+  .trainer-report-detail>footer{font-size:5.5pt!important;padding-top:1.5mm!important}
+}
+
+
+/* RC6-8 finishing · REPORT-PRINT2 / REPORT-TYPO1 / REPORT-SHARE2A */
+.analysis-result-backdrop.trainer-report-mode #analysisResultActions{
+  flex-wrap:wrap;
+}
+
+/* The browser's native title/URL header is not part of VolleyTakt. REPORT-PRINT2
+   reserves no top page margin and supplies its own page footer via @page margin
+   boxes injected immediately before print. */
+@media print{
+  .analysis-result-backdrop.team-report-mode .team-report,
+  .analysis-result-backdrop.trainer-report-mode .trainer-report{
+    padding-top:3mm!important;
+  }
+
+  /* Trainer short report: use spare lower-page area for more readable prose. */
+  .analysis-result-backdrop.trainer-report-mode.trainer-short-mode .trainer-report-short{
+    font-size:8.15pt!important;
+    line-height:1.24!important;
+  }
+  .trainer-report-short .trainer-short-priorities h3{font-size:8.1pt!important}
+  .trainer-report-short .trainer-short-priorities article>div>strong{font-size:7.25pt!important}
+  .trainer-report-short .trainer-short-priorities p{font-size:7.15pt!important;line-height:1.23!important}
+  .trainer-report-short .trainer-short-phases article h3{font-size:7.8pt!important}
+  .trainer-report-short .trainer-short-phases article p{font-size:6.95pt!important;line-height:1.23!important}
+  .trainer-report-short table{font-size:7.05pt!important}
+  .trainer-report-short .trainer-short-training ol{font-size:7.1pt!important;line-height:1.24!important}
+  .trainer-report-short .trainer-short-training p{font-size:6.9pt!important}
+  .trainer-report-short>footer{font-size:6.1pt!important}
+
+  /* Detail report: page 2 had ample free area; increase practical reading size
+     while retaining the two-page composition. */
+  .analysis-result-backdrop.trainer-report-mode:not(.trainer-short-mode) .trainer-report-detail{
+    font-size:7.85pt!important;
+    line-height:1.22!important;
+  }
+  .trainer-report-detail h2{font-size:9.5pt!important}
+  .trainer-report-detail .trainer-report-priorities article h3{font-size:8pt!important}
+  .trainer-report-detail .trainer-report-priorities article>div>strong{font-size:7.15pt!important}
+  .trainer-report-detail .trainer-report-priorities p{font-size:6.95pt!important;line-height:1.22!important}
+  .trainer-report-detail .trainer-next{font-size:6.8pt!important}
+  .trainer-report-detail .trainer-report-phases article h3{font-size:7.8pt!important}
+  .trainer-report-detail .trainer-report-phases article p{font-size:6.85pt!important}
+  .trainer-report-detail table{font-size:6.95pt!important}
+  .trainer-report-detail .trainer-report-techniques article{font-size:7.15pt!important}
+  .trainer-report-detail .trainer-report-training ol,
+  .trainer-report-detail .trainer-report-training ul{font-size:7.05pt!important;line-height:1.24!important}
+  .trainer-report-detail>footer{font-size:6pt!important}
+}
+
+
+/* RC6-8 final candidate · REPORT-STYLE1
+   Harmonised radii for all report variants. Content, metrics and pagination stay unchanged. */
+:root{
+  --report-radius-outer:12px;
+  --report-radius-inner:8px;
+  --report-radius-pill:999px;
+}
+
+/* Screen reports */
+.team-report,
+.trainer-report{
+  border-radius:var(--report-radius-outer)!important;
+  overflow:hidden;
+}
+.team-report-head,
+.trainer-report-head{
+  border-radius:var(--report-radius-outer) var(--report-radius-outer) 0 0!important;
+  overflow:hidden;
+}
+.team-report-intro,
+.team-report-columns>div,
+.team-report-training,
+.team-report-metrics,
+.team-report-rotations,
+.team-report-glossary,
+.trainer-report-summary,
+.trainer-report-priorities,
+.trainer-report-phases,
+.trainer-report-rotations,
+.trainer-report-techniques,
+.trainer-report-context-grid>div,
+.trainer-report-training,
+.trainer-short-overview,
+.trainer-short-priorities,
+.trainer-short-phases,
+.trainer-short-rotation,
+.trainer-short-technique,
+.trainer-short-training{
+  border-radius:var(--report-radius-outer)!important;
+}
+.team-report-columns article,
+.team-report-metrics article,
+.team-report-rotations>div>span,
+.team-report-glossary dl>div,
+.trainer-report-priorities>article,
+.trainer-report-phases article,
+.trainer-report-techniques article,
+.trainer-report-meta>span,
+.trainer-report-summary span,
+.trainer-phase-metrics span,
+.trainer-opponent-metrics span,
+.trainer-short-overview-grid span,
+.trainer-short-phases article span,
+.trainer-short-priorities>article,
+.trainer-short-phases article,
+.trainer-short-technique article,
+.trainer-next{
+  border-radius:var(--report-radius-inner)!important;
+}
+.team-report-badge,
+.trainer-report-badge{
+  border-radius:var(--report-radius-pill)!important;
+}
+
+/* Ensure the left accent bar follows rounded outer corners instead of looking
+   like a detached square strip. */
+.team-report-good,
+.team-report-focus,
+.team-report-training,
+.team-report-rotations,
+.team-report-glossary,
+.trainer-report-summary,
+.trainer-report-priorities,
+.trainer-report-phases,
+.trainer-report-rotations,
+.trainer-report-techniques,
+.trainer-report-context-grid>div,
+.trainer-report-training,
+.trainer-short-overview,
+.trainer-short-priorities,
+.trainer-short-phases,
+.trainer-short-rotation,
+.trainer-short-technique,
+.trainer-short-training{
+  background-clip:padding-box!important;
+}
+
+/* Paper: retain the same visual language in all three PDF outputs. */
+@media print{
+  .team-report,
+  .trainer-report{
+    border-radius:var(--report-radius-outer)!important;
+    overflow:hidden!important;
+  }
+  .team-report-head,
+  .trainer-report-head{
+    border-radius:var(--report-radius-outer) var(--report-radius-outer) 0 0!important;
+    overflow:hidden!important;
+  }
+  .team-report-intro,
+  .team-report-columns>div,
+  .team-report-training,
+  .team-report-metrics,
+  .team-report-rotations,
+  .team-report-glossary,
+  .trainer-report-summary,
+  .trainer-report-priorities,
+  .trainer-report-phases,
+  .trainer-report-rotations,
+  .trainer-report-techniques,
+  .trainer-report-context-grid>div,
+  .trainer-report-training,
+  .trainer-short-overview,
+  .trainer-short-priorities,
+  .trainer-short-phases,
+  .trainer-short-rotation,
+  .trainer-short-technique,
+  .trainer-short-training{
+    border-radius:var(--report-radius-outer)!important;
+  }
+  .team-report-columns article,
+  .team-report-metrics article,
+  .team-report-rotations>div>span,
+  .team-report-glossary dl>div,
+  .trainer-report-priorities>article,
+  .trainer-report-phases article,
+  .trainer-report-techniques article,
+  .trainer-report-meta>span,
+  .trainer-report-summary span,
+  .trainer-phase-metrics span,
+  .trainer-opponent-metrics span,
+  .trainer-short-overview-grid span,
+  .trainer-short-phases article span,
+  .trainer-short-priorities>article,
+  .trainer-short-phases article,
+  .trainer-short-technique article,
+  .trainer-next{
+    border-radius:var(--report-radius-inner)!important;
+  }
+}
+
+
+/* RC6-8 pre-final fixes · UI-MATCH1 / REPORT-PRINT3 */
+@media print{
+  /* REPORT-STYLE1 must not turn the complete multi-page trainer report into
+     one clipped/fragmented box. Section/header radii stay intact. */
+  .analysis-result-backdrop.trainer-report-mode .trainer-report{
+    overflow:visible!important;
+  }
+
+  /* Keep the proven two-page composition for the detail report:
+     page 1 = Spielbild/Erkenntnisse/Spielphasen/Rotationen,
+     page 2 = Technik/Spielerinnen/Gegner/Training. */
+  .analysis-result-backdrop.trainer-report-mode:not(.trainer-short-mode) .trainer-report-detail .trainer-report-techniques{
+    break-before:page!important;
+    page-break-before:always!important;
+  }
+}

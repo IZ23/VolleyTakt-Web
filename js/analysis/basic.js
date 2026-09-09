@@ -1,3 +1,4 @@
+import {analyzeServeSemantic,analyzeFirstBallDeep,analyzeK3,analyzeBlockDefense,analyzeReceptionDeep,analyzeSetDeep,analyzeAttackDeep,analyzeTargets,analyzePlayerDeep,analyzeOpponentDeep,analyzeRotationsDeep,summarizeCompareDeep,analyzeChainPatterns} from './deep.js';
 import {actionName,actionSide,isAction,percent,qualityCounts,zoneLabel,playerLabel,attackEfficiency} from './domain.js';
 import {rallyMap,rallyForEvent,wonOwn,firstBallSideout,rallyContext,analyzeRallies} from './rallies.js';
 import {analyzeChains} from './chains.js';
@@ -14,16 +15,23 @@ export function analyzeAttack(events,{actions=[]}={}){const groups=new Map();for
 export function analyzeOverview(events,matches,{actions=[],rotations=[]}={}){const rm=rallyMap(events,actions),rallies=[...rm.values()].filter(r=>r.result),own=rallies.filter(wonOwn),k1=rallies.filter(r=>r.result.serving_before==='them'),k2=rallies.filter(r=>r.result.serving_before==='us'),fb=k1.filter(firstBallSideout),acts=events.filter(e=>isAction(e,actions)),ownTerminal=acts.filter(e=>actionSide(e)==='own'&&['Aufschlag','Angriff','Block'].includes(actionName(e))&&e.value==='#'),oppErrors=acts.filter(e=>actionSide(e)==='opponent'&&e.value==='='),bySource={Aufschlag:0,Angriff:0,Block:0};for(const e of ownTerminal)bySource[actionName(e)]++;const insights=[];const rotStats=rotations.map(rot=>{const rr=k1.filter(r=>r.result.rotation===rot);return {rot,n:rr.length,rate:rr.length?rr.filter(wonOwn).length/rr.length:null};}).filter(x=>x.n>=3).sort((a,b)=>a.rate-b.rate);if(rotStats[0])insights.push(`${rotStats[0].rot}: ${percent(rotStats[0].rate*rotStats[0].n,rotStats[0].n)} Sideout bei ${rotStats[0].n} K1-Rallys.`);const bestServe=(()=>{const m=new Map();for(const e of acts.filter(e=>actionSide(e)==='own'&&actionName(e)==='Aufschlag')){const p=playerLabel(e),r=rallyForEvent(rm,e);if(!m.has(p))m.set(p,{n:0,w:0});const x=m.get(p);x.n++;if(wonOwn(r))x.w++;}return [...m].filter(([,x])=>x.n>=4).sort((a,b)=>b[1].w/b[1].n-a[1].w/a[1].n)[0];})();if(bestServe)insights.push(`${bestServe[0]}: ${percent(bestServe[1].w,bestServe[1].n)} Breakpoint während eigener Aufschläge (${bestServe[1].n}).`);return {matches:matches.length,rallies:rallies.length,rallyRate:percent(own.length,rallies.length),k1Sideout:percent(k1.filter(wonOwn).length,k1.length),k2Break:percent(k2.filter(wonOwn).length,k2.length),firstBall:percent(fb.length,k1.length),bySource,opponentErrors:oppErrors.length,insights,rotations:analyzeRotations(events,{actions,rotations})};}
 export function analyzeView(view,events,matches,context={}){
   if(view==='k1k2')return analyzeK1K2(events,context);
-  if(view==='rotations')return analyzeRotations(events,context);
-  if(view==='serve')return analyzeServe(events,context);
-  if(view==='reception')return analyzeReception(events,context);
-  if(view==='sets')return analyzeSet(events,context);
-  if(view==='attacks')return analyzeAttack(events,context);
+  if(view==='firstball')return analyzeFirstBallDeep(events,context);
+  if(view==='k3')return analyzeK3(events,context);
+  if(view==='rotations')return analyzeRotationsDeep(events,context);
+  if(view==='serve')return analyzeServeSemantic(events,context);
+  if(view==='reception')return analyzeReceptionDeep(events,context);
+  if(view==='sets')return analyzeSetDeep(events,context);
+  if(view==='attacks')return analyzeAttackDeep(events,context);
+  if(view==='blockdef')return analyzeBlockDefense(events,context);
+  if(view==='targets')return analyzeTargets(events,context);
   if(view==='chains')return analyzeChains(events,context);
-  if(view==='opponent')return analyzeOpponent(events,context);
+  if(view==='chainPatterns')return analyzeChainPatterns(events,context);
+  if(view==='opponent')return {...analyzeOpponent(events,context),contextRows:analyzeOpponentDeep(events,context)};
   if(view==='playersOverview')return analyzePlayersOverview(events,context);
   if(view==='players')return analyzePlayers(events,context);
+  if(view==='playerContext')return analyzePlayerDeep(events,context);
   if(view==='techniques')return analyzeQuality(events,context);
   if(view==='rallies')return analyzeRallies(events);
+  if(view==='compareDeep')return summarizeCompareDeep(events,context);
   return analyzeOverview(events,matches,context);
 }

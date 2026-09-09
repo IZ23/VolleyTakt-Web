@@ -1,9 +1,9 @@
 {
   "schema": 1,
   "app": "VolleyTakt Live",
-  "version": "0.4.0",
-  "version_id": "0.4.0",
-  "data_schema": 5,
+  "version": "0.4.1",
+  "version_id": "0.4.1",
+  "data_schema": 6,
   "channel": "stable",
   "requires_confirmation": true,
   "preserve_local_data": true,
@@ -21,8 +21,15 @@
     "optional Nextcloud/WebDAV synchronization",
     "modular analysis for match/set, rotations, K1/K2, first-ball sideout, serve, reception, setting, attack, players, chains, opponent tendencies, techniques and rallies",
     "analysis A/B comparison, saved results and print/PDF workflow",
-    "responsive tablet/smartphone landscape UI and keyboard shortcuts",
+    "device-class-specific responsive layouts with shared scouting logic; dedicated low-height smartphone landscape UI and portrait rotation overlay",
     "German and English UI/help",
-    "copyright notice and PolyForm Perimeter License 1.0.1 information"
+    "copyright notice and PolyForm Perimeter License 1.0.1 information",
+    "mobile browser fullscreen restore control, stable in-header protocol access and deterministic PWA install entry point",
+    "free-order WER/WAS/WIE capture with stable semantic storage",
+    "correct WOHIN target-zone orientation and automatic set-side alternation",
+    "cloud-newer takeover workflow, cloud-delete busy feedback and manual-video local clock anchor",
+    "WebDAV relay authentication rate limiting and improved German/English i18n coverage",
+    "analysis help and tooltips for K1/sideout, K2/break, first-ball sideout, rotations and all analysis views",
+    "timestamp post-processing with shared live/library data, sortable chronology and insertion before selected protocol actions"
   ]
 }

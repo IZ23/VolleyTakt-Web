@@ -1,17 +1,37 @@
 <!doctype html><html lang="de"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#0f172a"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
-<title>VolleyTakt Live 0.4.0</title><link rel="manifest" href="manifest.webmanifest"><link rel="icon" type="image/png" href="./app-icons/volleytakt-192.png?v=0.4.0"><link rel="apple-touch-icon" href="./app-icons/volleytakt-192.png?v=0.4.0"><link rel="stylesheet" href="styles.css?v=0.4.0">
+<title>VolleyTakt Live 0.4.1</title>
+<script>
+/* RC4 · UI-MOBILE6: classify phone portrait before the first app paint. */
+(function(){
+  try{
+    var root=document.documentElement;
+    var portrait=window.matchMedia&&window.matchMedia('(orientation: portrait)').matches;
+    var w=Math.max(1,window.innerWidth||root.clientWidth||1);
+    var h=Math.max(1,window.innerHeight||root.clientHeight||1);
+    if(portrait && Math.min(w,h)<=640) root.classList.add('layout-phone-portrait');
+  }catch(_e){}
+  window.__VSW_DEFERRED_INSTALL_PROMPT__=null;
+  window.addEventListener('beforeinstallprompt',function(e){
+    e.preventDefault();
+    window.__VSW_DEFERRED_INSTALL_PROMPT__=e;
+    window.dispatchEvent(new CustomEvent('vsw-install-available'));
+  });
+})();
+</script>
+<style>html.layout-phone-portrait #startGate,html.layout-phone-portrait #app{visibility:hidden!important}</style>
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" type="image/png" href="./app-icons/volleytakt-192.png?v=0.4.1"><link rel="apple-touch-icon" href="./app-icons/volleytakt-192.png?v=0.4.1"><link rel="stylesheet" href="styles.css?v=0.4.1">
 </head><body>
-<div id="startGate" class="start-gate"><div class="start-card"><img src="./logo.png" alt="VolleyTakt"><h1>VolleyTakt Live</h1><p>Web 0.4.0 · Tablet-Livescouting · modulare Kamera-Synchronisation</p><div id="browserCameraNotice" class="browser-camera-notice" hidden></div><div class="start-actions"><button id="startAppBtn" class="primary huge">VolleyTakt Live</button></div><small>Die lokale Zeit startet erst auf ausdrücklichen Befehl. Die verbundene Kamera setzt den Zeitanker erst nach bestätigter Aufnahme.</small></div></div>
+<div id="startGate" class="start-gate"><div class="start-card"><img src="./logo.png" alt="VolleyTakt"><h1>VolleyTakt Live</h1><p>Web 0.4.1 · Livescouting · modulare Kamera-Synchronisation</p><div id="browserCameraNotice" class="browser-camera-notice" hidden></div><div class="start-actions"><button id="startAppBtn" class="primary huge">VolleyTakt Live</button><button id="pwaInstallBtn" class="pwa-install-btn" type="button" hidden>Als App installieren</button></div><div id="pwaInstallHint" class="pwa-install-hint" hidden></div><small>Die lokale Zeit startet erst auf ausdrücklichen Befehl. Die verbundene Kamera setzt den Zeitanker erst nach bestätigter Aufnahme.</small></div></div>
 <main id="app" class="app-shell" hidden>
 <header class="topbar">
   <div class="brand-shell">
-    <button id="menuBtn" class="brand-menu" title="Menü öffnen" aria-label="Menü öffnen">
+    <button id="menuBtn" class="brand-menu" title="Menü öffnen" aria-label="Menü öffnen" data-i18n-title-key="common.menu_open" data-i18n-aria-key="common.menu_open">
       <img src="./logo.png" alt="VolleyTakt">
       <span class="brand-hamburger" aria-hidden="true">☰</span>
     </button>
-    <span class="brand-copy"><strong>VolleyTakt Live</strong><small>0.4.0</small></span>
+    <span class="brand-copy"><strong>VolleyTakt Live</strong><small>0.4.1</small></span>
   </div>
   <div class="match-center" aria-live="polite">
     <button id="matchSetupBtn" class="match-setup-link">Spiel einrichten</button>
@@ -31,12 +51,12 @@
     <div class="subheading quality-heading">Qualität (WIE)</div><div class="quality-stack" id="qualityButtons"></div><div id="qualityMeaning" class="quality-meaning"></div><div id="serveDetailPanel" class="set-detail-panel" hidden></div><div id="setDetailPanel" class="set-detail-panel" hidden></div>
   </aside>
   <section class="protocol-panel panel">
-    <div class="section-title"><span>Live-Protokoll</span><span class="protocol-head-actions"><span id="eventCount">0</span><button id="phoneProtocolClose" class="phone-only phone-protocol-close" type="button">✕</button></span></div>
+    <div class="section-title"><span>Live-Protokoll</span><span class="protocol-head-actions"><button id="protocolInsertBtn" class="protocol-insert-btn" type="button" title="Aktion vor markierter Zeile einfügen" aria-label="Aktion vor markierter Zeile einfügen" disabled>＋</button><span id="eventCount">0</span><button id="phoneProtocolClose" class="phone-only phone-protocol-close" type="button">✕</button></span></div>
     <div class="protocol-wrap"><table><thead><tr><th>Zeit</th><th>S</th><th title="Rotation">Rot.</th><th>P</th><th>Spielerin</th><th>Aktion</th><th>Wert</th><th>Stand</th></tr></thead><tbody id="protocolBody"></tbody></table></div>
     <label class="note-label"><span>Notiz</span><textarea id="noteInput" rows="2" placeholder="optional"></textarea></label>
   </section>
   <aside class="court-panel panel">
-    <div class="section-title court-title"><span id="captureTitle">Eigenes Team</span><div class="court-title-tools"><button id="phoneProtocolBtn" class="phone-only phone-protocol-btn" type="button">☷ Protokoll</button><button id="fieldOrientationBtn" class="field-orientation-btn active-top" type="button" aria-label="Felddarstellung umschalten" title="Felddarstellung umschalten"><span class="orientation-icon" aria-hidden="true"><i class="orientation-half top"></i><i class="orientation-midline"></i><i class="orientation-half bottom"></i></span></button><label class="opponent-switch"><span>Gegner</span><span class="switch"><input type="checkbox" id="opponentToggle"><span class="slider"></span></span></label><strong id="rotationLabel">R1</strong></div></div>
+    <div class="section-title court-title"><span id="captureTitle">Eigenes Team</span><div class="court-title-tools"><button id="phoneFullscreenBtn" class="phone-only phone-fullscreen-btn" type="button" title="Vollbild wiederherstellen" aria-label="Vollbild wiederherstellen">⛶</button><button id="phoneProtocolBtn" class="phone-only phone-protocol-btn" type="button">☷ Protokoll</button><button id="fieldOrientationBtn" class="field-orientation-btn active-top" type="button" aria-label="Felddarstellung umschalten" title="Felddarstellung umschalten"><span class="orientation-icon" aria-hidden="true"><i class="orientation-half top"></i><i class="orientation-midline"></i><i class="orientation-half bottom"></i></span></button><label class="opponent-switch"><span>Gegner</span><span class="switch"><input type="checkbox" id="opponentToggle"><span class="slider"></span></span></label><strong id="rotationLabel">R1</strong></div></div>
     <div id="courtWrap" class="court-wrap"><div id="activeCourt" class="court own" data-side="own"><div class="net">NETZ</div></div><div id="sharedNet" class="shared-net" hidden>NETZ</div><div id="secondaryCourt" class="court opponent target-court" data-side="opponent" hidden><div class="net">NETZ</div></div></div>
     <div id="targetHint" class="target-hint" hidden>Gegner-Angriff: Zielposition im eigenen Feld wählen.</div>
     <div class="rotation-controls"><button id="rotateBackBtn">↶ Rotation</button><button id="rotateBtn">Rotation ↷</button></div><div class="player-change-controls"><button id="substituteBtn" title="Tastenkürzel W">↔ Wechsel</button><button id="liberoBtn" title="Tastenkürzel L">L Libero</button></div>
@@ -45,15 +65,24 @@
     <span class="correction-label">Korrekturen</span>
     <button data-score="us" title="Tastenkürzel P">+ Punkt Wir</button><button data-score="them" title="Tastenkürzel G">+ Punkt Gegner</button>
     <button id="correctScoreBtn">Spielstand korr.</button><button id="sideoutBtn" class="ghost">Side-out manuell</button>
-    <button id="undoBtn" class="danger" disabled>↶ Undo</button><button id="redoBtn" class="ghost" disabled>↷ Redo</button><button id="clearSelectionBtn" class="ghost">✕ Auswahl verwerfen</button>
+    <button id="undoBtn" class="danger" disabled>↶ Undo</button><button id="redoBtn" class="ghost" disabled>↷ Redo</button><button id="clearSelectionBtn" class="ghost">Aktion abbrechen</button>
   </div>
 </section>
 <footer class="statusbar"><span id="statusText">Bereit.</span><span class="status-right"><span id="syncBadge" class="badge muted">☁ lokal</span><span id="storagePill" class="badge">CSV …</span><span id="bleMini" class="badge muted">Kamera getrennt</span></span></footer>
 </main>
-<div id="drawerBackdrop" class="drawer-backdrop" hidden><aside id="drawer" class="drawer"><header><h2 id="drawerTitle">Menü</h2><button id="drawerClose" class="iconclose">✕</button></header><nav id="drawerNav" class="drawer-nav"><button data-view="match">🏐 Spiel</button><button data-view="players">👥 Spielerinnen</button><button data-view="teams">🛡️ Teams</button><button data-view="seasons">📅 Saisons</button><button data-view="rosters">📋 Kader</button><button data-view="data">📄 Daten / CSV</button><button data-view="camera">📷 Kamera</button><button data-view="sync">☁️ Synchronisation</button><button data-view="analysis">📊 Analyse</button><button data-view="settings">⚙️ Einstellungen</button></nav><div id="drawerBody" class="drawer-body"></div></aside></div>
+
+<div id="portraitRotateOverlay" class="portrait-rotate-overlay" hidden aria-hidden="true" role="status">
+  <div class="portrait-rotate-card">
+    <img class="portrait-rotate-logo" src="./logo.png" alt="VolleyTakt">
+    <div class="rotate-device-icon" aria-hidden="true"><span></span><i>↻</i></div>
+    <h1 data-i18n-key="mobile.rotate.title">Bitte Gerät ins Querformat drehen</h1>
+    <p data-i18n-key="mobile.rotate.body">VolleyTakt Live ist für das Scouting im Querformat optimiert.</p>
+  </div>
+</div>
+<div id="drawerBackdrop" class="drawer-backdrop" hidden><aside id="drawer" class="drawer"><header><h2 id="drawerTitle">Menü</h2><button id="drawerClose" class="iconclose">✕</button></header><nav id="drawerNav" class="drawer-nav"><button data-view="match">🏐 Spiel</button><button data-view="players">👥 Spielerinnen</button><button data-view="teams">🛡️ Teams</button><button data-view="seasons">📅 Saisons</button><button data-view="camera">📷 Kamera</button><button data-view="sync">☁️ Synchronisation</button><button data-view="analysis">📊 Analyse</button><button data-view="data">📄 Daten / CSV</button><button data-view="settings">⚙️ Einstellungen</button></nav><div id="drawerBody" class="drawer-body"></div></aside></div>
 <div id="dialogBackdrop" class="dialog-backdrop" hidden><form id="modalForm" class="dialog"><h2 id="dialogTitle"></h2><div id="dialogBody"></div><div class="dialog-actions"><button type="button" id="dialogCancel">Abbrechen</button><button type="submit" class="primary" id="dialogOk">Übernehmen</button></div></form></div>
 
-<div id="tourOverlay" class="tour-overlay" hidden aria-live="polite"><div id="tourSpotlight" class="tour-spotlight" hidden></div><div class="tour-card" role="dialog" aria-modal="true" aria-labelledby="tourTitle"><div class="tour-head"><span id="tourStep">1 / 1</span><button id="tourClose" aria-label="Einführung schließen">✕</button></div><h2 id="tourTitle">Einführung</h2><p id="tourText"></p><div class="tour-actions"><button id="tourDontShow" class="tour-dismiss">nicht mehr zeigen</button><span class="tour-nav"><button id="tourPrev">Zurück</button><button id="tourNext" class="primary">Weiter</button></span></div></div></div>
+<div id="tourOverlay" class="tour-overlay" hidden aria-live="polite"><div id="tourSpotlight" class="tour-spotlight" hidden></div><div class="tour-card" role="dialog" aria-modal="true" aria-labelledby="tourTitle"><div class="tour-head"><span id="tourStep">1 / 1</span><button id="tourClose" aria-label="Einführung schließen">✕</button></div><h2 id="tourTitle" data-i18n-key="common.introduction">Einführung</h2><p id="tourText"></p><div class="tour-actions"><button id="tourDontShow" class="tour-dismiss">nicht mehr zeigen</button><span class="tour-nav"><button id="tourPrev" data-i18n-key="common.back">Zurück</button><button id="tourNext" class="primary">Weiter</button></span></div></div></div>
 <input id="csvImport" type="file" accept=".csv,text/csv" hidden><input id="jsonImport" type="file" accept=".json,application/json" hidden>
 <script>
 (function(){
@@ -72,7 +101,7 @@
 <script type="module">
 (async()=>{
   try {
-    await import('./js/app.js');
+    await import('./js/app.js?v=0.4.1');
   } catch (err) {
     const detail = String(err?.stack || err?.message || err || 'Modul konnte nicht geladen werden');
     window.__VSW_APP_ERROR__ = detail;

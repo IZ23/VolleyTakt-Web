@@ -9,6 +9,7 @@ const originals=new WeakMap();
 const rendered=new WeakMap();
 const renderedAttrs=new WeakMap();
 const attrs=['title','aria-label','placeholder'];
+const keyedAttrs={title:'i18nTitleKey','aria-label':'i18nAriaKey',placeholder:'i18nPlaceholderKey'};
 
 function preserveWhitespace(source,replacement){
  const lead=(source.match(/^\s*/)||[''])[0],trail=(source.match(/\s*$/)||[''])[0];
@@ -61,8 +62,14 @@ function translateTextNode(node,external=false){
 function attrKey(a){return `i18nOriginal${a.replace(/-([a-z])/g,(_,c)=>c.toUpperCase()).replace(/^./,c=>c.toUpperCase())}`}
 function translateElement(el,changedAttr=''){
  if(!(el instanceof Element)||el.closest('[data-i18n-skip]'))return;
+ const textKey=el.dataset.i18nKey;
+ if(textKey){const target=t(textKey,{},language);if(el.textContent!==target)el.textContent=target;}
  let last=renderedAttrs.get(el)||{};
- for(const a of attrs){if(!el.hasAttribute(a))continue;const key=attrKey(a),current=el.getAttribute(a);if(changedAttr===a&&last[a]!==undefined&&current!==last[a])el.dataset[key]=current;else if(!(key in el.dataset))el.dataset[key]=current;const original=el.dataset[key];const target=language==='de'?original:tr(original,'en');last[a]=target;if(current!==target)el.setAttribute(a,target)}
+ for(const a of attrs){
+  const semanticKey=el.dataset[keyedAttrs[a]||''];
+  if(semanticKey){const target=t(semanticKey,{},language);last[a]=target;if(el.getAttribute(a)!==target)el.setAttribute(a,target);continue}
+  if(!el.hasAttribute(a))continue;const key=attrKey(a),current=el.getAttribute(a);if(changedAttr===a&&last[a]!==undefined&&current!==last[a])el.dataset[key]=current;else if(!(key in el.dataset))el.dataset[key]=current;const original=el.dataset[key];const target=language==='de'?original:tr(original,'en');last[a]=target;if(current!==target)el.setAttribute(a,target)
+ }
  renderedAttrs.set(el,last);
 }
 function walk(root=document){
