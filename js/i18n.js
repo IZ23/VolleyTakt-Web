@@ -1,0 +1,129 @@
+import {localeDe} from './locales/de.js';
+import {MESSAGES_DE,MESSAGES_EN} from './locales/messages.js';
+const MESSAGE_KEY_BY_DE=new Map(Object.entries(MESSAGES_DE).map(([key,value])=>[String(value),key]));
+import {LEGACY_KEY_BY_DE} from './locales/legacy-messages.js';
+
+let language='de';
+let observer=null;
+let busy=false;
+const originals=new WeakMap();
+const rendered=new WeakMap();
+const renderedAttrs=new WeakMap();
+const attrs=['title','aria-label','placeholder'];
+const keyedAttrs={title:'i18nTitleKey','aria-label':'i18nAriaKey',placeholder:'i18nPlaceholderKey'};
+
+function preserveWhitespace(source,replacement){
+ const lead=(source.match(/^\s*/)||[''])[0],trail=(source.match(/\s*$/)||[''])[0];
+ return lead+replacement+trail;
+}
+function interpolate(template,params={}){return String(template??'').replace(/\{([A-Za-z0-9_]+)\}/g,(_,key)=>Object.prototype.hasOwnProperty.call(params,key)?String(params[key]):`{${key}}`)}
+export function t(key,params={},lang=language){
+ const catalogue=lang==='en'?MESSAGES_EN:MESSAGES_DE;
+ const fallback=MESSAGES_DE[key]??key;
+ return interpolate(catalogue[key]??fallback,params)
+}
+export function tr(value,lang=language){
+ if(value==null||lang==='de')return String(value??'');
+ const source=String(value),trim=source.trim();if(!trim)return source;
+ const legacyKey=LEGACY_KEY_BY_DE[trim];
+ if(legacyKey)return preserveWhitespace(source,t(legacyKey,{},lang));
+ const modernKey=MESSAGE_KEY_BY_DE.get(trim);
+ if(modernKey)return preserveWhitespace(source,t(modernKey,{},lang));
+ const dynamic=[
+  [/^Nutzung gemäß PolyForm Perimeter License 1\.0\.1\.$/,()=>`Use according to the PolyForm Perimeter License 1.0.1.`],
+  [/^Unter Analyse kannst du Zeitraum, Saison, Team, Gegner, Spielart, Spielerin, Technik, Rotation und Satz filtern\. Die fachlich gruppierten Ansichten umfassen Spiel-\/Satzübersicht, Rotations-Dashboard, K1\/Sideout mit First-Ball-Sideout, K2\/Breakpoint, Aufschlagwirkung, Annahme & Sideout, Zuspielverteilung, Angriff Quelle → Ziel, Spielerinnenwirkung, Kontextketten, Gegner-Tendenzen, Technik-\/Qualitätsübersichten und Rally-Auswertungen\. Die beiden Gesamtübersichten bündeln die wichtigsten Kennzahlen aus Spiel & Phasen beziehungsweise Technik & Wirkung und erlauben den direkten Sprung in einzelne Analyseabschnitte\.$/,()=>`Under Analysis you can filter by period, season, team, opponent, match type, player, technique, rotation and set. The professionally grouped views include match/set overview, rotation dashboard, K1/sideout with first-ball sideout, K2/breakpoint, serve impact, reception & sideout, set distribution, attack source → target, player impact, context chains, opponent tendencies, technique/quality overviews and rally analyses. The two overview views combine the key metrics from Match & Phases and Technique & Impact and allow direct navigation to individual analysis sections.`],
+  [/^Die Ansichten nutzen dasselbe Datenmodell; bei einfacher Erfassung bleiben Detaildimensionen leer und werden nur dort ausgewertet, wo Daten vorhanden sind\. Der Vergleichsmodus stellt Zeitraum A und B gegenüber\. Analyseergebnisse öffnen in einem eigenen Ergebnisfenster, können lokal gespeichert und bei aktiver Nextcloud-\/WebDAV-Synchronisation mit der Cloud abgeglichen werden\. Über die Druckvorschau lassen sie sich an den Systemdruckdialog übergeben und dort auch als PDF speichern\.$/,()=>`The views use the same data model; with basic scouting, detailed dimensions remain empty and are evaluated only where data is available. Comparison mode places period A and B side by side. Analysis results open in a separate result window, can be saved locally and synchronized to the cloud when Nextcloud/WebDAV synchronization is active. The print preview can pass them to the system print dialog, where they can also be saved as PDF.`],
+  [/^(.+?) verwendet das modulare Sprachsystem\. Alle aktuellen Beschriftungen, Erklärungen, Hilfe-, Status- und Fehlermeldungen stehen in Deutsch und Englisch zur Verfügung\.$/,m=>`${m[1]} uses the modular language system. All current labels, explanations, help texts, status messages and error messages are available in German and English.`],
+  [/^About zeigt Version, Copyright und verwendete Medien\/Lizenzen\. Copyright © 2026 Ingo Zech\. VolleyTakt wird gemäß PolyForm Perimeter License 1\.0\.1 bereitgestellt\. Die Technik-Piktogramme sind eigene, für VolleyTakt erstellte App-Dateien\. Der DJI-Kameraadapter verwendet das öffentliche DJI-R-SDK\/BLE-Protokoll; der GoPro-Adapter nutzt die offizielle Open-GoPro-BLE-API\.$/,()=>`About shows the version, copyright and media/licenses used. Copyright © 2026 Ingo Zech. VolleyTakt is provided under the PolyForm Perimeter License 1.0.1. The technique pictograms are original app files created for VolleyTakt. The DJI camera adapter uses the public DJI R-SDK/BLE protocol; the GoPro adapter uses the official Open GoPro BLE API.`],
+  [/^Du verwendest (.+)\. Die Kamerakopplung benötigt einen sicheren HTTPS-Kontext\. Öffne VolleyTaktLive über HTTPS\.$/,m=>`You are using ${m[1]}. Camera pairing requires a secure HTTPS context. Open VolleyTakt Live via HTTPS.`],
+  [/^Du verwendest (.+) unter iOS\/iPadOS\. Web Bluetooth steht dort derzeit nicht zur Verfügung; ein Browserwechsel aktiviert die Kamerakopplung nicht\. Die lokale Zeitquelle bleibt nutzbar\.$/,m=>`You are using ${m[1]} on iOS/iPadOS. Web Bluetooth is currently unavailable there; switching browsers does not enable camera pairing. The local time source remains usable.`],
+  [/^Du verwendest (.+) unter Android; daher steht die Kamera-Synchronisation über Web Bluetooth hier nicht zur Verfügung\. Verwende Google Chrome; weitere Chromium-Browser können je nach Android-Version ebenfalls funktionieren\.$/,m=>`You are using ${m[1]} on Android; camera synchronization via Web Bluetooth is not available here. Use Google Chrome; other Chromium browsers may also work depending on the Android version.`],
+  [/^Du verwendest (.+) unter (Windows|macOS); daher steht die Kamera-Synchronisation über Web Bluetooth hier nicht zur Verfügung\. Verwende Google Chrome, Microsoft Edge oder Opera\.$/,m=>`You are using ${m[1]} on ${m[2]}; camera synchronization via Web Bluetooth is not available here. Use Google Chrome, Microsoft Edge or Opera.`],
+  [/^Du verwendest (.+) unter Linux\. Web Bluetooth ist in diesem Browser nicht verfügbar\. Verwende einen Chromium-basierten Browser mit aktivem Web Bluetooth; die Unterstützung ist unter Linux systemabhängig\.$/,m=>`You are using ${m[1]} on Linux. Web Bluetooth is unavailable in this browser. Use a Chromium-based browser with Web Bluetooth enabled; support on Linux depends on the system.`],
+  [/^Du verwendest (.+)\. Dieser Browser stellt Web Bluetooth nicht bereit\. Verwende einen Web-Bluetooth-fähigen Chromium-Browser; die lokale Zeitquelle bleibt verfügbar\.$/,m=>`You are using ${m[1]}. This browser does not provide Web Bluetooth. Use a Web-Bluetooth-capable Chromium browser; the local time source remains available.`],
+  [/^(\d+) CSV-Einträge geladen; Spielzustand rekonstruiert\.$/,m=>`${m[1]} CSV entries loaded; match state reconstructed.`],
+  [/^(\d+) Spielerinnen übernommen\.$/,m=>`${m[1]} players applied.`],
+  [/^Session wiederaufgenommen · Sätze (.+) · (.+) · (.+)\.$/,m=>`Session resumed · Sets ${m[1]} · ${m[2]} · ${m[3]}.`],
+  [/^(Gegner|Eigenes Team) aktiv · (.+) · (detailliert|kompakt)\.$/,m=>`${m[1]==='Gegner'?'Opponent':'Own team'} active · ${m[2]} · ${m[3]==='detailliert'?'detailed':'compact'}.`],
+  [/^(Gegner|Eigenes Team): (detaillierte|kompakte) Bewertung\.$/,m=>`${m[1]==='Gegner'?'Opponent':'Own team'}: ${m[2]==='detaillierte'?'detailed':'compact'} rating.`],
+  [/^Cloud-Spielbibliothek nicht verfügbar:\s*(.+)$/,m=>`Cloud match library unavailable: ${m[1]}`],
+  [/^Spieldaten lokal gespeichert; Cloud-Sync folgt später:\s*(.+)$/,m=>`Match data saved locally; cloud sync will follow later: ${m[1]}`],
+  [/^Video fertig: (.+)$/,m=>`Video complete: ${m[1]}`],
+  [/^Video wurde erzeugt: (.+)$/,m=>`Video created: ${m[1]}`],
+  [/^Videoauftrag (failed|cancelled)\.$/,m=>`Video job ${m[1]}.`],
+  [/^Video wird erzeugt · (.+)$/,m=>`Video is being created · ${m[1]}`],
+  [/^Videoauftrag läuft weiter · Status derzeit nicht abrufbar: (.+)$/,m=>`Video job is still running · status currently unavailable: ${m[1]}`],
+  [/^Videoauftrag gestartet · (.+)$/,m=>`Video job started · ${m[1]}`],
+  [/^Videoauftrag fehlgeschlagen: (.+)$/,m=>`Video job failed: ${m[1]}`],
+  [/^Individuelle Auswertung · (.+)$/,m=>`Individual analysis · ${m[1]}`],
+  [/^PNG gespeichert: (.+)$/,m=>`PNG saved: ${m[1]}`],
+  [/^Kopieren fehlgeschlagen: (.+)$/,m=>`Copy failed: ${m[1]}`],
+  [/^PNG-Export fehlgeschlagen: (.+)$/,m=>`PNG export failed: ${m[1]}`],
+  [/^Teilen fehlgeschlagen: (.+)$/,m=>`Sharing failed: ${m[1]}`],
+  [/^Doppelte Belegung: (.+)$/,m=>`Duplicate assignment: ${m[1]}`],
+  [/^Bewertung (.+) ist im aktuellen Profil nicht verfügbar\.$/,m=>`Rating ${m[1]} is not available in the current profile.`],
+  [/^DJI: (.+)$/,m=>`DJI: ${m[1]}`],
+  [/^Ausgewählt: (\d+) Aktionen$/,m=>`Selected: ${m[1]} actions`],
+  [/^Erstellt am (.+)$/,m=>`Created on ${m[1]}`],
+  [/^Gespeichert am (.+)$/,m=>`Saved on ${m[1]}`],
+  [/^(\d+) Aktion\(en\) · gruppiert nach Wirkung$/,m=>`${m[1]} actions · grouped by impact`],
+  [/^Spielanalyse: (.+)$/,m=>`Match analysis: ${m[1]}`],
+  [/^(\d+) Spiele · (\d+) Rallys · (.+)$/,m=>`${m[1]} matches · ${m[2]} rallies · ${m[3]}`],
+  [/^Meiste Aktionen: (\d+)$/,m=>`Most actions: ${m[1]}`],
+  [/^Top Break: (.+)$/,m=>`Top break: ${m[1]}`],
+  [/^(\d+)× häufigste Kette$/,m=>`${m[1]}× most frequent chain`],
+  [/^(\d+) Spielerinnen$/,m=>`${m[1]} players`],
+  [/^(\d+) Spiele$/,m=>`${m[1]} matches`],
+  [/^(\d+) Rallys$/,m=>`${m[1]} rallies`],
+  [/^(\d+) Aktionen$/,m=>`${m[1]} actions`],
+  [/^(\d+) Annahmen$/,m=>`${m[1]} receptions`],
+  [/^(\d+) Aufschläge$/,m=>`${m[1]} serves`],
+  [/^(\d+) Zuspiele$/,m=>`${m[1]} sets`],
+  [/^(\d+) Angriffe$/,m=>`${m[1]} attacks`],
+  [/^(\d+) Transitionen$/,m=>`${m[1]} transitions`],
+  [/^Analyse · (.+)$/,m=>`Analysis · ${m[1]}`]
+ ];
+ for(const [re,fn] of dynamic){const m=trim.match(re);if(m)return preserveWhitespace(source,fn(m));}
+ // RC2: all formerly exact legacy translations resolve through stable keys.
+ // Unknown strings remain intact instead of using unsafe substring translation.
+ return source;
+}
+function translateTextNode(node,external=false){
+ if(external&&rendered.has(node)&&node.nodeValue!==rendered.get(node))originals.set(node,node.nodeValue);
+ else if(!originals.has(node))originals.set(node,node.nodeValue);
+ const original=originals.get(node);
+ const target=language==='de'?original:tr(original,'en');
+ rendered.set(node,target);
+ if(node.nodeValue!==target)node.nodeValue=target;
+}
+function attrKey(a){return `i18nOriginal${a.replace(/-([a-z])/g,(_,c)=>c.toUpperCase()).replace(/^./,c=>c.toUpperCase())}`}
+function translateElement(el,changedAttr=''){
+ if(!(el instanceof Element)||el.closest('[data-i18n-skip]'))return;
+ const textKey=el.dataset.i18nKey;
+ if(textKey){const target=t(textKey,{},language);if(el.textContent!==target)el.textContent=target;}
+ let last=renderedAttrs.get(el)||{};
+ for(const a of attrs){
+  const semanticKey=el.dataset[keyedAttrs[a]||''];
+  if(semanticKey){const target=t(semanticKey,{},language);last[a]=target;if(el.getAttribute(a)!==target)el.setAttribute(a,target);continue}
+  if(!el.hasAttribute(a))continue;const key=attrKey(a),current=el.getAttribute(a);if(changedAttr===a&&last[a]!==undefined&&current!==last[a])el.dataset[key]=current;else if(!(key in el.dataset))el.dataset[key]=current;const original=el.dataset[key];const target=language==='de'?original:tr(original,'en');last[a]=target;if(current!==target)el.setAttribute(a,target)
+ }
+ renderedAttrs.set(el,last);
+}
+function walk(root=document){
+ const doc=root.nodeType===9?root:root.ownerDocument||document;
+ const walker=doc.createTreeWalker(root,NodeFilter.SHOW_TEXT|NodeFilter.SHOW_ELEMENT);
+ let n=root;if(n.nodeType===Node.TEXT_NODE)translateTextNode(n);else if(n.nodeType===Node.ELEMENT_NODE)translateElement(n);
+ while((n=walker.nextNode())){if(n.nodeType===Node.TEXT_NODE)translateTextNode(n);else translateElement(n)}
+}
+export function localizeDocument(root=document){if(busy)return;busy=true;try{walk(root);document.documentElement.lang=language==='en'?'en':'de'}finally{busy=false}}
+export function setLanguage(lang){language=lang==='en'?'en':'de';localStorage.setItem('volleytakt-live-ui-language',language);localizeDocument();window.dispatchEvent(new CustomEvent('volleytakt-language-change',{detail:{language}}));return language}
+export function getLanguage(){return language}
+export function initI18n(lang='de'){
+ language=lang==='en'?'en':'de';document.documentElement.lang=language;
+ if(!observer){observer=new MutationObserver(ms=>{if(busy)return;busy=true;try{for(const m of ms){if(m.type==='characterData'){translateTextNode(m.target,true);continue}if(m.type==='attributes'){translateElement(m.target,m.attributeName);continue}for(const n of m.addedNodes){if(n.nodeType===Node.TEXT_NODE)translateTextNode(n);else if(n.nodeType===Node.ELEMENT_NODE)walk(n)}}}finally{busy=false}});observer.observe(document.documentElement,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:attrs});}
+ localizeDocument();
+ // Browser dialogs are outside the DOM; translate their messages too.
+ if(!window.__VT_I18N_DIALOGS__){window.__VT_I18N_DIALOGS__=true;const a=window.alert.bind(window),c=window.confirm.bind(window),p=window.prompt.bind(window);window.alert=v=>a(tr(v));window.confirm=v=>c(tr(v));window.prompt=(v,d)=>p(tr(v),d)}
+ return language;
+}
+export const locales=[localeDe,{code:'en',name:'English'}];

@@ -1,0 +1,25 @@
+{
+  "name": "VolleyTakt Live 0.4.3_1",
+  "short_name": "VolleyTakt Live",
+  "description": "VolleyTakt Live 0.4.3_1 – offline-first live scouting, German/English startup and modular camera synchronization",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#020617",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "app-icons/volleytakt-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "app-icons/volleytakt-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
