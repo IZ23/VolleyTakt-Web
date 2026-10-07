@@ -1,4 +1,5 @@
 import {reportExportBase} from './report-export.js';
+import {localizeReport,localizeReportMarkup,rt} from './report-language.js';
 // VolleyTakt Live · ANALYSIS-REPORT2 / ANALYSIS-SHARE1
 // Player-friendly team report. Keeps coaching language concrete and avoids causal claims.
 const num=v=>{const n=Number.parseFloat(String(v??'').replace(',','.'));return Number.isFinite(n)?n:null};
@@ -105,8 +106,10 @@ export function buildTeamReport({matches=[],dash={},filters={},matchNames=()=>''
 
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function teamReportHtml(report={}){
+  report=localizeReport(report);
+  const glossary=localizeReport(TEAM_REPORT_GLOSSARY);
   const cards=(rows,empty)=>rows?.length?rows.map(x=>`<article><h4>${esc(x.title||'')}</h4><p>${esc(x.text||'')}</p></article>`).join(''):`<article><p>${esc(empty)}</p></article>`;
-  return `<article class="team-report">
+  const html=`<article class="team-report">
     <header class="team-report-head"><div class="team-report-head-main"><span class="team-report-brand">VolleyTakt · Team-Report</span><h1>${esc(report.title||'Team-Report')}</h1><p>${esc(report.subtitle||'')}</p><div class="team-report-meta">${(report.meta||[]).map(m=>`<span><small>${esc(m.label)}</small><strong>${esc(m.value)}</strong></span>`).join('')}</div></div><span class="team-report-badge">für Spielerinnen</span></header>
     <section class="team-report-intro"><strong>Unser Spiel in kurzen Worten</strong><p>Was hat als Team funktioniert, wo können wir besser werden und was nehmen wir ins nächste Training mit?</p></section>
     <section class="team-report-columns">
@@ -116,12 +119,15 @@ export function teamReportHtml(report={}){
     <section class="team-report-training"><h2>🏐 Fokus fürs nächste Training</h2><ol>${(report.training||[]).map(x=>`<li>${esc(x.text||'')}</li>`).join('')}</ol></section>
     <section class="team-report-metrics"><h2>Vier Zahlen zur Einordnung</h2><div>${(report.metrics||[]).map(m=>`<article><strong>${esc(m.value)}</strong><span>${esc(m.label)}</span><small>${esc(m.note||'')}</small></article>`).join('')}</div></section>
     ${(report.rotations||[]).length?`<section class="team-report-rotations"><h2>Rotationen im Überblick</h2><div>${report.rotations.map(r=>`<span><b>${esc(r.rotation)}</b><em class="${r.balance>0?'good':r.balance<0?'bad':'even'}">${r.balance>=0?'+':''}${r.balance}</em><small>${r.rallies} Rallys</small></span>`).join('')}</div><p>Die Zahl zeigt gewonnene minus verlorene Rallys in der jeweiligen Rotation.</p></section>`:''}
-    <section class="team-report-glossary"><h2>Begriffe kurz erklärt</h2><dl>${TEAM_REPORT_GLOSSARY.map(g=>`<div><dt>${esc(g.term)}</dt><dd>${esc(g.text)}</dd></div>`).join('')}</dl></section>
+    <section class="team-report-glossary"><h2>Begriffe kurz erklärt</h2><dl>${glossary.map(g=>`<div><dt>${esc(g.term)}</dt><dd>${esc(g.text)}</dd></div>`).join('')}</dl></section>
     <footer>${esc(report.note||'')}</footer>
   </article>`;
+  return localizeReportMarkup(html);
 }
 
 export function teamReportText(report={}){
+  report=localizeReport(report);
+  const glossary=localizeReport(TEAM_REPORT_GLOSSARY);
   const lines=[`🏐 VolleyTakt Team-Report`,`*${clean(report.title)}*`,clean(report.subtitle),''];
   lines.push('✅ Das lief gut');
   for(const x of report.strengths||[])lines.push(`• ${clean(x.title)}: ${clean(x.text)}`);
@@ -132,9 +138,9 @@ export function teamReportText(report={}){
   lines.push('','📊 Kurzwerte');
   for(const m of report.metrics||[])lines.push(`• ${clean(m.label)}: ${clean(m.value)}${m.note?` (${clean(m.note)})`:''}`);
   lines.push('','ℹ️ Begriffe kurz erklärt');
-  for(const g of TEAM_REPORT_GLOSSARY)lines.push(`• ${g.term}: ${g.text}`);
+  for(const g of glossary)lines.push(`• ${g.term}: ${g.text}`);
   lines.push('','Hinweis: Mannschaftsmuster aus den erfassten Daten – keine Bewertung einzelner Spielerinnen.');
-  return lines.filter((x,i,a)=>x!==''||a[i-1]!=='').join('\n').trim();
+  return localizeReportMarkup(lines.filter((x,i,a)=>x!==''||a[i-1]!=='').join('\n').trim());
 }
 
 export function teamReportFileBase(report={}){
@@ -171,11 +177,12 @@ function drawWrapped(ctx,text,x,y,maxWidth,lineHeight,maxLines=5){
 }
 
 export async function teamReportPngBlob(report={}){
+  report=localizeReport(report);
   const canvas=document.createElement('canvas');canvas.width=1080;canvas.height=1350;
   const ctx=canvas.getContext('2d');if(!ctx)throw new Error('Bildexport wird von diesem Browser nicht unterstützt.');
   ctx.fillStyle='#07111f';ctx.fillRect(0,0,1080,1350);
   ctx.fillStyle='#0f2035';ctx.fillRect(0,0,1080,190);
-  ctx.fillStyle='#38bdf8';ctx.font='700 26px system-ui,sans-serif';ctx.fillText('VOLLEYTAKT · TEAM-REPORT',60,55);
+  ctx.fillStyle='#38bdf8';ctx.font='700 26px system-ui,sans-serif';ctx.fillText(rt('VOLLEYTAKT · TEAM-REPORT'),60,55);
   ctx.fillStyle='#f8fafc';ctx.font='800 42px system-ui,sans-serif';let y=110;y=drawWrapped(ctx,report.title||'Team-Report',60,y,920,48,2);
   ctx.fillStyle='#9fb3c8';ctx.font='24px system-ui,sans-serif';ctx.fillText(clean(report.subtitle),60,170);
 
@@ -189,15 +196,15 @@ export async function teamReportPngBlob(report={}){
       ctx.fillStyle='#9fb3c8';ctx.font='20px system-ui,sans-serif';cy=drawWrapped(ctx,item.text||'',x+46,cy,w-74,26,3)+12;ctx.font='600 22px system-ui,sans-serif';
     }
   };
-  block('✓ DAS LIEF GUT',report.strengths,50,225,475);
-  block('→ HIER BESSER WERDEN',report.focus,555,225,475);
+  block(rt('✓ DAS LIEF GUT'),report.strengths,50,225,475);
+  block(rt('→ HIER BESSER WERDEN'),report.focus,555,225,475);
 
   ctx.fillStyle='#13243a';ctx.beginPath();ctx.roundRect(50,550,980,230,18);ctx.fill();
-  ctx.fillStyle='#f8fafc';ctx.font='800 28px system-ui,sans-serif';ctx.fillText('🏐 FOKUS FÜRS NÄCHSTE TRAINING',78,596);
+  ctx.fillStyle='#f8fafc';ctx.font='800 28px system-ui,sans-serif';ctx.fillText(rt('🏐 FOKUS FÜRS NÄCHSTE TRAINING'),78,596);
   y=638;ctx.font='22px system-ui,sans-serif';
   for(const item of (report.training||[]).slice(0,3)){ctx.fillStyle='#dbeafe';y=drawWrapped(ctx,`• ${item.text||''}`,80,y,900,29,3)+16}
 
-  ctx.fillStyle='#f8fafc';ctx.font='800 28px system-ui,sans-serif';ctx.fillText('VIER ZAHLEN ZUR EINORDNUNG',50,835);
+  ctx.fillStyle='#f8fafc';ctx.font='800 28px system-ui,sans-serif';ctx.fillText(rt('VIER ZAHLEN ZUR EINORDNUNG'),50,835);
   const metrics=(report.metrics||[]).slice(0,4);
   metrics.forEach((m,i)=>{
     const x=50+i*247;
@@ -207,7 +214,7 @@ export async function teamReportPngBlob(report={}){
     ctx.fillStyle='#6f8aa4';ctx.font='16px system-ui,sans-serif';ctx.fillText(clean(m.note),x+20,1018);
   });
 
-  ctx.fillStyle='#f8fafc';ctx.font='800 26px system-ui,sans-serif';ctx.fillText('ROTATIONEN · RALLYBILANZ',50,1100);
+  ctx.fillStyle='#f8fafc';ctx.font='800 26px system-ui,sans-serif';ctx.fillText(rt('ROTATIONEN · RALLYBILANZ'),50,1100);
   const rr=(report.rotations||[]).slice(0,6);
   rr.forEach((r,i)=>{
     const x=50+i*163;
@@ -216,7 +223,7 @@ export async function teamReportPngBlob(report={}){
     ctx.fillStyle=r.balance>0?'#4ade80':r.balance<0?'#fb7185':'#cbd5e1';ctx.font='800 25px system-ui,sans-serif';ctx.fillText(`${r.balance>=0?'+':''}${r.balance}`,x+78,1154);
     ctx.fillStyle='#94a3b8';ctx.font='16px system-ui,sans-serif';ctx.fillText(`${r.rallies} Rallys`,x+16,1193);
   });
-  ctx.fillStyle='#9fb3c8';ctx.font='700 16px system-ui,sans-serif';ctx.fillText('R1–R6 = Rotationen · K1 = Annahme/Sideout · K2 = eigener Aufschlag/Break · K3 = Gegenangriff nach Block/Abwehr',50,1250);
+  ctx.fillStyle='#9fb3c8';ctx.font='700 16px system-ui,sans-serif';ctx.fillText(rt('R1–R6 = Rotationen · K1 = Annahme/Sideout · K2 = eigener Aufschlag/Break · K3 = Gegenangriff nach Block/Abwehr'),50,1250);
   ctx.fillStyle='#7890a8';ctx.font='15px system-ui,sans-serif';drawWrapped(ctx,report.note||'',50,1282,980,20,2);
   return await new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(new Error('PNG konnte nicht erzeugt werden.')),'image/png',0.95));
 }

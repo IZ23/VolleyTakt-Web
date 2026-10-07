@@ -3249,3 +3249,329 @@ html.layout-phone-landscape .analysis-mini-donut{width:54px;height:54px}.analysi
     page-break-before:always!important;
   }
 }
+
+/* VolleyTakt Live 0.4.2 RC1 · action/video analysis + personal player report */
+.analysis-report-personal-card{display:flex;flex-direction:column;gap:9px;padding:16px;border:1px solid #35526d;border-radius:14px;background:#102238}
+.analysis-report-personal-card>strong{font-size:1rem}.analysis-report-personal-card>span{color:#a9bfd2;line-height:1.4}
+.analysis-report-personal-actions{display:flex;gap:9px;flex-wrap:wrap}.analysis-report-personal-actions select{min-width:min(280px,100%);flex:1}
+.analysis-actions{display:grid;gap:14px}.analysis-actions-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;padding:14px 16px;border:1px solid #2d4d69;border-radius:14px;background:#0e2034}.analysis-actions-head h3{margin:0 0 4px}.analysis-actions-head p{margin:0;color:#94acc1}
+.analysis-action-group{border:1px solid #2a4058;border-radius:14px;overflow:hidden;background:#0c1828}.analysis-action-group>header{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;background:#102238}.analysis-action-group>header h4{margin:0}.analysis-action-group>header span{display:inline-grid;place-items:center;min-width:30px;height:26px;border-radius:999px;background:#18344f;font-weight:800}
+.analysis-action-list{display:grid}.analysis-action-list article{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:11px 14px;border-top:1px solid #22364b}.analysis-action-list article:first-child{border-top:0}.analysis-action-list article>div{display:flex;flex-direction:column;gap:3px;min-width:0}.analysis-action-list article strong{color:#edf6ff}.analysis-action-list article span{color:#b9cbdb}.analysis-action-list article small{color:#819bb1;white-space:normal}.analysis-action-list button{flex:0 0 auto}
+.analysis-video-backdrop{position:fixed;inset:0;z-index:10030;background:rgba(2,6,23,.84);display:grid;place-items:center;padding:16px}.analysis-video-backdrop[hidden]{display:none}.analysis-video-window{width:min(1100px,96vw);max-height:94dvh;display:grid;grid-template-rows:auto minmax(0,1fr) auto;border:1px solid #40566f;border-radius:18px;overflow:hidden;background:#081526;box-shadow:0 24px 80px rgba(0,0,0,.55)}.analysis-video-window>header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:14px 18px;border-bottom:1px solid #263a50}.analysis-video-window>header h2{margin:0 0 4px}.analysis-video-window>header p{margin:0;color:#9cb3c8}.analysis-video-window>header button{font-size:1.5rem}.analysis-video-window>main{padding:14px;overflow:auto}.analysis-video-window>footer{display:flex;justify-content:center;align-items:center;gap:12px;padding:12px;border-top:1px solid #263a50}.analysis-video-window iframe,.analysis-video-window video{display:block;width:100%;aspect-ratio:16/9;max-height:68dvh;border:0;border-radius:12px;background:#000}.analysis-video-unavailable{padding:30px;border:1px dashed #49627d;border-radius:12px;color:#b9cad9}.analysis-video-window #analysisVideoInfo{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 2px 0;color:#a9bfd2}
+.player-report-table{padding:16px;border-radius:14px;border:1px solid #31445b;background:#101d2e}.player-report-table h2{margin-top:0}.player-report .team-report-intro p{max-width:90ch}
+@media(max-width:720px){.analysis-action-list article{align-items:flex-start;flex-direction:column}.analysis-action-list button{width:100%}.analysis-video-backdrop{padding:6px}.analysis-video-window{width:100%;max-height:98dvh}.analysis-report-personal-actions{flex-direction:column}.analysis-report-personal-actions select{width:100%}}
+@media print{.player-report-table{break-inside:avoid;border-color:#aaa!important;background:#fff!important}.player-report-table *{color:#111!important;background:#fff!important}}
+
+
+/* 0.4.2 RC1 refresh · UI-REPORT2 compact chooser + internal overflow scrolling */
+.analysis-result-backdrop.report-menu-mode .analysis-result-window{
+  width:clamp(700px,78vw,940px);
+  height:auto;
+  max-height:calc(100dvh - 32px);
+  grid-template-rows:auto minmax(0,1fr) auto;
+}
+.analysis-result-backdrop.report-menu-mode .analysis-result-window>main{
+  min-height:0;
+  overflow-x:hidden;
+  overflow-y:auto;
+  scrollbar-gutter:stable;
+  scrollbar-width:thin;
+  padding:16px 18px;
+}
+.analysis-result-backdrop.report-menu-mode .analysis-result-window>main::-webkit-scrollbar{width:10px}
+.analysis-result-backdrop.report-menu-mode .analysis-result-window>main::-webkit-scrollbar-track{background:#091424;border-radius:999px}
+.analysis-result-backdrop.report-menu-mode .analysis-result-window>main::-webkit-scrollbar-thumb{background:#49647f;border:2px solid #091424;border-radius:999px}
+.analysis-result-backdrop.report-menu-mode .analysis-report-menu{padding:16px 18px}
+.analysis-result-backdrop.report-menu-mode .analysis-report-menu>p{margin-bottom:14px}
+.analysis-result-backdrop.report-menu-mode .analysis-report-choice-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  align-items:stretch;
+}
+.analysis-result-backdrop.report-menu-mode .analysis-report-player-card,
+.analysis-result-backdrop.report-menu-mode .analysis-report-personal-card,
+.analysis-result-backdrop.report-menu-mode .analysis-report-trainer-card{
+  min-height:174px;
+  padding:16px;
+}
+.analysis-result-backdrop.report-menu-mode .analysis-report-personal-card{
+  justify-content:flex-start;
+  box-shadow:inset 4px 0 0 #38bdf8;
+}
+.analysis-result-backdrop.report-menu-mode .analysis-report-personal-card>strong,
+.analysis-result-backdrop.report-menu-mode .analysis-report-player-card strong,
+.analysis-result-backdrop.report-menu-mode .analysis-report-trainer-card>strong{font-size:1.05rem}
+.analysis-result-backdrop.report-menu-mode .analysis-report-personal-card>span,
+.analysis-result-backdrop.report-menu-mode .analysis-report-player-card span,
+.analysis-result-backdrop.report-menu-mode .analysis-report-trainer-card>span{font-size:.82rem;line-height:1.4}
+.analysis-result-backdrop.report-menu-mode .analysis-report-personal-actions{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:8px;
+  margin-top:auto;
+}
+.analysis-result-backdrop.report-menu-mode .analysis-report-personal-actions select{
+  width:100%;
+  min-width:0;
+  min-height:38px;
+}
+.analysis-result-backdrop.report-menu-mode .analysis-report-personal-actions button{
+  min-height:38px!important;
+  padding:8px 10px!important;
+  border-radius:9px!important;
+  display:block!important;
+  text-align:center!important;
+  font-weight:800;
+  background:#0a2034!important;
+  box-shadow:none!important;
+  transform:none;
+}
+.analysis-result-backdrop.report-menu-mode .analysis-report-trainer-actions{margin-top:auto}
+.analysis-result-backdrop.report-menu-mode .analysis-report-trainer-actions button{
+  min-height:38px!important;
+  padding:8px 8px!important;
+}
+@media(max-width:860px){
+  .analysis-result-backdrop.report-menu-mode .analysis-result-window{width:clamp(520px,88vw,760px)}
+  .analysis-result-backdrop.report-menu-mode .analysis-report-choice-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .analysis-result-backdrop.report-menu-mode .analysis-report-trainer-card{grid-column:1/-1;min-height:132px}
+}
+@media(max-width:620px){
+  .analysis-result-backdrop.report-menu-mode .analysis-result-window{width:calc(100vw - 20px);max-height:calc(100dvh - 20px)}
+  .analysis-result-backdrop.report-menu-mode .analysis-result-window>main{padding:12px}
+  .analysis-result-backdrop.report-menu-mode .analysis-report-menu{padding:14px}
+  .analysis-result-backdrop.report-menu-mode .analysis-report-choice-grid{grid-template-columns:1fr}
+  .analysis-result-backdrop.report-menu-mode .analysis-report-trainer-card{grid-column:auto}
+  .analysis-result-backdrop.report-menu-mode .analysis-report-player-card,
+  .analysis-result-backdrop.report-menu-mode .analysis-report-personal-card,
+  .analysis-result-backdrop.report-menu-mode .analysis-report-trainer-card{min-height:auto}
+}
+
+/* 0.4.2 RC1 correction · ANALYSIS-PLAYER-REPORT2 */
+.player-report-quality-total,.player-report-table-help{margin:9px 0 0;color:#8fa7bd;font-size:.72rem;line-height:1.4}
+.player-report-table-help{margin:0 0 9px}.player-quality-distribution{min-width:190px;white-space:normal;line-height:1.35}
+@media print{.player-report-quality-total,.player-report-table-help{color:#52647a!important}.player-quality-distribution{min-width:0;font-size:8pt!important}}
+
+/* 0.4.2 RC1 correction · REPORT-PLAYER-LAYOUT1
+   Dedicated A4 composition for the personal player report. The generic team-report
+   print grid assumes team-only sections (training/metrics) and auto-placed the
+   player-specific table outside the intended two-column paper grid. */
+@media print{
+  .analysis-result-backdrop.team-report-mode .team-report.player-report{
+    width:198mm!important;
+    max-width:198mm!important;
+    min-width:0!important;
+    box-sizing:border-box!important;
+    margin:0 auto!important;
+    padding:0!important;
+    overflow:visible!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+    grid-template-areas:
+      "head head"
+      "intro intro"
+      "metrics metrics"
+      "strengths strengths"
+      "table table"
+      "rotations glossary"
+      "foot foot"!important;
+    gap:2mm!important;
+    font-size:7.8pt!important;
+    line-height:1.2!important;
+  }
+  .team-report.player-report>.team-report-head{grid-area:head!important}
+  .team-report.player-report>.team-report-intro{grid-area:intro!important}
+  .team-report.player-report>.team-report-metrics{grid-area:metrics!important}
+  .team-report.player-report>.team-report-columns{grid-area:strengths!important}
+  .team-report.player-report>.player-report-table{grid-area:table!important}
+  .team-report.player-report>.team-report-rotations{grid-area:rotations!important}
+  .team-report.player-report>.team-report-glossary{grid-area:glossary!important}
+  .team-report.player-report>footer{grid-area:foot!important}
+
+  .team-report.player-report>*{
+    min-width:0!important;
+    max-width:100%!important;
+    box-sizing:border-box!important;
+  }
+  .team-report.player-report .team-report-head{padding:3.6mm 4.5mm!important}
+  .team-report.player-report .team-report-head h1{font-size:15pt!important}
+  .team-report.player-report .team-report-meta{margin-top:1.5mm!important}
+  .team-report.player-report .team-report-intro{padding:2mm 2.6mm!important}
+  .team-report.player-report .team-report-intro p{font-size:7.4pt!important;line-height:1.18!important}
+
+  .team-report.player-report .team-report-metrics{padding:2.2mm!important}
+  .team-report.player-report .team-report-metrics>div{
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:1.3mm!important;
+  }
+  .team-report.player-report .team-report-metrics article{padding:1.4mm!important}
+  .team-report.player-report .team-report-metrics article strong{font-size:10.5pt!important}
+  .team-report.player-report .team-report-metrics article span{font-size:6.2pt!important}
+  .team-report.player-report .team-report-metrics article small{font-size:5.5pt!important}
+  .team-report.player-report .player-report-quality-total{font-size:5.8pt!important;margin-top:1.2mm!important}
+
+  .team-report.player-report .team-report-columns{grid-template-columns:1fr 1fr!important;gap:2mm!important}
+  .team-report.player-report .team-report-columns>div{padding:2mm!important;min-width:0!important}
+  .team-report.player-report .team-report-columns article{padding:1.5mm 1.8mm!important;margin-top:1mm!important}
+  .team-report.player-report .team-report-columns article p{font-size:7pt!important;line-height:1.18!important;overflow-wrap:anywhere!important}
+
+  .team-report.player-report .player-report-table{
+    width:100%!important;
+    min-width:0!important;
+    padding:2.2mm!important;
+    overflow:visible!important;
+    break-inside:avoid!important;
+    page-break-inside:avoid!important;
+  }
+  .team-report.player-report .player-report-table-help{font-size:5.8pt!important;margin:0 0 1.2mm!important}
+  .team-report.player-report .analysis-table-wrap{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    overflow:visible!important;
+  }
+  .team-report.player-report .player-report-table table{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    table-layout:fixed!important;
+    border-collapse:collapse!important;
+    font-size:6.3pt!important;
+  }
+  .team-report.player-report .player-report-table th,
+  .team-report.player-report .player-report-table td{
+    min-width:0!important;
+    padding:1.1mm 1mm!important;
+    white-space:normal!important;
+    overflow-wrap:anywhere!important;
+    word-break:normal!important;
+    line-height:1.15!important;
+  }
+  .team-report.player-report .player-report-table th:nth-child(1){width:13%!important}
+  .team-report.player-report .player-report-table th:nth-child(2){width:9%!important}
+  .team-report.player-report .player-report-table th:nth-child(3){width:26%!important}
+  .team-report.player-report .player-report-table th:nth-child(4){width:11%!important}
+  .team-report.player-report .player-report-table th:nth-child(5){width:15%!important}
+  .team-report.player-report .player-report-table th:nth-child(6){width:16%!important}
+  .team-report.player-report .player-report-table th:nth-child(7){width:10%!important}
+  .team-report.player-report .player-quality-distribution{min-width:0!important;font-size:6.1pt!important}
+
+  .team-report.player-report .team-report-rotations,
+  .team-report.player-report .team-report-glossary{
+    min-width:0!important;
+    padding:2mm!important;
+    align-self:start!important;
+  }
+  .team-report.player-report .team-report-rotations>div{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:1mm!important}
+  .team-report.player-report .team-report-rotations>div>span{min-width:0!important;padding:1.3mm!important}
+  .team-report.player-report .team-report-rotations small,
+  .team-report.player-report .team-report-rotations p{font-size:5.3pt!important;line-height:1.15!important}
+  .team-report.player-report .team-report-glossary dl{grid-template-columns:1fr 1fr!important;gap:1mm!important}
+  .team-report.player-report .team-report-glossary dl>div{
+    min-width:0!important;
+    grid-template-columns:auto minmax(0,1fr)!important;
+    gap:.9mm!important;
+    padding:1.1mm!important;
+    line-height:1.12!important;
+  }
+  .team-report.player-report .team-report-glossary dt{font-size:5.8pt!important}
+  .team-report.player-report .team-report-glossary dd{font-size:5.4pt!important;overflow-wrap:anywhere!important}
+  .team-report.player-report footer{font-size:5.2pt!important;padding-top:1.2mm!important}
+
+  /* Do not force a second page merely because one half-column grows slightly.
+     Sections themselves remain intact; if content genuinely exceeds A4, the
+     browser may create a clean vertical page break instead of clipping sideways. */
+  .team-report.player-report>.team-report-rotations,
+  .team-report.player-report>.team-report-glossary{break-inside:avoid!important;page-break-inside:avoid!important}
+}
+
+/* 0.4.2 RC1 · ANALYSIS-VIDEO2 */
+.analysis-quality-badge{display:inline-block;margin-left:.3rem;padding:.08rem .38rem;border:1px solid currentColor;border-radius:999px;font-size:.82em;font-weight:700;white-space:nowrap}
+
+/* 0.4.2 RC1 · UI-ONBOARD1: first-game quick start and reusable onboarding. */
+.quickstart-entry{width:100%;background:transparent;border:1px solid #475569;color:#bfdbfe;font-weight:700}.match-setup-actions{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;justify-content:center}.match-quickstart-link{font-size:.78rem;padding:.36rem .55rem;background:transparent;border-color:#475569;color:#bfdbfe}.help-start-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:.5rem 0 .7rem}.help-quickstart-button{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:.55rem .8rem;border:1px solid #38bdf8;border-radius:8px;background:#0c4a6e;color:#e0f2fe;text-decoration:none;font-weight:800}.help-lead{font-size:1.02rem}.quickstart-steps{padding-left:1.4rem}.quickstart-steps li{margin:.55rem 0;line-height:1.45}.help-pitfalls{margin:1rem 0;padding:.85rem 1rem;border:1px solid #f59e0b;border-radius:10px;background:rgba(245,158,11,.08)}.help-pitfalls h4{margin:.05rem 0 .5rem;color:#fbbf24}.help-pitfalls ul{margin:.2rem 0;padding-left:1.25rem}.help-pitfalls li{margin:.38rem 0;line-height:1.4}@media(max-width:620px){.match-setup-actions{gap:.25rem}.match-quickstart-link{font-size:.72rem}.help-start-actions>*{width:100%}}
+
+/* 0.4.2 RC1 · UI-ONBOARD1 branch-first quick start */
+.quickstart-branches{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem;margin:.8rem 0 1rem}.quickstart-branch{display:flex;flex-direction:column;gap:.22rem;padding:.8rem .9rem;border:1px solid #475569;border-radius:10px;text-decoration:none;background:rgba(15,23,42,.45);color:inherit}.quickstart-branch.primary{border-color:#38bdf8;background:rgba(14,116,144,.2)}.quickstart-branch.warning{grid-column:1/-1;border-color:#f59e0b;background:rgba(245,158,11,.08)}.quickstart-branch span{font-size:.86rem;opacity:.9}.quickstart-path{scroll-margin-top:1rem;margin:1rem 0;padding-top:.15rem}.help-inline-jump{font-weight:700}.quickstart-branch:focus-visible,.help-inline-jump:focus-visible{outline:2px solid currentColor;outline-offset:2px}@media(max-width:620px){.quickstart-branches{grid-template-columns:1fr}.quickstart-branch.warning{grid-column:auto}}
+
+/* 0.4.2 RC1: task-oriented main navigation */
+.preparation-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.preparation-links button{width:100%;text-align:left}
+@media (max-width:680px){.preparation-links{grid-template-columns:1fr}}
+
+
+/* 0.4.2 RC1 correction · UI-NAV2: one-level back navigation in drawer subviews. */
+.drawer-titlebar{display:flex;align-items:center;gap:8px;min-width:0}.drawer-titlebar h2{margin:0;min-width:0}.iconback{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;min-width:42px;padding:0;border-radius:10px;font-size:1.55rem;line-height:1;background:#172033;border:1px solid #475569;color:#e2e8f0}.iconback:hover{background:#1e293b}.iconback:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}.iconback[hidden]{display:none!important}
+
+/* 0.4.2 RC1 correction · UI-SCOUT-QUALITY2 rev2: restore the proven 3×2 quality geometry.
+   Basic profile: +/#/0 in row 1 and -/= in columns 1/2 of row 2; column 3 stays empty.
+   Explicit rows/gaps override older grid-auto-row rules so reduced desktop height cannot cause overlap. */
+.control-panel .quality-stack{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  grid-template-rows:repeat(2,var(--vsw-quality-h))!important;
+  grid-auto-rows:var(--vsw-quality-h)!important;
+  column-gap:clamp(4px,calc(6px * var(--vsw-ui-scale,1)),8px)!important;
+  row-gap:clamp(4px,calc(6px * var(--vsw-ui-scale,1)),8px)!important;
+  width:100%!important;max-width:100%!important;min-width:0!important;
+  box-sizing:border-box!important;overflow:visible!important;
+}
+.control-panel .quality-stack.basic>button,
+.control-panel .quality-stack.detailed>button{
+  grid-column:auto!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  height:var(--vsw-quality-h)!important;min-height:var(--vsw-quality-h)!important;max-height:var(--vsw-quality-h)!important;
+  margin:0!important;transform:none!important;box-sizing:border-box!important;
+}
+.control-panel .quality-stack.basic>button:nth-child(n+4){grid-column:auto!important}
+@container (max-width:380px){.control-panel .quality-stack{column-gap:4px!important;row-gap:4px!important}.control-panel .quality-stack button{font-size:1rem!important;padding-inline:.1rem!important}}
+
+/* ==============================================================
+   0.4.2 RC1 – UI-MOBILE-IOS1 / UI-MOBILE10 hardening
+   Keep the app inside Safari's visual viewport/safe areas and keep every
+   start-screen action reachable even in short landscape browser windows.
+   ============================================================== */
+.platform-ios body,
+.platform-ios .app-shell{height:var(--vsw-vh,100dvh);max-height:var(--vsw-vh,100dvh)}
+.platform-ios .topbar{padding-top:max(clamp(4px,calc(6px * var(--vsw-scale)),6px),var(--safe-top));padding-left:max(clamp(6px,calc(10px * var(--vsw-scale)),10px),var(--safe-left));padding-right:max(clamp(6px,calc(10px * var(--vsw-scale)),10px),var(--safe-right))}
+.platform-ios .statusbar{padding-bottom:max(3px,var(--safe-bottom));padding-left:max(8px,var(--safe-left));padding-right:max(8px,var(--safe-right))}
+.platform-ios .drawer{max-height:calc(var(--vsw-vh,100dvh) - var(--safe-top) - var(--safe-bottom));padding-bottom:max(10px,var(--safe-bottom))}
+.platform-ios .dialog-window,.platform-ios .analysis-result-window{max-height:calc(var(--vsw-vh,100dvh) - max(12px,var(--safe-top)) - max(12px,var(--safe-bottom)))}
+.platform-ios .start-gate{min-height:var(--vsw-vh,100dvh);height:var(--vsw-vh,100dvh)}
+.platform-ios .start-card{max-height:calc(var(--vsw-vh,100dvh) - max(12px,var(--safe-top)) - max(12px,var(--safe-bottom)))}
+
+.viewport-mobile-start .start-card>.start-actions{display:grid!important;grid-template-columns:1fr!important;align-items:stretch!important}
+.viewport-mobile-start .start-card>.start-actions>button{display:block!important;visibility:visible;min-width:0!important;max-width:100%!important;width:100%!important}
+.viewport-mobile-start .start-card{overflow-y:auto!important;overscroll-behavior:contain;scrollbar-gutter:stable}
+.viewport-mobile-start .start-gate{overflow-y:auto!important;overscroll-behavior:contain}
+@media (orientation:landscape) and (max-height:440px){
+  .viewport-mobile-start .start-card{align-content:start!important;padding-top:max(7px,var(--safe-top))!important;padding-bottom:max(7px,var(--safe-bottom))!important}
+  .viewport-mobile-start .start-card>.start-actions{position:relative!important;inset:auto!important}
+}
+
+
+/* 0.4.2 RC3 · UI-SETTINGS2 correction: uniform 2×X settings tiles */
+.settings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:stretch;margin:0 0 8px}
+.drawer-body .settings-grid>.card,.drawer-body .settings-grid>button.card{margin:0;min-width:0;width:100%;height:100%;box-sizing:border-box}
+.settings-grid-card{min-width:0;border-radius:12px!important}
+.settings-form-card,.settings-action-card{padding:12px!important;display:flex;flex-direction:column;min-height:178px}
+.settings-form-card>h3,.settings-action-card h3{margin:0 0 8px}
+.settings-card-body{flex:1;min-width:0}
+.settings-form-card p.small,.settings-action-card p.small{margin:7px 0;line-height:1.3}
+.settings-card-actions{margin-top:auto!important;padding-top:8px}
+.settings-nav-card,.settings-info-card{min-height:100px;padding:12px!important;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:center;text-align:left;color:inherit;background:#111c2e!important;border:1px solid var(--line)!important;border-radius:12px!important;box-shadow:none}
+.settings-nav-card{appearance:none;cursor:pointer}
+.settings-nav-card:hover{border-color:#3b82f6!important;background:#101d31!important}
+.settings-nav-card:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}
+.settings-nav-card .settings-nav-icon,.settings-info-card .settings-nav-icon{font-size:1.15rem;line-height:1}
+.settings-nav-card strong,.settings-info-card strong{display:block;font-size:.92rem;margin-bottom:3px}
+.settings-nav-card small,.settings-info-card small{display:block;color:var(--muted);font-size:.75rem;line-height:1.3;font-weight:400}
+.settings-info-card{cursor:default}
+.settings-scout-grid{min-width:0}
+@media(max-width:860px){.settings-grid{grid-template-columns:1fr}.settings-form-card,.settings-action-card{min-height:0}.settings-nav-card,.settings-info-card{min-height:86px}}
+
+
+/* 0.4.2 RC3 REPORT-I18N1 */
+.analysis-report-language{display:grid;grid-template-columns:auto minmax(130px,190px) 1fr;align-items:center;gap:10px;margin:0 0 16px;padding:10px 12px;border:1px solid #34485e;border-radius:12px;background:#0b1726}
+.analysis-report-language label{margin:0}.analysis-report-language select{min-width:0}.analysis-report-language small{color:#9fb2c8;line-height:1.35}
+@media(max-width:700px){.analysis-report-language{grid-template-columns:1fr}.analysis-report-language select{width:100%}}

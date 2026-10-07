@@ -3,7 +3,7 @@ declare(strict_types=1);
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
 
-const RELAY_VERSION = '0.4.1';
+const RELAY_VERSION = '0.4.2';
 const RATE_WINDOW_SECONDS = 300;       // 5 minutes
 const RATE_BLOCK_SECONDS = 600;        // 10 minutes
 const RATE_MAX_USER_IP_FAILURES = 6;   // per IP + username
@@ -25,7 +25,7 @@ if (is_string($extraHosts) && trim($extraHosts) !== '') {
     }
 }
 $allowedHosts = array_values(array_unique($allowedHosts));
-$allowedMethods = ['GET','PUT','PROPFIND','MKCOL'];
+$allowedMethods = ['GET','PUT','PROPFIND','MKCOL','DELETE'];
 
 function fail(int $status, string $message, string $code = 'relay_error', array $extra = []): never {
     http_response_code($status);

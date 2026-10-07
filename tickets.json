@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "project": "VolleyTakt Live",
-  "release": "0.4.1",
-  "generated": "2026-09-09",
+  "release": "0.4.2",
+  "generated": "2026-10-07",
   "statusValues": [
     "open",
     "in_progress",
@@ -12,23 +12,43 @@
   ],
   "tickets": [
     {
+      "id": "UI-ANALYSIS-LABEL1",
+      "title": "Interne Analyse-IDs nicht im UI anzeigen",
+      "type": "bug",
+      "status": "implemented",
+      "priority": "medium",
+      "targetVersion": "0.4.2",
+      "description": "Analyse-Dashboard zeigt für alle Ansichten ausschließlich die lesbaren Bezeichnungen aus der Ansichtsauswahl. Interne Schlüssel wie priorityA/priorityB werden nicht mehr sichtbar ausgegeben.",
+      "releaseClosed": null
+    },
+    {
+      "id": "UI-SETTINGS2",
+      "title": "Einstellungen kompakt im responsiven 2-Spalten-Raster",
+      "type": "ui",
+      "status": "implemented",
+      "priority": "medium",
+      "targetVersion": "0.4.2",
+      "description": "Einstellungen verwenden auf ausreichend breiten Viewports ein einheitliches 2×X-Raster. Alle Bereiche werden als gleich breite Kacheln dargestellt; Sprache und Scouting sind gleich hohe Formular-Kacheln, Cloud & Synchronisation, Videoschnitt, Bedienung und About sind Navigationskacheln, App-Update ist eine Aktionskachel und Plattform & Funktionen eine Informationskachel. Unter 860 px fällt die Darstellung automatisch auf eine Spalte zurück.",
+      "releaseClosed": null
+    },
+    {
       "id": "SCOUT-DATA1",
       "title": "Scouting-Datenmodell weiter entkoppeln",
       "type": "feature",
-      "status": "open",
-      "priority": "medium",
-      "targetVersion": null,
-      "description": "Aktionswirkung und Rally-Ergebnis im Erfassungs-/Datenmodell noch sauberer voneinander trennen.",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Aktionsqualität/-wirkung und Rally-Ergebnis sind im Eventmodell explizit getrennt: action_quality/action_effect liegen auf Aktionsereignissen, rally_result auf Rally-Ergebnisereignissen. Bestehende value-/rally_winner-Felder bleiben kompatibel erhalten.",
       "releaseClosed": null
     },
     {
       "id": "SCOUT-K3",
       "title": "K3 im Live-Scouting erweitern",
       "type": "feature",
-      "status": "open",
-      "priority": "medium",
-      "targetVersion": null,
-      "description": "K3/Transition ist analytisch umgesetzt; eine weitergehende explizite Erfassungslogik im Live-Scouting bleibt offen.",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "K3/Transition wird im Live-Scouting explizit aus der beobachteten Folge Gegner-Angriff → eigener Block/Abwehr abgeleitet. transition_trigger/source und transition_no werden am Aktionsereignis gespeichert; nachfolgende eigene Aktionen bleiben im K3-Kontext.",
       "releaseClosed": null
     },
     {
@@ -55,40 +75,50 @@
       "id": "UI-MOBILE10",
       "title": "Mobile Startscreen-Funktionen absichern",
       "type": "bug",
-      "status": "open",
+      "status": "implemented",
       "priority": "high",
-      "targetVersion": "high",
-      "description": "Startscreen-Funktionen im mobilen Browser gezielt gegen reale Geräte/Browser prüfen und verbleibende Sichtbarkeitsprobleme schließen.",
+      "targetVersion": "0.4.2",
+      "description": "Startscreen-Funktionen bleiben auch bei kurzen mobilen Browser-Viewports erreichbar: Aktionen werden einspaltig gehalten, Startkarte intern scrollbar und Safe-Area-/Visual-Viewport-gebunden. Reale Geräteprüfung bleibt erforderlich.",
       "releaseClosed": null
     },
     {
       "id": "UI-MOBILE-IOS1",
       "title": "iOS/Safari Viewport-Härtung",
       "type": "bug",
-      "status": "open",
-      "priority": "medium",
-      "targetVersion": null,
-      "description": "Safari/WebKit-spezifische Viewport-Themen wie dvh/svh, Safe Area und visualViewport gezielt absichern.",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Safari/WebKit-Viewport mit visualViewport-Höhe, dvh/svh-Fallbacks und Safe-Area-Abständen für App-Shell, Startseite, Drawer und Dialoge gehärtet. Reale iOS/Safari-Verifikation bleibt erforderlich.",
+      "releaseClosed": null
+    },
+    {
+      "id": "UI-ONBOARD1",
+      "title": "Schnellstart und Ersteinführung für Neueinsteiger",
+      "type": "ui",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Schnellstart und Ersteinführung für Neueinsteiger. Spontan-Scouting steht als niedrigschwelliger Einstieg ohne Stammdaten an erster Stelle; Hilfe verzweigt per Sprungmarken. Korrekturen: Schnellstart von der Vorschaltseite startet erst die vollständige App-Shell und danach die Tour; nicht sichtbare Tour-Ziele werden nicht markiert; der große Vorschaltseiten-Schnellstart wird nach einer gespeicherten Tour-Entscheidung ausgeblendet.",
       "releaseClosed": null
     },
     {
       "id": "VIDEO2",
-      "title": "Video – Ausbaupunkt 2",
+      "title": "Aktionsplaylist und Video-Sequenzen",
       "type": "feature",
-      "status": "open",
-      "priority": "medium",
-      "targetVersion": null,
-      "description": "Weiterer Video-Ausbaupunkt aus der bestehenden Roadmap; Detailumfang vor Umsetzung aus dem Entwicklungskontext übernehmen.",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Gefilterte Aktionen aus dem Analysezeitraum als virtuelle Video-Playlist einzeln oder sequenziell abspielen; Timestamps und Videozuordnungen werden berücksichtigt.",
       "releaseClosed": null
     },
     {
       "id": "VIDEO3",
-      "title": "Video – Ausbaupunkt 3",
+      "title": "Video-/Schnittlistenexport",
       "type": "feature",
-      "status": "open",
+      "status": "in_progress",
       "priority": "medium",
-      "targetVersion": null,
-      "description": "Weiterer Video-Ausbaupunkt aus der bestehenden Roadmap; Detailumfang vor Umsetzung aus dem Entwicklungskontext übernehmen.",
+      "targetVersion": "0.4.2",
+      "description": "Physischer Zusammenschnitt ausgewählter Analyseaktionen über einen optionalen externen Videoschnittdienst. RC2 integriert den VolleyVideo-Worker-MVP; reale Worker-/Browser-/LAN-Verifikation bleibt offen.",
       "releaseClosed": null
     },
     {
@@ -1070,6 +1100,376 @@
       "targetVersion": null,
       "description": "In der RC6-Entwicklung umgesetzt und vor 0.4.1 final als geschlossen bestätigt.",
       "releaseClosed": "0.4.1"
+    },
+    {
+      "id": "ANALYSIS-ACTIONS1",
+      "title": "Spielerinnen-Aktionsanalyse",
+      "type": "feature",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Aktionen über den gewählten Analysezeitraum nach Spielerin, Technik, Rotation, Satz und vorhandenen Zonen filtern und als Liste nach erfolgreich, neutral/eingeschränkt und fehlerhaft gruppieren.",
+      "releaseClosed": null
+    },
+    {
+      "id": "ANALYSIS-VIDEO1",
+      "title": "Video-Drilldown aus Analyseergebnissen",
+      "type": "feature",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Bestehende Analyse-Detailansichten erhalten Zugriff auf die zugrunde liegenden gefilterten Video-Sequenzen. Einzelne oder alle browserfähigen Sequenzen können abgespielt werden.",
+      "releaseClosed": null
+    },
+    {
+      "id": "ANALYSIS-PLAYER-REPORT1",
+      "title": "Persönlicher Spielerinnenreport",
+      "type": "feature",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Für eine einzelne Spielerin wird aus dem gewählten Analysezeitraum ein persönlicher, individuell ausgewerteter Report mit denselben fachlichen Grundprinzipien und vollständigen Erklärungstexten erzeugt; PDF/Druck, Text, PNG und native Teilen-Funktion werden unterstützt.",
+      "releaseClosed": null
+    },
+    {
+      "id": "REPORT-SHARE3",
+      "title": "Teilen auf Android-Tablets absichern",
+      "type": "bug",
+      "status": "verified",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Native Teilen-Schaltflächen für Spielerinnen- und Trainerreports werden auf geeigneten touch-basierten Android-Tablets angezeigt, wenn navigator.share verfügbar ist. Auf Samsung Galaxy Tab S9+ wurde die Schaltfläche real geprüft; der native Share-Dialog öffnet sich.",
+      "releaseClosed": null
+    },
+    {
+      "id": "UI-REPORT2",
+      "title": "Report-Auswahldialog kompakt und responsiv halten",
+      "type": "bug",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Regression aus 0.4.2 RC1 korrigieren: Report-Auswahldialog wieder harmonisch und kompakt wie 0.4.1 final gestalten. Team-, persönlicher Spielerinnen- und Trainerreport bleiben innerhalb des Dialograhmens; bei zu geringer Höhe scrollt ausschließlich der mittlere Inhaltsbereich mit sichtbarer vertikaler Bildlaufleiste, während Kopf und Fußzeile sichtbar bleiben.",
+      "releaseClosed": null
+    },
+    {
+      "id": "ANALYSIS-PLAYER-REPORT2",
+      "title": "Persönlichen Spielerinnenreport fachlich vollständig ausweisen",
+      "type": "bug",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Persönlicher Spielerinnenreport weist die vollständige Qualitätsverteilung einschließlich neutral/eingeschränkt und Aktionen ohne WIE aus. Eine individuelle Stärke darf nicht allein aus einer niedrigen Fehlerquote abgeleitet werden; Interpretationen und Tabellenwerte müssen rechnerisch konsistent sein.",
+      "releaseClosed": null
+    },
+    {
+      "id": "REPORT-PLAYER-LAYOUT1",
+      "title": "Persönlichen Spielerinnenreport auf A4 korrekt umbrechen",
+      "type": "bug",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Print-/PDF-Regression im persönlichen Spielerinnenreport korrigieren: alle Bereiche bleiben innerhalb der A4-Druckbreite, die Technik-Tabelle nutzt die volle Breite, rechte Spalten werden nicht abgeschnitten und ein Seitenumbruch erfolgt nur vertikal, wenn der Inhalt tatsächlich nicht auf eine Seite passt.",
+      "releaseClosed": null
+    },
+    {
+      "id": "UI-MATCH2",
+      "title": "Neuanlage eines Spiels verliert Eingabedaten bei Auswahl der Spiel-/Kaderart",
+      "type": "bug",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Regression in 0.4.2 RC1 korrigieren: Im Dialog „Neues Spiel“ bleibt die Auswahl der Spiel-/Kaderart lokaler Formularzustand. Sie darf vor „Spiel übernehmen“ keinen globalen Match-Wechsel, render() oder drawMatch() auslösen und dadurch Datum, Saison, eigenes Team oder Gegner leeren.",
+      "releaseClosed": null
+    },
+    {
+      "id": "SYNC-LOCK1",
+      "title": "Temporäre WebDAV-423-Locks robust behandeln",
+      "type": "bug",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Manuelle Nextcloud/WebDAV-Synchronisation wiederholt PUT-Anfragen bei HTTP 423 mit kurzen Wartezeiten, meldet einen verbleibenden Lock verständlich und vermeidet unveränderte Masterdata-PUTs. Bestehende ETag-/Session-Konfliktlogik bleibt erhalten.",
+      "releaseClosed": null
+    },
+    {
+      "id": "SCOUT-SCORE1",
+      "title": "Terminale Qualitätswerte schließen Rally und Spielstand automatisch ab",
+      "type": "bug",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Regression in 0.4.2 RC1 korrigieren: Ein eigenes '=' vergibt automatisch den Punkt an den Gegner, ein gegnerisches '=' an uns; '#' bleibt nur bei Aufschlag, Angriff und Block terminal. Terminale Aktionsresultate dürfen die Rally auch dann korrekt abschließen, wenn die Aufschlagseite unerwartet leer ist.",
+      "releaseClosed": null
+    },
+    {
+      "id": "SYNC-CLEANUP1",
+      "title": "Gelöschte Spiele auch physisch aus der Cloud entfernen",
+      "type": "bug",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Beim Entfernen aus der synchronisierten Spielbibliothek bleibt der Tombstone im Index erhalten, der zugehörige sessions/<matchId>-Ordner wird aber zusätzlich per WebDAV DELETE entfernt. Bereits als deleted markierte Einträge werden beim Laden der Cloud-Bibliothek best-effort bereinigt; Videos außerhalb der VolleyTakt-Sessiondaten werden nicht gelöscht.",
+      "releaseClosed": null
+    },
+    {
+      "id": "ANALYSIS-VIDEO2",
+      "title": "Aktionsidentität und Video-Timestamps korrekt darstellen",
+      "type": "bug",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Aktionsvideozeilen trennen Technik und Qualität eindeutig. Leere action_start_seconds fallen korrekt auf seconds zurück, fehlende Timestamps werden nicht als 0 interpretiert, sondern als nicht abspielbar gekennzeichnet. Jede Aktion behält ihre stabile Event-ID und individuelle Start-/Endzeit; Sortierung erfolgt nach Spiel, Satz und Aktionszeit.",
+      "releaseClosed": null
+    },
+    {
+      "id": "UI-NAV1",
+      "title": "Aufgabenorientierte Hauptnavigation",
+      "type": "ui",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Hauptnavigation in Spiel, Vorbereitung, Analyse, Daten, Hilfe und Einstellungen gliedern. Stammdaten/Kader sowie Kamera & Video unter Vorbereitung bündeln; Cloud & Synchronisation den Einstellungen zuordnen; Hilfe als eigenen Hauptmenüpunkt führen.",
+      "releaseClosed": null
+    },
+    {
+      "id": "UI-NAV2",
+      "title": "Zurück-Pfeil in Unteransichten",
+      "type": "ui",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Unteransichten der aufgabenorientierten Navigation erhalten oben links einen einheitlichen Zurück-Pfeil. Der Pfeil navigiert genau eine Ebene zurück; X schließt den gesamten Drawer. Navigationshistorie berücksichtigt z. B. Vorbereitung → Spielerinnen → Kader.",
+      "releaseClosed": null
+    },
+    {
+      "id": "UI-SCOUT-QUALITY2",
+      "title": "Qualitätsbuttons bei eingeschränkter Desktopbreite überlappungsfrei",
+      "type": "bug",
+      "status": "closed",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "WIE-/Qualitätsbuttons müssen auch bei mittleren Desktop-/Containerbreiten und reduzierter Browserhöhe ohne Überlagerung dargestellt werden. Basisprofil in bewährter 3×2-Geometrie: +/#/0 oben, -/= links unten, dritte Zelle unten frei; explizite Zeilenhöhe und Abstände. Vom Nutzer am 13.09.2026 real verifiziert.",
+      "releaseClosed": "0.4.2 RC1"
+    },
+    {
+      "id": "UI-NAV3",
+      "title": "Alle Unteransichten in die Drawer-Navigation integrieren",
+      "type": "bug",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Videospeicher/Zuordnung, Spiel-/Kaderarten und Tastaturkürzel nutzen dieselbe Drawer-Historie wie die neue Hauptnavigation. Globaler Zurück-Pfeil geht genau eine Ebene zurück; lokale Zurück-Buttons bleiben kompatibel an dieselbe Aktion gekoppelt.",
+      "releaseClosed": null
+    },
+    {
+      "id": "UI-NAV3A",
+      "title": "Videospeicher nutzt Drawer-Historie korrekt",
+      "type": "bug",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Vorbereitung → Videospeicher/Zuordnung wird über openDrawer(videoassignments) geöffnet. Dadurch wird die aufrufende Ebene in drawerHistory erfasst; der globale Zurück-Pfeil führt korrekt zu Vorbereitung bzw. bei Aufruf aus Spiel zurück zu Spiel. Der veraltete lokale „← Spiel“-Button in der Videozuordnung wurde entfernt.",
+      "releaseClosed": null
+    },
+    {
+      "id": "UI-PLAYERS1",
+      "title": "Inaktive Spielerinnen anzeigen/ausblenden",
+      "type": "bug",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Der Button Inaktive anzeigen besitzt wieder eine Funktion, filtert die Spielerliste und wechselt seine Beschriftung zwischen Anzeigen/Ausblenden.",
+      "releaseClosed": null
+    },
+    {
+      "id": "DATA-MIGRATION1",
+      "title": "Migration/Backup darf App-Start bei knapper Browser-Quota nicht blockieren",
+      "type": "bug",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Migrationslogik plausibilisiert fehlende Schema-Marker, vermeidet unnötige 0→6-Migrationen bei frischen bzw. bereits Schema-6-Daten, hält nur eine vollständige Migrationssicherung vor und behandelt QuotaExceeded kontrolliert ohne Nutzdaten zu verändern. Reale Firefox/Android-Verifikation bleibt erforderlich.",
+      "releaseClosed": null
+    },
+    {
+      "id": "UI-ANALYSIS-DATE1",
+      "title": "Analysezeitraum automatisch konsistent halten",
+      "type": "ui",
+      "status": "open",
+      "priority": "medium",
+      "targetVersion": "0.4.2",
+      "description": "Wenn Von nach dem aktuell gesetzten Bis liegt, soll Bis automatisch auf heute bzw. bei zukünftigem Von auf denselben Tag gesetzt werden.",
+      "releaseClosed": null
+    },
+    {
+      "id": "UI-SCOUT-ICON1",
+      "title": "Zuspiel-Piktogramm einmalig nicht dargestellt",
+      "type": "bug",
+      "status": "closed",
+      "priority": "medium",
+      "targetVersion": "0.4.2",
+      "description": "Einmaliger Renderingbefund; nach Seitenaktualisierung nicht reproduzierbar. Keine Codeänderung erforderlich; historisch dokumentiert und bei erneutem Auftreten neu bewerten.",
+      "releaseClosed": "0.4.2 RC1"
+    },
+    {
+      "id": "VIDEO3-SOURCE1",
+      "title": "Wiedergabe- und Processing-Quelle trennen",
+      "type": "feature",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Videozuordnungen unterstützen additiv playbackSource und processingSource; alte storageType/reference bleiben lesbar und werden beim Bearbeiten rückwärtskompatibel weitergeführt.",
+      "releaseClosed": null
+    },
+    {
+      "id": "VIDEO3-MANIFEST1",
+      "title": "VideoCutManifest 1.1 erzeugen",
+      "type": "feature",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Aus einer bereits gefilterten ActionSelection wird ein serverneutrales VideoCutManifest 1.1 mit sourceId/start/end/order und selectionContext erzeugt. Keine FFmpeg-spezifischen Parameter in VolleyTakt.",
+      "releaseClosed": null
+    },
+    {
+      "id": "VIDEO3-WORKER1",
+      "title": "Optionalen Videoschnittdienst konfigurieren",
+      "type": "feature",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Einstellungen → Videoschnitt nach Provider-Prinzip; erster Anbieter VolleyVideo-Worker mit Aktivierung, LAN-/Serveradresse, lokalem API-Token, Verbindungstest und Capability-Anzeige.",
+      "releaseClosed": null
+    },
+    {
+      "id": "VIDEO3-API1",
+      "title": "VolleyVideo-Worker API-Client",
+      "type": "feature",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "API-Client für /api/v1 health, capabilities, jobs, job status/result/delete mit Bearer-Token und apiVersion=1-Prüfung.",
+      "releaseClosed": null
+    },
+    {
+      "id": "VIDEO3-UI1",
+      "title": "Aus Auswahl Video erzeugen",
+      "type": "ui",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Analyseergebnisse bieten einen optionalen Dialog mit Aktionsanzahl, globalem Vor-/Nachlauf, sicherem Dateinamen und Ausgabeprofil; ohne Worker bleibt die bestehende Analyse vollständig nutzbar.",
+      "releaseClosed": null
+    },
+    {
+      "id": "VIDEO3-PADDING1",
+      "title": "Globaler Vor- und Nachlauf für VideoCutManifest",
+      "type": "feature",
+      "status": "implemented",
+      "priority": "medium",
+      "targetVersion": "0.4.2",
+      "description": "Render-Padding wird einmalig pro Job im Manifest gespeichert; Roh-Timestamps bleiben unverändert und werden nicht doppelt gepadded.",
+      "releaseClosed": null
+    },
+    {
+      "id": "VIDEO3-FILENAME1",
+      "title": "Sicheren Video-Dateinamen vorschlagen",
+      "type": "feature",
+      "status": "implemented",
+      "priority": "medium",
+      "targetVersion": "0.4.2",
+      "description": "VolleyTakt erzeugt aus selectionContext einen editierbaren, dateisystemsicheren MP4-Basename ohne ungeprüfte Pfade.",
+      "releaseClosed": null
+    },
+    {
+      "id": "VIDEO3-CAP1",
+      "title": "Worker-Fähigkeiten in der UI auswerten",
+      "type": "feature",
+      "status": "implemented",
+      "priority": "medium",
+      "targetVersion": "0.4.2",
+      "description": "capabilities liefert mindestens Worker/API-Version; Ausgabeprofile, Storage, Encoder/Hardware werden lokal angezeigt und soweit vorhanden für die UI verwendet.",
+      "releaseClosed": null
+    },
+    {
+      "id": "VIDEO3-JOB1",
+      "title": "Worker-Jobs starten und verfolgen",
+      "type": "feature",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "POST /jobs, lokaler Jobstatus ohne Token, Polling im Hintergrund und Download bei completed; VolleyTakt bleibt während des Renderns bedienbar.",
+      "releaseClosed": null
+    },
+    {
+      "id": "VIDEO3-SEC1",
+      "title": "Worker-Secrets strikt lokal halten",
+      "type": "security",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Serveradresse und API-Token sind ausschließlich lokale Gerätekonfiguration und werden nicht in Matchdaten, Cloud-Sync, Analyseexporte oder VideoCutManifest serialisiert.",
+      "releaseClosed": null
+    },
+    {
+      "id": "VIDEO3-NET1",
+      "title": "Worker-Netzwerkfehler robust behandeln",
+      "type": "feature",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Netzwerk-/Timeoutfehler werden lokal auf den Videoschnitt begrenzt; Konfiguration weist auf HTTPS, CORS und LAN-Zugriff hin. Worker-Ausfall beeinträchtigt keine Kernfunktion.",
+      "releaseClosed": null
+    },
+    {
+      "id": "VIDEO3-COMPAT1",
+      "title": "Alte Videozuordnungen kompatibel weiterverwenden",
+      "type": "feature",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Bestehende storageType/reference-Daten bleiben verwendbar und werden bei Bearbeitung additiv in playbackSource/processingSource überführt; Datenschema bleibt 6.",
+      "releaseClosed": null
+    },
+    {
+      "id": "UI-I18N1",
+      "title": "Mehrsprachigkeit aller sichtbaren UI-Texte vervollständigen",
+      "type": "bug",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Deutsch/Englisch-Umschaltung deckt RC2/RC3-Kacheln, Navigation, Analyseansichten einschließlich dynamischer Dashboard-/Aktionslisten-Texte, Video-Worker-Texte sowie Reportaktionen ab. Englische Volleyballbegriffe sind fachlich vereinheitlicht; interne deutsche Denkmodelle wie WO/WOHIN werden in der englischen Analyse als action zones / target zones dargestellt.",
+      "releaseClosed": null
+    },
+    {
+      "id": "REPORT-I18N1",
+      "title": "Reportsprache unabhängig von UI-Sprache auswählbar",
+      "type": "feature",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Im Dialog „Report erzeugen“ kann Deutsch oder English unabhängig von der App-Sprache gewählt werden. Die Auswahl gilt für Team-, persönlichen Spielerinnen- sowie Trainer-Kurz-/Detailreport und deren Bildschirm-, Text-, PNG- und Druck/PDF-Ausgabe; Standard ist die aktuelle UI-Sprache.",
+      "releaseClosed": null
+    },
+    {
+      "id": "UI-I18N2",
+      "title": "Modulares Sprachsystem zentralisieren und hart codierte sichtbare Texte vermeiden",
+      "type": "refactor",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Das modulare DE/EN-Sprachsystem verwendet zentrale semantische Schlüssel. RC3_2 behebt zusätzlich eine Namenskollision, bei der lokale Variablen/Callback-Parameter t bzw. tr die importierten i18n-Helfer t()/tr() überschatteten und dadurch u. a. die Teamansicht nach Cloud-Synchronisation leer blieb. Alle JS-Module werden nun automatisiert auf Shadowing importierter Bezeichner geprüft; stabile interne Scoutingwerte bleiben unverändert.",
+      "releaseClosed": null
+    },
+    {
+      "id": "REPORT-I18N1a",
+      "title": "Dynamische Reporttexte vollständig an Reportsprache binden",
+      "type": "bug",
+      "status": "implemented",
+      "priority": "high",
+      "targetVersion": "0.4.2",
+      "description": "Der persönliche Spielerinnenreport verwendet die gewählte Reportsprache unabhängig von der UI-Sprache auch für dynamische Fließtexte, Kennzahlen-Unterzeilen, Stärke/Entwicklungsfokus, Tabellen, Rotationshinweise sowie Text-/PNG-Ausgaben. Statische Reporttexte werden über semantische Sprachschlüssel bezogen; gemischte DE/EN-Ausgaben werden durch Regressionstests verhindert.",
+      "releaseClosed": null
     }
   ]
 }

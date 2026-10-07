@@ -7,8 +7,8 @@ checks=[
     'navigator.userAgentData?.mobile===true' in rw,
     '/Android|iPhone|iPad|iPod/i' in rw,
     "navigator.platform==='MacIntel'" in rw,
-    "nativeShareUiAvailable()?'<button id=\"teamReportShare\">Teilen</button>':''" in rw,
-    "nativeShareUiAvailable()?'<button id=\"trainerReportShare\">Teilen</button>':''" in rw,
+    "nativeShareUiAvailable()?`<button id=\"teamReportShare\">${t('report.share')}</button>`:''" in rw,
+    "nativeShareUiAvailable()?`<button id=\"trainerReportShare\">${t('report.share')}</button>`:''" in rw,
     "if(shareButton)shareButton.onclick" in rw,
 ]
 if not all(checks):

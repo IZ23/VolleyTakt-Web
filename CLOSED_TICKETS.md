@@ -84,3 +84,13 @@ Die folgenden Punkte wurden im RC6-Zyklus umgesetzt bzw. verifiziert und vor der
 - ✅ `PWA1`
 - ✅ `PWA2`
 - ✅ `DATA-MATCHDATE1`
+
+### UI-SCOUT-QUALITY2 – Qualitätsbuttons bei eingeschränkter Desktopbreite überlappungsfrei
+- Status: `closed`
+- Release: `0.4.2 RC1`
+- Beschreibung: WIE-/Qualitätsbuttons müssen auch bei mittleren Desktop-/Containerbreiten und reduzierter Browserhöhe ohne Überlagerung dargestellt werden. Basisprofil in bewährter 3×2-Geometrie: +/#/0 oben, -/= links unten, dritte Zelle unten frei; explizite Zeilenhöhe und Abstände. Vom Nutzer am 13.09.2026 real verifiziert.
+
+## Geschlossen / dokumentiert in 0.4.2 RC1
+
+- ✅ `UI-SCOUT-QUALITY2` – Qualitätsbuttons bei eingeschränkter Desktopbreite vom Nutzer real verifiziert.
+- ✅ `UI-SCOUT-ICON1` – einmaliger Zuspiel-Piktogramm-Befund nach Seitenaktualisierung nicht reproduzierbar; ohne Codeänderung geschlossen.

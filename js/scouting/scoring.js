@@ -14,11 +14,11 @@ export function scorePointTransition({winner,scoreUs=0,scoreThem=0,servingSide='
   };
 }
 
-export function pointAwardAllowed({quickScout=false,matchConfigured=false,setReady=false,matchComplete=false,servingSide='',ownLineupReady=false,opponentCapture=false,opponentLineupReady=false}={}){
+export function pointAwardAllowed({quickScout=false,terminalResult=false,matchConfigured=false,setReady=false,matchComplete=false,servingSide='',ownLineupReady=false,opponentCapture=false,opponentLineupReady=false}={}){
   const baseReady=!!matchConfigured&&!!setReady&&!matchComplete&&!!ownLineupReady&&(!opponentCapture||!!opponentLineupReady);
   // Spontanscouting may begin before the initial serving side is known. A terminal
   // action still decides the rally; its winner becomes the next serving side.
-  return baseReady&&(!!servingSide||!!quickScout);
+  return baseReady&&(!!servingSide||!!quickScout||!!terminalResult);
 }
 
 export function winningSideForTarget(scoreUs=0,scoreThem=0,target=25){

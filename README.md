@@ -1,4 +1,4 @@
-# VolleyTakt Live 0.4.1
+# VolleyTakt Live 0.4.2
 
 VolleyTakt Live ist die browserbasierte, offline-first Scouting-Anwendung des VolleyTakt-Projekts.
 
@@ -9,11 +9,12 @@ VolleyTakt Live ist die browserbasierte, offline-first Scouting-Anwendung des Vo
 - 5:1-orientierte Rotations-/Aufstellungsunterstützung, Satzwechsel und Seitenlogik
 - Spielbibliothek mit lokalem Speicher und optionaler Cloud-Synchronisation
 - Nextcloud/WebDAV-Synchronisation mit Konflikterkennung und bewusster Cloud-/Lokal-Entscheidung
-- Videozuordnung und nachträgliche Timestamp-Bearbeitung
+- Videozuordnung, nachträgliche Timestamp-Bearbeitung und analysebasierte Aktions-/Video-Playlists
+- optionaler serverseitiger Videoschnitt über den privaten VolleyVideo-Worker; Analyse/Playlist/Export bleiben ohne Worker vollständig nutzbar
 - modulare BLE-Kameraanbindung für unterstützte DJI-Osmo-Action- und GoPro-HERO-Modelle
 - integrierte Analyse für K1/K2/K3, Sideout, First Ball, Aufschlag, Annahme, Zuspiel, Angriff, Block/Abwehr, Rotationen, Spielerinnen, Gegner, Zielzonen und Aktionsketten
-- A/B-Vergleiche und datenbasierte Hinweise
-- Spielerinnenreport sowie Trainer-Kurz- und Trainer-Detailreport
+- A/B-Vergleiche, datenbasierte Hinweise sowie Aktionslisten mit Video-Drilldown und JSON/CSV-Schnittlistenexport
+- Spielerinnenreport, persönlicher Spielerinnenreport je Spielerin sowie Trainer-Kurz- und Trainer-Detailreport
 - PDF/Druck, Text- und PNG-Ausgabe; mobile Teilen-Funktion nur bei passender Plattformunterstützung
 - responsive Browser-/PWA-Oberfläche mit mobilem Landscape-Fokus
 - deutsche und englische Oberfläche
@@ -21,7 +22,7 @@ VolleyTakt Live ist die browserbasierte, offline-first Scouting-Anwendung des Vo
 
 ## Version
 
-**VolleyTakt Live 0.4.1**
+**VolleyTakt Live 0.4.2**
 
 - Release-Kanal: `stable`
 - Datenschema: `6`
@@ -41,7 +42,7 @@ Nach einem Update empfiehlt sich ein vollständiges Neuladen der WebApp; als PWA
 Das GitHub-Paket enthält zusätzlich die Test- und Release-Dateien.
 
 ```bash
-./tests/run_checks.sh
+bash tests/run_checks.sh
 ```
 
 Die Prüfkette deckt unter anderem ab:

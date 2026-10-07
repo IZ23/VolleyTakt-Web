@@ -11,10 +11,24 @@ const MIGRATION_BACKUPS_KEY='volleytakt-migration-backups-v1';
 export const CURRENT_DATA_SCHEMA=6;
 
 function safeJson(raw,fallback){try{return JSON.parse(raw)}catch{return fallback}}
+function isQuotaError(error){return !!error&&(error.name==='QuotaExceededError'||error.name==='NS_ERROR_DOM_QUOTA_REACHED'||error.code===22||error.code===1014)}
+function rawDataSnapshot(){return{master:localStorage.getItem(MASTER_KEY),state:localStorage.getItem(STATE_KEY),events:localStorage.getItem(EVENTS_KEY),settings:localStorage.getItem(SETTINGS_KEY),matchArchive:localStorage.getItem(MATCH_ARCHIVE_KEY)}}
+function inferStoredSchema(target=CURRENT_DATA_SCHEMA){
+  const marker=localStorage.getItem(DATA_SCHEMA_KEY);
+  if(marker!==null&&marker!==''){
+    const n=Number(marker);if(Number.isFinite(n)&&n>=0)return{schema:Math.floor(n),inferred:false,reason:'marker'};
+  }
+  const raw=rawDataSnapshot();
+  const hasData=Object.values(raw).some(v=>v!==null&&v!==''&&v!=='{}'&&v!=='[]');
+  if(!hasData)return{schema:target,inferred:true,reason:'fresh'};
+  const state=safeJson(raw.state||'{}',{});
+  if(Number(state?.dataSchema||0)>=target&&Number(state?.analysisContextSchema||0)>=1)return{schema:target,inferred:true,reason:'state'};
+  const archive=safeJson(raw.matchArchive||'[]',[]);
+  if(Array.isArray(archive)&&archive.length&&archive.every(m=>Number(m?.dataSchema||m?.fullState?.dataSchema||0)>=target))return{schema:target,inferred:true,reason:'archive'};
+  return{schema:0,inferred:true,reason:'legacy-unknown'};
+}
 function saveMigrationBackup(payload){
-  const rows=safeJson(localStorage.getItem(MIGRATION_BACKUPS_KEY)||'[]',[]);
-  const next=[payload,...(Array.isArray(rows)?rows:[])].slice(0,3);
-  localStorage.setItem(MIGRATION_BACKUPS_KEY,JSON.stringify(next));
+  localStorage.setItem(MIGRATION_BACKUPS_KEY,JSON.stringify([payload]));
   return payload;
 }
 export function listMigrationBackups(){return safeJson(localStorage.getItem(MIGRATION_BACKUPS_KEY)||'[]',[])}
@@ -25,27 +39,39 @@ export function downloadLatestMigrationBackup(){
   return true;
 }
 export function createUpdateBackup(reason='update'){
-  const payload={
-    schema:Number(localStorage.getItem(DATA_SCHEMA_KEY)||0),
-    reason,
-    createdAt:new Date().toISOString(),
-    data:{
-      master:localStorage.getItem(MASTER_KEY),
-      state:localStorage.getItem(STATE_KEY),
-      events:localStorage.getItem(EVENTS_KEY),
-      settings:localStorage.getItem(SETTINGS_KEY),
-      matchArchive:localStorage.getItem(MATCH_ARCHIVE_KEY)
-    }
-  };
+  const detected=inferStoredSchema();
+  const payload={schema:detected.schema,reason,createdAt:new Date().toISOString(),data:rawDataSnapshot()};
   localStorage.setItem(DATA_BACKUP_KEY,JSON.stringify(payload));
   return payload;
 }
-export function latestUpdateBackup(){return safeJson(localStorage.getItem(DATA_BACKUP_KEY)||'null',null)}
+function buildMigrationBackup(fromSchema,toSchema){
+  const data=rawDataSnapshot();
+  const backup={kind:'schema-migration',fromSchema,toSchema,createdAt:new Date().toISOString(),data,contextMap:[]};
+  if(fromSchema<6&&toSchema>=6){
+    const currentState=safeJson(data.state||'{}',{}),currentMatchId=String(currentState?.matchId||'');
+    const eventRows=safeJson(data.events||'[]',[]),archive=safeJson(data.matchArchive||'[]',[]);
+    const migratedEvents=Array.isArray(eventRows)?normalizeContextEvents(eventRows,currentMatchId):[];
+    const migratedArchive=Array.isArray(archive)?archive.map(match=>({matchId:String(match?.matchId||''),events:normalizeContextEvents(match?.events||[],String(match?.matchId||''))})):[];
+    backup.contextMap=[...migratedEvents.map(e=>({matchId:currentMatchId,eventId:e.id||'',legacyEventId:e.legacy_event_id||'',contextId:e.context_id||''})),...migratedArchive.flatMap(m=>(m.events||[]).map(e=>({matchId:m.matchId,eventId:e.id||'',legacyEventId:e.legacy_event_id||'',contextId:e.context_id||''})))];
+  }
+  const mapping=backup.contextMap;
+  return {...backup,contextMap:mapping};
+}
 export function runDataMigrations(target=CURRENT_DATA_SCHEMA){
-  let current=Math.max(0,Number(localStorage.getItem(DATA_SCHEMA_KEY)||0));
-  if(current>=target)return{from:current,to:current,migrated:false};
-  createUpdateBackup(`schema-${current}-to-${target}`);
-  const from=current;
+  const detected=inferStoredSchema(target);let current=Math.max(0,Number(detected.schema||0));
+  if(current>=target){
+    if(detected.inferred)localStorage.setItem(DATA_SCHEMA_KEY,String(target));
+    return{from:current,to:current,migrated:false,inferred:detected.inferred,inference:detected.reason};
+  }
+  const from=current,backup=buildMigrationBackup(current,target);
+  try{
+    // Alte Sicherungskopien dürfen den eigentlichen Nutzdaten nicht den letzten Speicherplatz nehmen.
+    localStorage.removeItem(DATA_BACKUP_KEY);localStorage.removeItem(MIGRATION_BACKUPS_KEY);
+    saveMigrationBackup(backup);
+  }catch(error){
+    if(isQuotaError(error))return{from,to:current,migrated:false,blocked:true,reason:'storage-quota',message:'Lokale Daten müssen aktualisiert werden, aber der Browser hat nicht genügend freien Speicher für die Sicherung. Nutzdaten wurden nicht verändert.'};
+    throw error;
+  }
   try{
     while(current<target){
       const next=current+1;
@@ -56,67 +82,26 @@ export function runDataMigrations(target=CURRENT_DATA_SCHEMA){
         if(m&&typeof m==='object'){m.schema=Math.max(3,Number(m.schema||3));localStorage.setItem(MASTER_KEY,JSON.stringify(m))}
       }else if(next===3){
         const archive=safeJson(localStorage.getItem(MATCH_ARCHIVE_KEY)||'[]',[]);
-        if(Array.isArray(archive))localStorage.setItem(MATCH_ARCHIVE_KEY,JSON.stringify(archive.map(x=>{
-          const st=x?.fullState||x?.state||{};
-          return {...x,status:x?.status||(st.matchComplete?'ended':'interrupted'),videos:[...(x?.videos||st.videoAssignments||[])],fullState:x?.fullState||null};
-        })));
+        if(Array.isArray(archive))localStorage.setItem(MATCH_ARCHIVE_KEY,JSON.stringify(archive.map(x=>{const st=x?.fullState||x?.state||{};return {...x,status:x?.status||(st.matchComplete?'ended':'interrupted'),videos:[...(x?.videos||st.videoAssignments||[])],fullState:x?.fullState||null}})));
       }else if(next===4){
-        // 0.3.2: ensure video assignments and reusable match snapshots survive upgrades.
-        const st=safeJson(localStorage.getItem(STATE_KEY)||'{}',{});
-        if(st&&typeof st==='object'){st.videoAssignments=[...(st.videoAssignments||[])];localStorage.setItem(STATE_KEY,JSON.stringify(st))}
-        const archive=safeJson(localStorage.getItem(MATCH_ARCHIVE_KEY)||'[]',[]);
-        if(Array.isArray(archive))localStorage.setItem(MATCH_ARCHIVE_KEY,JSON.stringify(archive.map(x=>{
-          const full={...(x?.fullState||x?.state||{})};
-          full.videoAssignments=[...(full.videoAssignments||x?.videos||[])];
-          return {...x,status:x?.status||(full.matchComplete?'ended':'interrupted'),videos:[...(x?.videos||full.videoAssignments||[])],fullState:full};
-        })));
+        const st=safeJson(localStorage.getItem(STATE_KEY)||'{}',{});if(st&&typeof st==='object'){st.videoAssignments=[...(st.videoAssignments||[])];localStorage.setItem(STATE_KEY,JSON.stringify(st))}
+        const archive=safeJson(localStorage.getItem(MATCH_ARCHIVE_KEY)||'[]',[]);if(Array.isArray(archive))localStorage.setItem(MATCH_ARCHIVE_KEY,JSON.stringify(archive.map(x=>{const full={...(x?.fullState||x?.state||{})};full.videoAssignments=[...(full.videoAssignments||x?.videos||[])];return {...x,status:x?.status||(full.matchComplete?'ended':'interrupted'),videos:[...(x?.videos||full.videoAssignments||[])],fullState:full}})));
       }else if(next===5){
-        // Preview2-r5: remove the former ++ quality tier. Legacy ++ means the same maximum success and becomes #.
-        const normalizeQuality=v=>String(v??'')==='++'?'#':v;
-        const st=safeJson(localStorage.getItem(STATE_KEY)||'{}',{});
-        if(st&&typeof st==='object'){if(st.pendingQuality==='++')st.pendingQuality='#';localStorage.setItem(STATE_KEY,JSON.stringify(st))}
-        const ev=safeJson(localStorage.getItem(EVENTS_KEY)||'[]',[]);
-        if(Array.isArray(ev))localStorage.setItem(EVENTS_KEY,JSON.stringify(ev.map(x=>({...x,value:normalizeQuality(x?.value)}))));
-        const archive=safeJson(localStorage.getItem(MATCH_ARCHIVE_KEY)||'[]',[]);
-        if(Array.isArray(archive))localStorage.setItem(MATCH_ARCHIVE_KEY,JSON.stringify(archive.map(x=>{
-          const full={...(x?.fullState||x?.state||{})};if(full.pendingQuality==='++')full.pendingQuality='#';
-          const events=Array.isArray(x?.events)?x.events.map(e=>({...e,value:normalizeQuality(e?.value)})):x?.events;
-          return {...x,events,fullState:full};
-        })));
+        const normalizeQuality=v=>String(v??'')==='++'?'#':v;const st=safeJson(localStorage.getItem(STATE_KEY)||'{}',{});if(st&&typeof st==='object'){if(st.pendingQuality==='++')st.pendingQuality='#';localStorage.setItem(STATE_KEY,JSON.stringify(st))}
+        const ev=safeJson(localStorage.getItem(EVENTS_KEY)||'[]',[]);if(Array.isArray(ev))localStorage.setItem(EVENTS_KEY,JSON.stringify(ev.map(x=>({...x,value:normalizeQuality(x?.value)}))));
+        const archive=safeJson(localStorage.getItem(MATCH_ARCHIVE_KEY)||'[]',[]);if(Array.isArray(archive))localStorage.setItem(MATCH_ARCHIVE_KEY,JSON.stringify(archive.map(x=>{const full={...(x?.fullState||x?.state||{})};if(full.pendingQuality==='++')full.pendingQuality='#';const events=Array.isArray(x?.events)?x.events.map(e=>({...e,value:normalizeQuality(e?.value)})):x?.events;return {...x,events,fullState:full}})));
       }else if(next===6){
-        // RC6-3: preserve a full pre-migration snapshot and add stable context IDs.
-        const rawArchive=localStorage.getItem(MATCH_ARCHIVE_KEY);
-        const rawEvents=localStorage.getItem(EVENTS_KEY);
-        const archive=safeJson(rawArchive||'[]',[]);
-        const currentState=safeJson(localStorage.getItem(STATE_KEY)||'{}',{});
-        const currentMatchId=String(currentState?.matchId||'');
-        const eventRows=safeJson(rawEvents||'[]',[]);
+        const rawArchive=localStorage.getItem(MATCH_ARCHIVE_KEY),rawEvents=localStorage.getItem(EVENTS_KEY),archive=safeJson(rawArchive||'[]',[]),currentState=safeJson(localStorage.getItem(STATE_KEY)||'{}',{}),currentMatchId=String(currentState?.matchId||''),eventRows=safeJson(rawEvents||'[]',[]);
         const migratedEvents=Array.isArray(eventRows)?normalizeContextEvents(eventRows,currentMatchId):[];
-        const migratedArchive=Array.isArray(archive)?archive.map(match=>{
-          const matchId=String(match?.matchId||'');
-          const events=normalizeContextEvents(match?.events||[],matchId);
-          return {...match,dataSchema:6,analysisContextSchema:1,legacyMigration:{fromSchema:current,migratedAt:new Date().toISOString(),backupRef:'schema6'},events};
-        }):[];
-        const mapping=[
-          ...migratedEvents.map(e=>({matchId:currentMatchId,eventId:e.id||'',legacyEventId:e.legacy_event_id||'',contextId:e.context_id||''})),
-          ...migratedArchive.flatMap(m=>(m.events||[]).map(e=>({matchId:m.matchId||'',eventId:e.id||'',legacyEventId:e.legacy_event_id||'',contextId:e.context_id||''})))
-        ];
-        saveMigrationBackup({kind:'schema-migration',fromSchema:current,toSchema:6,createdAt:new Date().toISOString(),data:{master:localStorage.getItem(MASTER_KEY),state:localStorage.getItem(STATE_KEY),events:rawEvents,settings:localStorage.getItem(SETTINGS_KEY),matchArchive:rawArchive},contextMap:mapping});
-        localStorage.setItem(EVENTS_KEY,JSON.stringify(migratedEvents));
-        localStorage.setItem(MATCH_ARCHIVE_KEY,JSON.stringify(migratedArchive));
-        if(currentState&&typeof currentState==='object'){currentState.dataSchema=6;currentState.analysisContextSchema=1;localStorage.setItem(STATE_KEY,JSON.stringify(currentState))}
+        const migratedArchive=Array.isArray(archive)?archive.map(match=>{const matchId=String(match?.matchId||'');const events=normalizeContextEvents(match?.events||[],matchId);return {...match,dataSchema:6,analysisContextSchema:1,legacyMigration:{fromSchema:current,migratedAt:new Date().toISOString(),backupRef:'schema6'},events}}):[];
+        localStorage.setItem(EVENTS_KEY,JSON.stringify(migratedEvents));localStorage.setItem(MATCH_ARCHIVE_KEY,JSON.stringify(migratedArchive));if(currentState&&typeof currentState==='object'){currentState.dataSchema=6;currentState.analysisContextSchema=1;localStorage.setItem(STATE_KEY,JSON.stringify(currentState))}
       }
       current=next;localStorage.setItem(DATA_SCHEMA_KEY,String(current));
     }
     return{from,to:current,migrated:true};
   }catch(error){
-    const backup=latestUpdateBackup();
-    if(backup?.data){
-      for(const [key,value] of Object.entries({[MASTER_KEY]:backup.data.master,[STATE_KEY]:backup.data.state,[EVENTS_KEY]:backup.data.events,[SETTINGS_KEY]:backup.data.settings,[MATCH_ARCHIVE_KEY]:backup.data.matchArchive})){
-        if(value===null||value===undefined)localStorage.removeItem(key);else localStorage.setItem(key,value);
-      }
-      localStorage.setItem(DATA_SCHEMA_KEY,String(backup.schema||0));
-    }
+    const restore=latestMigrationBackup();
+    if(restore?.data){for(const [key,value] of Object.entries({[MASTER_KEY]:restore.data.master,[STATE_KEY]:restore.data.state,[EVENTS_KEY]:restore.data.events,[SETTINGS_KEY]:restore.data.settings,[MATCH_ARCHIVE_KEY]:restore.data.matchArchive})){if(value===null||value===undefined)localStorage.removeItem(key);else localStorage.setItem(key,value)}localStorage.setItem(DATA_SCHEMA_KEY,String(restore.fromSchema||0));}
     throw error;
   }
 }

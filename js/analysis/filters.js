@@ -10,8 +10,8 @@ export function filterMatches(matches,filters={},pinnedMatchId=''){
   });
 }
 export function filterEvents(matches,filters={},actions=[]){
-  const {playerId='',technique='',rotation='',setNo=''}=filters;const out=[];
-  for(const match of matches||[])for(const event of match.events||[]){if(playerId&&event.player_id!==playerId)continue;if(technique&&actionName(event)!==technique)continue;if(rotation&&event.rotation!==rotation)continue;if(setNo&&String(event.set)!==String(setNo))continue;out.push({...event,_match:match});}
+  const {playerId='',technique='',position='',rotation='',setNo=''}=filters;const out=[];
+  for(const match of matches||[])for(const event of match.events||[]){if(playerId&&event.player_id!==playerId)continue;if(technique&&actionName(event)!==technique)continue;if(position&&String(event.player_rotation_position||event.position||'')!==String(position))continue;if(rotation&&event.rotation!==rotation)continue;if(setNo&&String(event.set)!==String(setNo))continue;out.push({...event,_match:match});}
   return out;
 }
-export function normalizeAnalysisFilters(filters={}){return {from:filters.from||'',to:filters.to||'',seasonId:filters.seasonId||'',teamId:filters.teamId||'',oppId:filters.oppId||'',typeId:filters.typeId||'',playerId:filters.playerId||'',technique:filters.technique||'',rotation:filters.rotation||'',setNo:filters.setNo||''};}
+export function normalizeAnalysisFilters(filters={}){return {from:filters.from||'',to:filters.to||'',seasonId:filters.seasonId||'',teamId:filters.teamId||'',oppId:filters.oppId||'',typeId:filters.typeId||'',playerId:filters.playerId||'',technique:filters.technique||'',position:filters.position||'',rotation:filters.rotation||'',setNo:filters.setNo||''};}

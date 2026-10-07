@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from pathlib import Path
-import re, sys
+import re, sys, json, subprocess
 ROOT=Path(__file__).resolve().parents[1]
 msg=(ROOT/'js/locales/messages.js').read_text(encoding='utf-8')
 legacy=(ROOT/'js/locales/legacy-messages.js').read_text(encoding='utf-8')
@@ -11,13 +11,20 @@ def block(name,next_name=None):
     end=msg.index(f'export const {next_name}=',start) if next_name else len(msg)
     return msg[start:end]
 
-de=block('MESSAGES_DE','MESSAGES_EN')
-en=block('MESSAGES_EN')
-key_re=re.compile(r"['\"]([a-zA-Z0-9_.-]+)['\"]\s*:")
-
-legacy_de=legacy[legacy.index('export const LEGACY_MESSAGES_DE='):legacy.index('export const LEGACY_MESSAGES_EN=')]
-legacy_en=legacy[legacy.index('export const LEGACY_MESSAGES_EN='):]
-de_keys=set(key_re.findall(de))|set(key_re.findall(legacy_de)); en_keys=set(key_re.findall(en))|set(key_re.findall(legacy_en))
+# RC3_1: inspect the effective modular catalogues rather than assuming all keys
+# live literally inside messages.js.
+probe=subprocess.run([
+    'node','--input-type=module','-e',
+    "import {MESSAGES_DE,MESSAGES_EN} from './js/locales/messages.js'; console.log(JSON.stringify({de:Object.keys(MESSAGES_DE),en:Object.keys(MESSAGES_EN)}))"
+],cwd=ROOT,capture_output=True,text=True,check=True)
+catalog=json.loads(probe.stdout.strip())
+de_keys=set(catalog['de']); en_keys=set(catalog['en'])
+# Values are used for drift checks below.
+value_probe=subprocess.run([
+    'node','--input-type=module','-e',
+    "import {MESSAGES_DE} from './js/locales/messages.js'; console.log(JSON.stringify(Object.values(MESSAGES_DE)))"
+],cwd=ROOT,capture_output=True,text=True,check=True)
+covered_de_values=set(json.loads(value_probe.stdout.strip()))
 errors=[]
 if de_keys!=en_keys:
     only_de=sorted(de_keys-en_keys); only_en=sorted(en_keys-de_keys)
@@ -42,9 +49,9 @@ if missing_bridge: errors.append('Legacy bridge targets missing: '+', '.join(mis
 
 # Known current visible strings that historically drifted must be covered by semantic key or legacy bridge.
 known=[
- 'Zurück','Schließen','Einführung','Menü öffnen','Geräteauswahl','Anzahl Sätze','Aktuelles Spiel','Neues Spiel','Letzter Satz','Protokoll löschen','Unterstützte Modelle','Bitte Gerät ins Querformat drehen','Eigenes Team · detailliertes Scouting','Gegner · detailliertes Scouting','Keine Synchronisation','Wird nur angezeigt, weil die letzte Kameraverbindung nicht erfolgreich war.'
+ 'Zurück','Schließen','Einführung','Menü öffnen','Geräteauswahl','Anzahl Sätze','Aktuelles Spiel','Neues Spiel','Letzter Satz','Protokoll löschen','Unterstützte Modelle','Bitte Gerät ins Querformat drehen','Eigenes Team · detailliertes Scouting','Gegner · detailliertes Scouting','Keine Synchronisation','Wird nur angezeigt, weil die letzte Kameraverbindung nicht erfolgreich war.',
+ '🧰 Vorbereitung','📄 Daten','❓ Hilfe','Cloud & Synchronisation','Videoschnitt','Bedienung','Plattform & Funktionen','Sortierung Spielerinnen','Nextcloud/WebDAV, Zugang und automatische Synchronisation konfigurieren.','Optionalen Schnittdienst konfigurieren.','Tastaturkürzel konfigurieren. Hilfe und Schnellstart stehen im Hauptmenü Hilfe.','Spielsteuerung im Überblick','Technik- und Spielerinnenwirkung','Annahme & Sideout','Zuspielverteilung','Angriff Quelle → Ziel','Block / Abwehr & Transition','WO / WOHIN Zielzonen'
 ]
-covered_de_values=set(re.findall(r"['\"][a-zA-Z0-9_.-]+['\"]\s*:\s*['\"]([^'\"]+)['\"]",de))
 for text in known:
     if text not in bridge and text not in covered_de_values:
         errors.append(f'Known visible string lacks coverage: {text}')

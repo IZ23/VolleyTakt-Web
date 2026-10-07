@@ -1,4 +1,116 @@
+# VolleyTakt Live 0.4.2 final – 07.10.2026
+
+- RC3_2 als stabilen Release **0.4.2** veröffentlicht; Release-Kanal auf `stable` umgestellt.
+- Datenschema bleibt **6**; für das Release ist keine neue Datenmigration erforderlich.
+- Modulares Deutsch/Englisch-Sprachsystem mit getrennt wählbarer Reportsprache konsolidiert; i18n-Shadowing in Team-, Rotations-, Protokoll- und Analysepfaden beseitigt.
+- Analyse-Dashboard zeigt lesbare Ansichtsbezeichnungen statt interner IDs.
+- Einstellungen verwenden ein einheitliches responsives 2×X-Kachelraster.
+- Optionaler VolleyVideo-Worker für serverseitigen physischen Videoschnitt integriert; Analyse, Filter, virtuelle Playlist und Schnittlistenexport bleiben ohne Worker vollständig nutzbar.
+- Wiedergabe- und Verarbeitungsquelle für Videos getrennt; `VideoCutManifest` 1.1, Worker-Capabilities, Jobstatus und Ergebnisdownload ergänzt.
+- Scouting-/Analyse-/Report-/Cloud-/Migrations-/Video-Regressionsprüfungen und der Import-Shadowing-Audit laufen im finalen Quellstand erfolgreich durch.
+- Releasepakete erneut auf versehentlich eingebettete Zugangsdaten, Tokens, Private Keys und lokale Entwicklungspfade geprüft.
+
+---
+
+# VolleyTakt Live 0.4.2 RC3_2 – 07.10.2026
+
+## UI-I18N2 / Stabilität
+
+- Teamansicht nach Cloud-Synchronisation repariert: lokale Teamvariablen überschreiben die Übersetzungsfunktion `t()` nicht mehr.
+- Team bearbeiten/neu anlegen verwendet ebenfalls konfliktfreie Variablennamen.
+- Rotations- und Aufstellungslogik bereinigt: lokale `t`-Variablen wurden durch sprechende Namen ersetzt; damit bleibt `t()` als i18n-Funktion eindeutig.
+- Protokoll-Rendering verwendet `rowEl` statt `tr`, damit auch der importierte i18n-Helfer `tr` nicht überschattet wird.
+- Analyse-Callbackparameter `t` wurden in sprechende Namen umbenannt.
+- Neuer automatischer Audit prüft alle JS-Module auf lokale Bindings, die importierte Bezeichner überschreiben.
+- Keine Änderung am Datenschema (6) und keine Änderung an Cloud-/Matchdaten.
+
+# VolleyTakt Live 0.4.2 RC3_1 – 06.10.2026
+
+## Mehrsprachigkeit / i18n
+
+- `REPORT-I18N1a`: persönlichen Spielerinnenreport nachgehärtet: dynamische Einleitung, Kennzahlen-Unterzeilen, Stärke/Entwicklungsfokus, Tabellen, Rotationshinweise sowie Text-/PNG-Ausgaben verwenden jetzt explizit die gewählte Reportsprache statt der UI-Sprache.
+- `UI-I18N2`: Sprachsystem auf modulare Sprachdomänen konsolidiert; DE/EN-Kataloge besitzen identische semantische Schlüssel.
+- Neue Domänen für Stammdatenformulare, Kamera, Synchronisation und Volleyball-Fachbegriffe; bestehende Domänen für UI, Analyse, Reports, Match, Runtime und Shell bleiben getrennt.
+- Sichtbare Texte in Shell, Setup/Stammdaten, Analyse, Reportauswahl/-ausgaben, Kamera- und Sync-Konfiguration werden zentral über `t()`/Report-Lokalisierung erzeugt.
+- Interne stabile Scoutingwerte (`Aufschlag`, `Annahme`, `Zuspiel`, `Angriff`, `Abwehr` usw.) bleiben zur Rückwärtskompatibilität der gespeicherten Daten deutsch kodiert; ihre Anzeige wird über zentrale Volleyball-Sprachschlüssel lokalisiert.
+- Service Worker cached jetzt alle modularen Locale-Dateien explizit, damit die Sprachumschaltung auch offline zuverlässig funktioniert.
+- Zusätzliche i18n-Regressionsprüfungen prüfen DE/EN-Schlüsselparität, kritische Oberflächen, fachliche Volleyballübersetzungen und vollständige englische Reportausgaben.
+- Datenschema bleibt 6.
+
+# VolleyTakt Live 0.4.2 RC3 – 06.10.2026
+
+## Analyse & Einstellungen
+
+- `REPORT-I18N1`: Reportsprache kann im Dialog „Report erzeugen“ unabhängig von der UI-Sprache auf Deutsch oder English gesetzt werden; die Auswahl gilt für Team-, persönlichen Spielerinnen- und Trainerreports einschließlich PDF/Druck, Text und PNG.
+- `UI-I18N1`: Sprachumschaltung auf Deutsch/Englisch für neue RC2/RC3-Texte vervollständigt; Settings, Hauptnavigation, Analyseansichten, VolleyVideo-Worker und Reportaktionen verwenden konsistente fachliche Volleyballterminologie.
+- `UI-I18N1` Nachkorrektur: Team-, persönliche Spielerinnen- sowie Trainerreports einschließlich Reportauswahl, Bildschirmdarstellung, Text-/PNG-Ausgabe und volleyballfachlicher Begriffe reagieren nun auf die gewählte Sprache.
+- `UI-ANALYSIS-LABEL1`: Im Analyse-Dashboard werden interne IDs wie `priorityA`/`priorityB` nicht mehr angezeigt; sichtbar ist immer die lesbare Bezeichnung der gewählten Analyseansicht.
+- `UI-SETTINGS2`: Einstellungsseite erneut vereinheitlicht: alle Einstellungsbereiche werden als klar gerahmte Kacheln im 2×X-Raster dargestellt; Navigationskacheln verwenden keine Pfeilsymbole mehr. Kacheln einer Zeile bleiben gleich hoch, unter 860 px erfolgt automatisch eine einspaltige Darstellung.
+- Service-Worker-/Asset-Version auf `0.4.2-rc3` angehoben.
+
+# VolleyTakt Live 0.4.2 RC2 – 23.09.2026
+
+- Optionaler Bereich **Einstellungen → Videoschnitt** mit Provider-Auswahl; erster Anbieter VolleyVideo-Worker.
+- Trennung von Wiedergabe- und Processing-Quelle für Spielvideos.
+- VideoCutManifest 1.1 inklusive selectionContext, globalem Vor-/Nachlauf und sicherem Dateinamen.
+- API-v1-Client, Capability-Anzeige, Jobstart/-status und Ergebnisdownload.
+- API-Token bleibt lokale Gerätekonfiguration; keine Aufnahme in Matchdaten, Sync oder Manifeste.
+- Analyse/Playlist/Export bleiben ohne Worker unverändert nutzbar.
+
+
+- `UI-NAV3A`: Videozuordnung öffnet nun über `openDrawer('videoassignments')`; Zurück-Pfeil verwendet die echte Drawer-Historie, der veraltete lokale „← Spiel“-Button entfällt.
+### 0.4.2 RC2 – Navigation/Onboarding/Scouting-UI Korrekturstand
+- `UI-NAV2`: einheitlicher Zurück-Pfeil in Unteransichten mit echter Ein-Ebenen-Historie; X bleibt „komplett schließen“.
+- `UI-SCOUT-QUALITY2`: WIE-Buttons stellen die bewährte 3×2-Geometrie wieder her (`+/#/0` oben, `-/=` links unten). Explizite Zeilenhöhen und Abstände verhindern Überlagerungen bei reduzierter Desktopbreite/-höhe.
+- `UI-ONBOARD1`: Schnellstart von der Vorschaltseite startet die vollständige App-Shell vor der Tour; Erklärungsschritte ohne sichtbares Ziel erzeugen keinen falschen Fokusrahmen; der große Schnellstart-Button wird nach gespeicherter Tour-Entscheidung ausgeblendet.
+# VolleyTakt Live 0.4.2 RC2 – 11.09.2026 Korrekturstand
+
+## 0.4.2 RC2 · Aufgabenorientierte Hauptnavigation – 12.09.2026
+- `UI-NAV1`: Hauptmenü auf sechs logisch getrennte Bereiche reduziert: **Spiel**, **Vorbereitung**, **Analyse**, **Daten**, **Hilfe**, **Einstellungen**.
+- Unter **Vorbereitung** sind Spielerinnen, Teams, Saisons, Kader sowie Kamera & Video gebündelt.
+- **Cloud & Synchronisation** ist jetzt Teil der Einstellungen; der operative Sync bleibt weiterhin aus der Spielbibliothek bzw. den Sync-Aktionen erreichbar.
+- **Hilfe** ist ein eigener Hauptmenüpunkt mit Schnellstart, Ersteinführung, Fallstricken und Detailhilfe.
+- Einstellungen enthalten nur dauerhafte App-/Benutzerkonfigurationen, Bedienoptionen, Updates und Cloud-Konfiguration.
+- Die Ersteinführung wurde auf die neue Navigation angepasst; der problematische Schritt 4 verwendet keinen losgelösten Fokusrahmen mehr.
+- `UI-MOBILE-IOS2` ist in diesem RC ausdrücklich nicht Bestandteil der Umsetzung.
+- Service-Worker-Cache innerhalb von RC1 auf `rc1-nav1` revidiert.
+
+
+## 0.4.2 RC2 · Schnellstart / Ersteinführung – 12.09.2026
+- `UI-ONBOARD1`: Schnellstart/Ersteinführung überarbeitet: Spontan-Scouting steht für Neueinsteiger an erster Stelle; Hilfe verzweigt per Sprungmarken zu „Sofort scouten“, regulärem Spiel und Fallstricken.
+- Ersteinführung auf sieben notwendige Schritte bis zur ersten Rally fokussiert; weiterhin manuell wiederholbar und per „Nicht mehr zeigen“ steuerbar.
+- Schnellstart ist zusätzlich direkt am Start sowie bei noch nicht eingerichtetem Spiel erreichbar.
+- Typische Fallstricke zu Kader, Satzvorbereitung, Aufschlagrecht, WER/WO, Qualitätsautomatik, Video und Cloud werden im Hilfetext erläutert.
+- Service-Worker-Cache innerhalb von 0.4.2 RC2 revidiert, damit der Korrekturstand bei bestehender RC1-Installation zuverlässig aktualisiert wird.
+
+
+- `ANALYSIS-VIDEO2`: Aktionsvideozeilen zeigen Technik und Qualität getrennt; leere `action_start_seconds` werden nicht mehr fälschlich als 0 interpretiert. Individuelle Aktionszeiten bleiben erhalten, fehlende Timestamps werden ausdrücklich als nicht verfügbar gekennzeichnet.
+- `SYNC-CLEANUP1`: synchronisiert gelöschte Spiele entfernen nach dem Index-Tombstone auch den zugehörigen VolleyTakt-Sessionordner aus Nextcloud/WebDAV. Bereits als gelöscht markierte Altordner werden beim Laden der Cloud-Bibliothek best-effort bereinigt. Verknüpfte externe Videos werden nicht gelöscht.
+- Regressionstests für unterschiedliche Aufschlag-Timestamps derselben Spielerin und Cloud-Session-Cleanup ergänzt.
+
+# VolleyTakt Live 0.4.2 RC2 – 09.09.2026
+
+### 0.4.2 RC2 – Korrekturstand Spielerinnenreport
+- `UI-MATCH2`: Neuanlage eines Spiels korrigiert; Auswahl der Spiel-/Kaderart bleibt bis „Spiel übernehmen“ lokaler Formularzustand und leert Datum, Saison oder Teams nicht mehr.
+- `REPORT-PLAYER-LAYOUT1`: PDF-/Drucklayout des persönlichen Spielerinnenreports auf A4 korrigiert; keine abgeschnittenen rechten Spalten oder horizontalen Überläufe.
+- `ANALYSIS-PLAYER-REPORT2`: Persönlicher Spielerinnenreport zeigt jetzt auch neutrale/eingeschränkte Bewertungen und Aktionen ohne WIE explizit an.
+- Techniktabellen enthalten die vollständige gespeicherte Qualitätsverteilung; Summen werden gegen die Zahl der Aktionen konsistent geführt.
+- Eine niedrige Fehlerquote allein erzeugt keine „individuelle Stärke“ mehr; dafür muss positive Evidenz vorhanden sein.
+- Bestehende Report-Erklärungstexte wurden nicht gekürzt; Erläuterungen zu Zwischenbewertungen und fehlender WIE-Bewertung wurden ergänzt.
+
+- ANALYSIS-ACTIONS1: gefilterte Aktionslisten über einen oder mehrere Spiele, gruppiert nach Aktionswirkung.
+- ANALYSIS-VIDEO1 / VIDEO2: Video-Drilldown und virtuelle Aktionsplaylist aus bestehenden Analysefiltern und Timestamps.
+- VIDEO3: JSON-/CSV-Schnittlistenexport umgesetzt; physischer MP4-Zusammenschnitt lokaler Videos noch offen.
+- ANALYSIS-PLAYER-REPORT1: persönlicher, individualisierter Spielerinnenreport mit PDF/Druck, Text, PNG und Teilen.
+- REPORT-SHARE3: Web-Share-Erkennung für geeignete Touch-Tablets erweitert.
+- Datenschema bleibt 6; Release-Kanal `preview`.
+
 # Changelog
+
+### 0.4.2 RC2 – Korrekturstand SYNC-LOCK1 / SCOUT-SCORE1
+- `SYNC-LOCK1`: WebDAV HTTP 423 wird bei PUT kurz wiederholt; unveränderte Masterdata-Dateien werden nicht unnötig zurückgeschrieben.
+- `SCOUT-SCORE1`: terminale Qualitätswerte lösen die festgelegte automatische Punktvergabe wieder zuverlässig aus.
+- Regressionstests für beide Korrekturen ergänzt.
 
 ## 0.4.1 final – 09.09.2026
 
@@ -182,3 +294,18 @@
 - WOHIN folgt technikabhängig derselben Feldseitenlogik wie das Live-Scouting.
 - Nachträglich eingefügte Aktionen können optional ein Rally-Ergebnis (Punkt Wir/Punkt Gegner) setzen; Folgestände werden konsistent neu berechnet.
 - Einfügedialog breiter, Labels enger an den Feldern und Controls touch-tauglich.
+
+
+## RC1-Korrekturstand · Navigation, Mobile und Scouting-Semantik (19.09.2026)
+- `UI-NAV3`: Videospeicher/Zuordnung, Spiel-/Kaderarten und Tastaturkürzel vollständig in die Drawer-Historie integriert; der globale Zurück-Pfeil führt jeweils genau eine Ebene zurück.
+- `UI-PLAYERS1`: „Inaktive anzeigen“ funktioniert wieder als echter Filter und schaltet zwischen Anzeigen/Ausblenden.
+- `UI-MOBILE-IOS1`: Visual-Viewport-/Safe-Area-Härtung für iOS/Safari ergänzt; reale Geräteverifikation bleibt offen.
+- `UI-MOBILE10`: Startscreen-Aktionen bleiben auch bei kurzen mobilen Browser-Viewports sichtbar/erreichbar; reale Geräteverifikation bleibt offen.
+- `SCOUT-DATA1`: Aktionsqualität/-wirkung und Rally-Ergebnis besitzen explizit getrennte semantische Felder im Eventmodell, bei Rückwärtskompatibilität der bisherigen Felder.
+- `SCOUT-K3`: K3 wird im Live-Scouting explizit aus Gegner-Angriff → eigener Block/Abwehr erkannt und mit Trigger/Transitionnummer gespeichert.
+- `UI-SCOUT-QUALITY2`: nach realer Nutzerprüfung geschlossen.
+
+## 0.4.2 RC2 – Korrekturstand 20.09.2026
+- DATA-MIGRATION1: robuste Schema-Erkennung, nur eine Migrationssicherung und kontrollierte Quota-Behandlung beim Start.
+- UI-SCOUT-ICON1 historisch geschlossen: nach Seitenaktualisierung nicht reproduzierbar.
+- UI-ANALYSIS-DATE1 als offenes Nice-to-have aufgenommen.

@@ -1,3 +1,4 @@
+import {localizeReport,localizeReportMarkup,rt} from './report-language.js';
 // VolleyTakt Live · ANALYSIS-REPORT3
 // Interpreted coach report: prioritises context and next actions instead of reproducing the dashboard.
 const num=v=>{const n=Number.parseFloat(String(v??'').replace(',','.'));return Number.isFinite(n)?n:null};
@@ -99,8 +100,9 @@ export function buildTrainerReport({matches=[],dash={},filters={},matchNames=()=
 }
 
 export function trainerReportHtml(report={}){
+  report=localizeReport(report);
   const metric=(label,value)=>`<span><small>${esc(label)}</small><strong>${esc(value)}</strong></span>`;
-  return `<article class="trainer-report trainer-report-detail">
+  const html=`<article class="trainer-report trainer-report-detail">
     <header class="trainer-report-head"><div><span class="trainer-report-brand">VolleyTakt · Trainerbericht</span><h1>${esc(report.title)}</h1><div class="trainer-report-meta">${(report.meta||[]).map(m=>metric(m.label,m.value)).join('')}</div></div><span class="trainer-report-badge">für Trainer</span></header>
     <section class="trainer-report-summary"><h2>Spielbild</h2><div>${metric('Rallyquote',report.overview?.rallyRate)}${metric('Rallys',report.overview?.rallies)}${metric('stabilste Rotation',report.overview?.best)}${metric('kritischste Rotation',report.overview?.worst)}</div></section>
     <section class="trainer-report-priorities"><h2>1 · Wichtigste Erkenntnisse</h2>${(report.priorities||[]).map((p,i)=>`<article><span class="trainer-priority-no">${i+1}</span><div><h3>${esc(p.title)}</h3><strong>${esc(p.finding)}</strong><p>${esc(p.interpretation)}</p><p class="trainer-next"><b>Weiter analysieren:</b> ${esc(p.next)}</p><small>Datenbasis: ${esc(p.confidence)}${p.sample?` · n=${esc(p.sample)}`:''}</small></div></article>`).join('')}</section>
@@ -111,17 +113,19 @@ export function trainerReportHtml(report={}){
     <section class="trainer-report-training"><h2>7 · Trainingsableitung</h2><ol>${(report.training||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ol><h3>Im nächsten Spiel beobachten</h3><ul><li>Verändert sich die kritischste Rotation?</li><li>Steigt der First-Ball-Anteil im K1?</li><li>Bleibt die K2-/Aufschlagwirkung stabil?</li></ul></section>
     <footer>${esc(report.note)}</footer>
   </article>`;
+  return localizeReportMarkup(html);
 }
 
 
 export function trainerShortReportHtml(report={}){
+  report=localizeReport(report);
   const metric=(label,value)=>`<span><small>${esc(label)}</small><strong>${esc(value)}</strong></span>`;
   const priorities=(report.priorities||[]).slice(0,4);
   const phaseByKey=key=>(report.phases||[]).find(x=>x.key===key)||{title:key,metrics:[],text:''};
   const k1=phaseByKey('K1'),k2=phaseByKey('K2'),k3=phaseByKey('K3');
   const worst=(report.rotations||[]).slice().sort((a,b)=>Number(a.balance||0)-Number(b.balance||0))[0];
   const best=(report.rotations||[]).slice().sort((a,b)=>Number(b.balance||0)-Number(a.balance||0))[0];
-  return `<article class="trainer-report trainer-report-short">
+  const html=`<article class="trainer-report trainer-report-short">
     <header class="trainer-report-head"><div><span class="trainer-report-brand">VolleyTakt · Trainer-Kurzreport</span><h1>${esc(report.title)}</h1><div class="trainer-report-meta">${(report.meta||[]).map(m=>metric(m.label,m.value)).join('')}</div></div><span class="trainer-report-badge">Kurzreport</span></header>
     <section class="trainer-short-overview"><h2>Spielbild</h2><div class="trainer-short-overview-grid">${metric('Rallyquote',report.overview?.rallyRate)}${metric('Rallys',report.overview?.rallies)}${metric('stabilste Rotation',report.overview?.best)}${metric('kritischste Rotation',report.overview?.worst)}</div></section>
     <section class="trainer-short-priorities"><h2>Wichtigste Erkenntnisse</h2>${priorities.map((p,i)=>`<article><b>${i+1}</b><div><h3>${esc(p.title)}</h3><strong>${esc(p.finding)}</strong><p>${esc(p.interpretation)}</p></div></article>`).join('')}</section>
@@ -131,10 +135,12 @@ export function trainerShortReportHtml(report={}){
     <section class="trainer-short-training"><h2>Trainingsprioritäten</h2><ol>${(report.training||[]).slice(0,3).map(x=>`<li>${esc(x)}</li>`).join('')}</ol><h3>Im nächsten Spiel beobachten</h3><p>kritischste Rotation · First Ball im K1 · Stabilität der K2-/Aufschlagwirkung</p></section>
     <footer>${esc(report.note)}</footer>
   </article>`;
+  return localizeReportMarkup(html);
 }
 
 
 export function trainerReportText(report={},variant='detail'){
+  report=localizeReport(report);
   const short=variant==='short';
   const lines=[`🏐 VolleyTakt ${short?'Trainer-Kurzreport':'Trainer-Detailreport'}`,`*${clean(report.title)}*`];
   for(const m of report.meta||[])lines.push(`${m.label}: ${clean(m.value)}`);
@@ -162,7 +168,7 @@ export function trainerReportText(report={},variant='detail'){
     for(const m of report.opponent||[])lines.push(`• ${clean(m.label)}: ${clean(m.value)}`);
   }
   lines.push('',clean(report.note));
-  return lines.join('\n').trim();
+  return localizeReportMarkup(lines.join('\n').trim());
 }
 
 export async function copyTrainerReportText(report={},variant='detail'){
@@ -183,6 +189,7 @@ function trainerCanvasWrap(ctx,text,x,y,maxWidth,lineHeight,maxLines=5){
   return y+lines.length*lineHeight;
 }
 export async function trainerReportPngBlob(report={},variant='detail'){
+  report=localizeReport(report);
   const short=variant==='short',canvas=document.createElement('canvas');
   canvas.width=1080;canvas.height=short?1350:1920;
   const ctx=canvas.getContext('2d');if(!ctx)throw new Error('Bildexport wird von diesem Browser nicht unterstützt.');
@@ -204,10 +211,10 @@ export async function trainerReportPngBlob(report={},variant='detail'){
     }
     y=cy+20;
   };
-  section('Wichtigste Erkenntnisse',(report.priorities||[]).map(p=>({title:p.title,text:`${p.finding} ${p.interpretation}`})),short?4:5);
-  section('Spielphasen',(report.phases||[]).map(p=>({title:p.title,text:`${(p.metrics||[]).map(m=>`${m[0]} ${m[1]}`).join(' · ')}. ${p.text}`})),3);
-  section('Trainingsprioritäten',(report.training||[]).map((x,i)=>({title:`${i+1}.`,text:x})),3);
-  if(!short&&y<canvas.height-320)section('Spielerinnen im Kontext',(report.players||[]).slice(0,6).map(r=>({title:r.player,text:`${r.actions} Aktionen · K1 ${r.k1} · K2 ${r.k2} · K3 ${r.k3}`})),6);
+  section(rt('Wichtigste Erkenntnisse'),(report.priorities||[]).map(p=>({title:p.title,text:`${p.finding} ${p.interpretation}`})),short?4:5);
+  section(rt('Spielphasen'),(report.phases||[]).map(p=>({title:p.title,text:`${(p.metrics||[]).map(m=>`${m[0]} ${m[1]}`).join(' · ')}. ${p.text}`})),3);
+  section(rt('Trainingsprioritäten'),(report.training||[]).map((x,i)=>({title:`${i+1}.`,text:x})),3);
+  if(!short&&y<canvas.height-320)section(rt('Spielerinnen im Kontext'),(report.players||[]).slice(0,6).map(r=>({title:r.player,text:`${r.actions} Aktionen · K1 ${r.k1} · K2 ${r.k2} · K3 ${r.k3}`})),6);
   ctx.fillStyle='#7890a8';ctx.font='16px system-ui,sans-serif';trainerCanvasWrap(ctx,report.note||'',55,canvas.height-70,960,20,2);
   return await new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(new Error('PNG konnte nicht erzeugt werden.')),'image/png',0.95));
 }

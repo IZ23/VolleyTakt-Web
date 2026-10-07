@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "app": "VolleyTakt Live",
-  "version": "0.4.1",
-  "version_id": "0.4.1",
+  "version": "0.4.2",
+  "version_id": "0.4.2",
   "data_schema": 6,
   "channel": "stable",
   "requires_confirmation": true,
@@ -30,6 +30,15 @@
     "cloud-newer takeover workflow, cloud-delete busy feedback and manual-video local clock anchor",
     "WebDAV relay authentication rate limiting and improved German/English i18n coverage",
     "analysis help and tooltips for K1/sideout, K2/break, first-ball sideout, rotations and all analysis views",
-    "timestamp post-processing with shared live/library data, sortable chronology and insertion before selected protocol actions"
+    "timestamp post-processing with shared live/library data, sortable chronology and insertion before selected protocol actions",
+    "filtered player action lists grouped by successful, neutral and faulty actions across the selected analysis period",
+    "video drill-down from analysis results and virtual action playlists with YouTube/URL timestamp playback",
+    "JSON/CSV export of action playlists and cut lists",
+    "personal player reports per selected player and analysis period with PDF/print, text, PNG and native share output",
+    "native Web Share visibility hardened for touch tablets such as Android tablets",
+    "first-game quick start, reusable onboarding and explicit beginner pitfalls in in-app help",
+    "optional VolleyVideo-Worker integration with separate playback/processing sources, VideoCutManifest 1.1, job tracking and MP4 result download",
+    "human-readable analysis view labels with no internal priorityA/priorityB identifiers in the dashboard",
+    "consistent responsive two-column settings dashboard with framed cards for all settings areas"
   ]
 }

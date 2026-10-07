@@ -1,5 +1,6 @@
 import {localeDe} from './locales/de.js';
 import {MESSAGES_DE,MESSAGES_EN} from './locales/messages.js';
+const MESSAGE_KEY_BY_DE=new Map(Object.entries(MESSAGES_DE).map(([key,value])=>[String(value),key]));
 import {LEGACY_KEY_BY_DE} from './locales/legacy-messages.js';
 
 let language='de';
@@ -26,10 +27,13 @@ export function tr(value,lang=language){
  const source=String(value),trim=source.trim();if(!trim)return source;
  const legacyKey=LEGACY_KEY_BY_DE[trim];
  if(legacyKey)return preserveWhitespace(source,t(legacyKey,{},lang));
+ const modernKey=MESSAGE_KEY_BY_DE.get(trim);
+ if(modernKey)return preserveWhitespace(source,t(modernKey,{},lang));
  const dynamic=[
   [/^Nutzung gemäß PolyForm Perimeter License 1\.0\.1\.$/,()=>`Use according to the PolyForm Perimeter License 1.0.1.`],
   [/^Unter Analyse kannst du Zeitraum, Saison, Team, Gegner, Spielart, Spielerin, Technik, Rotation und Satz filtern\. Die fachlich gruppierten Ansichten umfassen Spiel-\/Satzübersicht, Rotations-Dashboard, K1\/Sideout mit First-Ball-Sideout, K2\/Breakpoint, Aufschlagwirkung, Annahme & Sideout, Zuspielverteilung, Angriff Quelle → Ziel, Spielerinnenwirkung, Kontextketten, Gegner-Tendenzen, Technik-\/Qualitätsübersichten und Rally-Auswertungen\. Die beiden Gesamtübersichten bündeln die wichtigsten Kennzahlen aus Spiel & Phasen beziehungsweise Technik & Wirkung und erlauben den direkten Sprung in einzelne Analyseabschnitte\.$/,()=>`Under Analysis you can filter by period, season, team, opponent, match type, player, technique, rotation and set. The professionally grouped views include match/set overview, rotation dashboard, K1/sideout with first-ball sideout, K2/breakpoint, serve impact, reception & sideout, set distribution, attack source → target, player impact, context chains, opponent tendencies, technique/quality overviews and rally analyses. The two overview views combine the key metrics from Match & Phases and Technique & Impact and allow direct navigation to individual analysis sections.`],
   [/^Die Ansichten nutzen dasselbe Datenmodell; bei einfacher Erfassung bleiben Detaildimensionen leer und werden nur dort ausgewertet, wo Daten vorhanden sind\. Der Vergleichsmodus stellt Zeitraum A und B gegenüber\. Analyseergebnisse öffnen in einem eigenen Ergebnisfenster, können lokal gespeichert und bei aktiver Nextcloud-\/WebDAV-Synchronisation mit der Cloud abgeglichen werden\. Über die Druckvorschau lassen sie sich an den Systemdruckdialog übergeben und dort auch als PDF speichern\.$/,()=>`The views use the same data model; with basic scouting, detailed dimensions remain empty and are evaluated only where data is available. Comparison mode places period A and B side by side. Analysis results open in a separate result window, can be saved locally and synchronized to the cloud when Nextcloud/WebDAV synchronization is active. The print preview can pass them to the system print dialog, where they can also be saved as PDF.`],
+  [/^(.+?) verwendet das modulare Sprachsystem\. Alle aktuellen Beschriftungen, Erklärungen, Hilfe-, Status- und Fehlermeldungen stehen in Deutsch und Englisch zur Verfügung\.$/,m=>`${m[1]} uses the modular language system. All current labels, explanations, help texts, status messages and error messages are available in German and English.`],
   [/^About zeigt Version, Copyright und verwendete Medien\/Lizenzen\. Copyright © 2026 Ingo Zech\. VolleyTakt wird gemäß PolyForm Perimeter License 1\.0\.1 bereitgestellt\. Die Technik-Piktogramme sind eigene, für VolleyTakt erstellte App-Dateien\. Der DJI-Kameraadapter verwendet das öffentliche DJI-R-SDK\/BLE-Protokoll; der GoPro-Adapter nutzt die offizielle Open-GoPro-BLE-API\.$/,()=>`About shows the version, copyright and media/licenses used. Copyright © 2026 Ingo Zech. VolleyTakt is provided under the PolyForm Perimeter License 1.0.1. The technique pictograms are original app files created for VolleyTakt. The DJI camera adapter uses the public DJI R-SDK/BLE protocol; the GoPro adapter uses the official Open GoPro BLE API.`],
   [/^Du verwendest (.+)\. Die Kamerakopplung benötigt einen sicheren HTTPS-Kontext\. Öffne VolleyTaktLive über HTTPS\.$/,m=>`You are using ${m[1]}. Camera pairing requires a secure HTTPS context. Open VolleyTakt Live via HTTPS.`],
   [/^Du verwendest (.+) unter iOS\/iPadOS\. Web Bluetooth steht dort derzeit nicht zur Verfügung; ein Browserwechsel aktiviert die Kamerakopplung nicht\. Die lokale Zeitquelle bleibt nutzbar\.$/,m=>`You are using ${m[1]} on iOS/iPadOS. Web Bluetooth is currently unavailable there; switching browsers does not enable camera pairing. The local time source remains usable.`],
@@ -42,9 +46,42 @@ export function tr(value,lang=language){
   [/^Session wiederaufgenommen · Sätze (.+) · (.+) · (.+)\.$/,m=>`Session resumed · Sets ${m[1]} · ${m[2]} · ${m[3]}.`],
   [/^(Gegner|Eigenes Team) aktiv · (.+) · (detailliert|kompakt)\.$/,m=>`${m[1]==='Gegner'?'Opponent':'Own team'} active · ${m[2]} · ${m[3]==='detailliert'?'detailed':'compact'}.`],
   [/^(Gegner|Eigenes Team): (detaillierte|kompakte) Bewertung\.$/,m=>`${m[1]==='Gegner'?'Opponent':'Own team'}: ${m[2]==='detaillierte'?'detailed':'compact'} rating.`],
+  [/^Cloud-Spielbibliothek nicht verfügbar:\s*(.+)$/,m=>`Cloud match library unavailable: ${m[1]}`],
+  [/^Spieldaten lokal gespeichert; Cloud-Sync folgt später:\s*(.+)$/,m=>`Match data saved locally; cloud sync will follow later: ${m[1]}`],
+  [/^Video fertig: (.+)$/,m=>`Video complete: ${m[1]}`],
+  [/^Video wurde erzeugt: (.+)$/,m=>`Video created: ${m[1]}`],
+  [/^Videoauftrag (failed|cancelled)\.$/,m=>`Video job ${m[1]}.`],
+  [/^Video wird erzeugt · (.+)$/,m=>`Video is being created · ${m[1]}`],
+  [/^Videoauftrag läuft weiter · Status derzeit nicht abrufbar: (.+)$/,m=>`Video job is still running · status currently unavailable: ${m[1]}`],
+  [/^Videoauftrag gestartet · (.+)$/,m=>`Video job started · ${m[1]}`],
+  [/^Videoauftrag fehlgeschlagen: (.+)$/,m=>`Video job failed: ${m[1]}`],
+  [/^Individuelle Auswertung · (.+)$/,m=>`Individual analysis · ${m[1]}`],
+  [/^PNG gespeichert: (.+)$/,m=>`PNG saved: ${m[1]}`],
+  [/^Kopieren fehlgeschlagen: (.+)$/,m=>`Copy failed: ${m[1]}`],
+  [/^PNG-Export fehlgeschlagen: (.+)$/,m=>`PNG export failed: ${m[1]}`],
+  [/^Teilen fehlgeschlagen: (.+)$/,m=>`Sharing failed: ${m[1]}`],
   [/^Doppelte Belegung: (.+)$/,m=>`Duplicate assignment: ${m[1]}`],
   [/^Bewertung (.+) ist im aktuellen Profil nicht verfügbar\.$/,m=>`Rating ${m[1]} is not available in the current profile.`],
-  [/^DJI: (.+)$/,m=>`DJI: ${m[1]}`]
+  [/^DJI: (.+)$/,m=>`DJI: ${m[1]}`],
+  [/^Ausgewählt: (\d+) Aktionen$/,m=>`Selected: ${m[1]} actions`],
+  [/^Erstellt am (.+)$/,m=>`Created on ${m[1]}`],
+  [/^Gespeichert am (.+)$/,m=>`Saved on ${m[1]}`],
+  [/^(\d+) Aktion\(en\) · gruppiert nach Wirkung$/,m=>`${m[1]} actions · grouped by impact`],
+  [/^Spielanalyse: (.+)$/,m=>`Match analysis: ${m[1]}`],
+  [/^(\d+) Spiele · (\d+) Rallys · (.+)$/,m=>`${m[1]} matches · ${m[2]} rallies · ${m[3]}`],
+  [/^Meiste Aktionen: (\d+)$/,m=>`Most actions: ${m[1]}`],
+  [/^Top Break: (.+)$/,m=>`Top break: ${m[1]}`],
+  [/^(\d+)× häufigste Kette$/,m=>`${m[1]}× most frequent chain`],
+  [/^(\d+) Spielerinnen$/,m=>`${m[1]} players`],
+  [/^(\d+) Spiele$/,m=>`${m[1]} matches`],
+  [/^(\d+) Rallys$/,m=>`${m[1]} rallies`],
+  [/^(\d+) Aktionen$/,m=>`${m[1]} actions`],
+  [/^(\d+) Annahmen$/,m=>`${m[1]} receptions`],
+  [/^(\d+) Aufschläge$/,m=>`${m[1]} serves`],
+  [/^(\d+) Zuspiele$/,m=>`${m[1]} sets`],
+  [/^(\d+) Angriffe$/,m=>`${m[1]} attacks`],
+  [/^(\d+) Transitionen$/,m=>`${m[1]} transitions`],
+  [/^Analyse · (.+)$/,m=>`Analysis · ${m[1]}`]
  ];
  for(const [re,fn] of dynamic){const m=trim.match(re);if(m)return preserveWhitespace(source,fn(m));}
  // RC2: all formerly exact legacy translations resolve through stable keys.
