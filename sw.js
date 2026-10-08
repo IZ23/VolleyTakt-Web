@@ -1,10 +1,10 @@
-const CACHE = 'volleytakt-live-web-v0.4.3_1-r2';
+const CACHE = 'volleytakt-live-web-v0.4.3.2-r1';
 
 // Nur diese Kernressourcen dürfen die Installation des Service Workers blockieren.
 const CORE_ASSETS = [
   './',
   './index.html',
-  './styles.css?v=0.4.3_1',
+  './styles.css?v=0.4.3.2',
   './manifest.webmanifest',
   './update-manifest.json',
   './logo.png',
@@ -14,7 +14,7 @@ const CORE_ASSETS = [
   './js/app/selectors.js',
   './js/app/persistence.js',
   './js/app/commands.js','./js/app/input-routing.js','./js/ui/layout/device-layout.js',
-  './js/library/metadata.js','./js/video/timestamp-editor.js','./js/video/cut-manifest.js','./js/video/worker-client.js','./js/data/context.js','./js/analysis/domain.js','./js/analysis/deep.js','./js/analysis/filters.js','./js/analysis/rallies.js','./js/analysis/basic.js','./js/analysis/chains.js','./js/analysis/chains2.js','./js/analysis/context.js','./js/analysis/insights.js','./js/analysis/insights-advanced.js','./js/analysis/opponent.js','./js/analysis/priorities.js','./js/analysis/cache.js','./js/analysis/result-window.js','./js/analysis/report-language.js','./js/analysis/team-report.js','./js/analysis/report-export.js','./js/analysis/trainer-report.js','./js/analysis/player-report.js','./js/analysis/action-video.js','./js/analysis/ui.js',
+  './js/library/metadata.js','./js/video/timestamp-editor.js','./js/video/cut-manifest.js','./js/video/worker-client.js','./js/data/context.js','./js/data/import-sanitize.js','./js/analysis/domain.js','./js/analysis/deep.js','./js/analysis/filters.js','./js/analysis/rallies.js','./js/analysis/basic.js','./js/analysis/chains.js','./js/analysis/chains2.js','./js/analysis/context.js','./js/analysis/insights.js','./js/analysis/insights-advanced.js','./js/analysis/opponent.js','./js/analysis/priorities.js','./js/analysis/cache.js','./js/analysis/result-window.js','./js/analysis/report-language.js','./js/analysis/team-report.js','./js/analysis/report-export.js','./js/analysis/trainer-report.js','./js/analysis/player-report.js','./js/analysis/action-video.js','./js/analysis/ui.js',
   './js/camera/service.js',
   './js/scouting/scouting.js',
   './js/scouting/rally.js',
@@ -47,12 +47,12 @@ const OPTIONAL_ASSETS = [
   './app-icons/volleytakt-96.png',
   './app-icons/volleytakt-192.png',
   './app-icons/volleytakt-512.png',
-  './app-icons/techniques/aufschlag.png?v=0.4.3_1',
-  './app-icons/techniques/zuspiel.png?v=0.4.3_1',
-  './app-icons/techniques/angriff.png?v=0.4.3_1',
-  './app-icons/techniques/annahme.png?v=0.4.3_1',
-  './app-icons/techniques/abwehr.png?v=0.4.3_1',
-  './app-icons/techniques/block.png?v=0.4.3_1',
+  './app-icons/techniques/aufschlag.png?v=0.4.3.2',
+  './app-icons/techniques/zuspiel.png?v=0.4.3.2',
+  './app-icons/techniques/angriff.png?v=0.4.3.2',
+  './app-icons/techniques/annahme.png?v=0.4.3.2',
+  './app-icons/techniques/abwehr.png?v=0.4.3.2',
+  './app-icons/techniques/block.png?v=0.4.3.2',
   './app-icons/volleytakt-1024.png'
 ];
 

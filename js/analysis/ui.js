@@ -1,6 +1,7 @@
 import {t} from '../i18n.js';
 import {insightsFor,confidenceText} from './insights.js';
 import {advancedInsightsFor} from './insights-advanced.js';
+const escHtml=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function optionHtml(rows,{selected='',label=x=>x.name,escapeHtml=x=>String(x??'')}={}){
   return `<option value="">${t('analysis.filter.all')}</option>`+(rows||[]).map(x=>`<option value="${escapeHtml(x.id)}" ${x.id===selected?'selected':''}>${escapeHtml(label(x))}</option>`).join('');
 }
@@ -30,10 +31,10 @@ const pctNumber=value=>{const n=Number.parseFloat(String(value??'').replace(',',
 const weightedPercent=(rows,valueKey,countKey='n')=>{let n=0,total=0;for(const row of rows||[]){const count=Number(row?.[countKey]||0),value=pctNumber(row?.[valueKey]);n+=count;total+=value*count;}return n?`${(total/n).toFixed(1).replace('.',',')} %`:'–'};
 const sum=(rows,key)=> (rows||[]).reduce((acc,row)=>acc+Number(row?.[key]||0),0);
 const pct=value=>Math.max(0,Math.min(100,pctNumber(value)));
-const donut=(value,label='')=>`<div class="analysis-mini-donut" style="--p:${pct(value)}"><span>${value||'–'}</span>${label?`<small>${label}</small>`:''}</div>`;
-const bars=(rows,valueKey,labelKey,{limit=6}={})=>{const data=(rows||[]).slice(0,limit),max=Math.max(1,...data.map(r=>Number(r?.[valueKey]||0)));return `<div class="analysis-mini-bars-chart">${data.map(r=>`<div><span>${r?.[labelKey]??''}</span><i><b style="width:${Math.max(4,Number(r?.[valueKey]||0)/max*100)}%"></b></i><strong>${r?.[valueKey]??0}</strong></div>`).join('')||`<em>${t('analysis.noData')}</em>`}</div>`};
+const donut=(value,label='')=>`<div class="analysis-mini-donut" style="--p:${pct(value)}"><span>${escHtml(value||'–')}</span>${label?`<small>${escHtml(label)}</small>`:''}</div>`;
+const bars=(rows,valueKey,labelKey,{limit=6}={})=>{const data=(rows||[]).slice(0,limit),max=Math.max(1,...data.map(r=>Number(r?.[valueKey]||0)));return `<div class="analysis-mini-bars-chart">${data.map(r=>`<div><span>${escHtml(r?.[labelKey]??'')}</span><i><b style="width:${Math.max(4,Number(r?.[valueKey]||0)/max*100)}%"></b></i><strong>${escHtml(r?.[valueKey]??0)}</strong></div>`).join('')||`<em>${escHtml(t('analysis.noData'))}</em>`}</div>`};
 const rotationBars=rows=>bars((rows||[]).filter(r=>Number(r.rallies)>0).map(r=>({label:r.rotation,value:pctNumber(r.k1Sideout)})),'value','label');
-const card=(view,icon,title,help,metrics,viz='',detail=t('analysis.details'))=>`<article class="analysis-dashboard-card" data-analysis-card="${view}"><header><span class="analysis-dashboard-icon">${icon}</span><h4>${title}</h4><button type="button" class="analysis-card-help" title="${help}" aria-label="${title}: ${t('analysis.explainInterpretation')}">ⓘ</button></header><div class="analysis-card-popover" hidden role="note">${help}</div><div class="analysis-card-body"><div class="analysis-card-metrics">${metrics}</div>${viz?`<div class="analysis-card-viz">${viz}</div>`:''}</div><button type="button" class="analysis-card-detail" data-analysis-detail-view="${view}">${detail} →</button></article>`;
+const card=(view,icon,title,help,metrics,viz='',detail=t('analysis.details'))=>`<article class="analysis-dashboard-card" data-analysis-card="${escHtml(view)}"><header><span class="analysis-dashboard-icon">${escHtml(icon)}</span><h4>${escHtml(title)}</h4><button type="button" class="analysis-card-help" title="${escHtml(help)}" aria-label="${escHtml(title)}: ${escHtml(t('analysis.explainInterpretation'))}">ⓘ</button></header><div class="analysis-card-popover" hidden role="note">${escHtml(help)}</div><div class="analysis-card-body"><div class="analysis-card-metrics">${metrics}</div>${viz?`<div class="analysis-card-viz">${viz}</div>`:''}</div><button type="button" class="analysis-card-detail" data-analysis-detail-view="${escHtml(view)}">${escHtml(detail)} →</button></article>`;
 
 const DASHBOARD_VIEW_CARDS={
  priorityA:['overview','k1k2','rotations','serve','reception','attacks','players','opponent','chains','rallies'],
@@ -64,7 +65,7 @@ const dashboardAllows=(activeView,cardView)=>{
 };
 const detailBars=(rows,valueKey,labelKey,{limit=8,suffix=''}={})=>{
  const data=(rows||[]).slice(0,limit),max=Math.max(1,...data.map(r=>Math.abs(Number(r?.[valueKey]||0))));
- return `<div class="analysis-detail-bars">${data.map(r=>`<div><span>${r?.[labelKey]??'–'}</span><i><b style="width:${Math.max(2,Math.abs(Number(r?.[valueKey]||0))/max*100)}%"></b></i><strong>${r?.[valueKey]??0}${suffix}</strong></div>`).join('')||`<em>${t('analysis.noData')}</em>`}</div>`;
+ return `<div class="analysis-detail-bars">${data.map(r=>`<div><span>${escHtml(r?.[labelKey]??'–')}</span><i><b style="width:${Math.max(2,Math.abs(Number(r?.[valueKey]||0))/max*100)}%"></b></i><strong>${escHtml(`${r?.[valueKey]??0}${suffix}`)}</strong></div>`).join('')||`<em>${escHtml(t('analysis.noData'))}</em>`}</div>`;
 };
 const insightsHtml=(view,result,context={})=>{
  const rows=[...insightsFor(view,result),...advancedInsightsFor(view,result,context)];

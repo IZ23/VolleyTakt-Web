@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "project": "VolleyTakt Live",
-  "release": "0.4.3_1",
+  "release": "0.4.3.2",
   "generated": "2026-10-07",
   "statusValues": [
     "open",
@@ -1492,6 +1492,56 @@
       "targetVersion": "0.4.3_1",
       "description": "Der dynamisch neu gerenderte Aufschlagstatus verwendet semantische Sprachschlüssel statt hart codierter deutscher Texte. In Englisch wechselt die Anzeige korrekt zwischen Serve: –, Serve: Us und Serve: Opponent; Statusmeldungen, Rotationsseite, Seitenumschalter und Aufschlag-Ballsymbol sind ebenfalls lokalisiert. Regressionstest verhindert erneute Mischsprache.",
       "releaseClosed": null
+    },
+    {
+      "id": "SEC-XSS1",
+      "title": "Stored/imported XSS in Import und Analyse-Rendering härten",
+      "status": "implemented",
+      "version": "0.4.3.2",
+      "type": "security",
+      "priority": "critical",
+      "targetVersion": "0.4.3.2",
+      "description": "Strukturfelder werden beim Import normalisiert; dynamische Analyse-Labels werden HTML-escaped. CSV, LocalStorage und Cloud-Events verwenden dieselbe Trust-Boundary-Normalisierung."
+    },
+    {
+      "id": "SEC-NEXTCLOUD1",
+      "title": "WebDAV-Relay serverseitig härten",
+      "status": "implemented",
+      "version": "0.4.3.2",
+      "type": "security",
+      "priority": "high",
+      "targetVersion": "0.4.3.2",
+      "description": "HTTPS/443, normalisierte DAV-Pfade, Traversal-Abwehr, Origin/Content-Type, Header-Allowlist und CRLF-Schutz sowie verbessertes Rate-Limiting/GC und sichere Diagnostik."
+    },
+    {
+      "id": "SEC-HEADERS1",
+      "title": "Browser-Sicherheitsheader ergänzen",
+      "status": "implemented",
+      "version": "0.4.3.2",
+      "type": "security",
+      "priority": "high",
+      "targetVersion": "0.4.3.2",
+      "description": "CSP, HSTS und Permissions-Policy für den Webspace ergänzt."
+    },
+    {
+      "id": "SEC-URL1",
+      "title": "Video- und Worker-URL-Validierung härten",
+      "status": "implemented",
+      "version": "0.4.3.2",
+      "type": "security",
+      "priority": "medium",
+      "targetVersion": "0.4.3.2",
+      "description": "Exakte YouTube-Hostprüfung, HTTPS-only Browser-Videoquellen und HTTPS-only Worker mit Loopback-Ausnahme."
+    },
+    {
+      "id": "UI-I18N4",
+      "title": "Kamera-Status und Worker-Fehler lokalisieren",
+      "status": "implemented",
+      "version": "0.4.3.2",
+      "type": "bug",
+      "priority": "medium",
+      "targetVersion": "0.4.3.2",
+      "description": "Kamera-Qualitäts-/Statusanzeige und VolleyVideo-Worker-Fehlertexte verwenden semantische DE/EN-Schlüssel."
     }
   ]
 }

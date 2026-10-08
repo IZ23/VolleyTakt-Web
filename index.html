@@ -1,7 +1,7 @@
 <!doctype html><html lang="de"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#0f172a"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
-<title>VolleyTakt Live 0.4.3_1</title>
+<title>VolleyTakt Live 0.4.3.2</title>
 <script>
 /* RC4 · UI-MOBILE6: classify phone portrait before the first app paint. */
 (function(){
@@ -21,7 +21,7 @@
 })();
 </script>
 <style>html.layout-phone-portrait #startGate,html.layout-phone-portrait #app{visibility:hidden!important}</style>
-<link rel="manifest" href="manifest.webmanifest"><link rel="icon" type="image/png" href="./app-icons/volleytakt-192.png?v=0.4.3_1"><link rel="apple-touch-icon" href="./app-icons/volleytakt-192.png?v=0.4.3_1"><link rel="stylesheet" href="styles.css?v=0.4.3_1">
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" type="image/png" href="./app-icons/volleytakt-192.png?v=0.4.3.2"><link rel="apple-touch-icon" href="./app-icons/volleytakt-192.png?v=0.4.3.2"><link rel="stylesheet" href="styles.css?v=0.4.3.2">
 </head><body>
 <div id="startGate" class="start-gate"><div class="start-card"><div id="startLanguageSwitch" class="start-language-switch" role="group" aria-label="Sprache / Language"><button type="button" data-start-lang="de" lang="de" aria-pressed="false">DE</button><button type="button" data-start-lang="en" lang="en" aria-pressed="false">EN</button></div><img src="./logo.png" alt="VolleyTakt"><h1>VolleyTakt Live</h1><p id="startVersionText"></p><div id="browserCameraNotice" class="browser-camera-notice" hidden></div><div class="start-actions"><button id="startAppBtn" class="primary huge">VolleyTakt Live</button><button id="startQuickBtn" class="quickstart-entry" type="button" data-i18n-key="startup.quick">Neu bei VolleyTakt? Schnellstart</button><button id="pwaInstallBtn" class="pwa-install-btn" type="button" hidden data-i18n-key="startup.install">Als App installieren</button></div><div id="pwaInstallHint" class="pwa-install-hint" hidden></div><small data-i18n-key="startup.localTime">Die lokale Zeit startet erst auf ausdrücklichen Befehl. Die verbundene Kamera setzt den Zeitanker erst nach bestätigter Aufnahme.</small></div></div>
 <main id="app" class="app-shell" hidden>
@@ -31,7 +31,7 @@
       <img src="./logo.png" alt="VolleyTakt">
       <span class="brand-hamburger" aria-hidden="true">☰</span>
     </button>
-    <span class="brand-copy"><strong>VolleyTakt Live</strong><small>0.4.3_1</small></span>
+    <span class="brand-copy"><strong>VolleyTakt Live</strong><small>0.4.3.2</small></span>
   </div>
   <div class="match-center" aria-live="polite">
     <div class="match-setup-actions"><button id="matchSetupBtn" class="match-setup-link" data-i18n-key="shell.matchSetup">Spiel einrichten</button><button id="mainQuickStartBtn" class="match-quickstart-link" type="button" data-i18n-key="shell.quickStart">? Schnellstart</button></div>
@@ -101,7 +101,7 @@
 <script type="module">
 (async()=>{
   try {
-    await import('./js/app.js?v=0.4.3_1-lang-splash');
+    await import('./js/app.js?v=0.4.3.2-lang-splash');
   } catch (err) {
     const detail = String(err?.stack || err?.message || err || (document.documentElement.lang==='en'?'Module could not be loaded':'Modul konnte nicht geladen werden'));
     window.__VSW_APP_ERROR__ = detail;

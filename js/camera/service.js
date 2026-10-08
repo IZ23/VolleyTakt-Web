@@ -10,11 +10,11 @@ export function adapterMeta(adapter='dji_osmo'){
 }
 
 export function connectionQuality({connected=false,statusIntervalMs=12000,lastStatusAt=0,reconnects=0,statusFailures=0,now=Date.now()}={}){
- if(!connected)return{label:'Getrennt',state:'muted'};
+ if(!connected)return{labelKey:'camera.quality.disconnected',state:'muted'};
  const interval=Math.max(10000,Number(statusIntervalMs)||12000),age=lastStatusAt?now-lastStatusAt:99999;
- if(reconnects>=2||age>interval*2.5||statusFailures>=3)return{label:'Instabil',state:'warn'};
- if(reconnects>=1||age>interval*1.6||statusFailures>=1)return{label:'Schwach',state:'warn'};
- return{label:'Stabil',state:'ok'};
+ if(reconnects>=2||age>interval*2.5||statusFailures>=3)return{labelKey:'camera.quality.unstable',state:'warn'};
+ if(reconnects>=1||age>interval*1.6||statusFailures>=1)return{labelKey:'camera.quality.weak',state:'warn'};
+ return{labelKey:'camera.quality.stable',state:'ok'};
 }
 
 export class CameraService{

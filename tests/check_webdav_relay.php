@@ -30,12 +30,12 @@ ok(count($bucket['failures']) === 0 && (int)$bucket['blocked_until'] === 0, 'suc
 
 $src=file_get_contents(__DIR__ . '/../sync/nextcloud.php');
 ok(str_contains($src, "fail(429"), '429 protection response exists');
-ok(str_contains($src, "CURLOPT_FOLLOWLOCATION => false"), 'redirect following disabled');
-ok(str_contains($src, "strtolower((string)(\$parts['scheme'] ?? '')) !== 'https'"), 'HTTPS enforcement exists');
-ok(str_contains($src, "isset(\$parts['user']) || isset(\$parts['pass'])"), 'URL credentials rejected');
-ok(str_contains($src, "strcasecmp(\$name, 'Authorization') === 0"), 'Authorization header is filtered');
-ok(str_contains($src, "CURLOPT_USERAGENT => 'VolleyTaktLive-WebDAV-Relay/' . RELAY_VERSION"), 'central relay user agent used');
-ok(RELAY_VERSION === '0.4.2', 'relay version is 0.4.2 final');
+ok(str_contains($src, 'CURLOPT_FOLLOWLOCATION=>false'), 'redirect following disabled');
+ok(str_contains($src, "strtolower((string)(\$parts['scheme']??''))!=='https'"), 'HTTPS enforcement exists');
+ok(str_contains($src, "isset(\$parts['user'])||isset(\$parts['pass'])"), 'URL credentials rejected');
+ok(str_contains($src, 'validateForwardHeaders'), 'request headers use an explicit allowlist');
+ok(str_contains($src, "CURLOPT_USERAGENT=>'VolleyTaktLive-WebDAV-Relay/'.RELAY_VERSION"), 'central relay user agent used');
+ok(RELAY_VERSION === '0.4.3.2', 'relay version is 0.4.3.2');
 
 foreach (glob($dir.'/*') ?: [] as $f) @unlink($f); @rmdir($dir);
 echo "WebDAV relay security checks OK.\n";

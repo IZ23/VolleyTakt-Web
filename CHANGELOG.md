@@ -1,3 +1,19 @@
+# VolleyTakt Live 0.4.3.2 – 08.10.2026
+
+## Security fix
+
+- Stored/imported XSS gehärtet: importierte Zonen/Rotationen/Positionen werden an der Trust Boundary normalisiert; Analyse-Balken, Detailbalken und Dashboard-Karten escapen dynamische Labels.
+- CSV-, LocalStorage- und Nextcloud/WebDAV-Eventimporte verwenden dieselbe Normalisierung.
+- WebDAV-Relay gehärtet: HTTPS/Port 443, normalisierte DAV-Pfade, Traversal-Abwehr, Origin- und Content-Type-Prüfung, Header-Allowlist/CRLF-Schutz, atomare Rate-Limit-Prüfung, IP-Backstop vor User-Bucket, GC und zufälliger Log-Salt.
+- Binäre/nicht-UTF-8-fähige Upstream-Antworten werden sicher base64-kodiert.
+- Sicherheitsheader ergänzt: CSP, HSTS und Permissions-Policy.
+- YouTube-Hosts werden exakt validiert; Browser-Videowiedergabe akzeptiert nur HTTPS-URLs.
+- VolleyVideo-Worker verwendet HTTPS; unsicheres HTTP ist nur für Loopback erlaubt.
+- Kamera-Status und Worker-Fehlertexte weiter an das DE/EN-i18n-System angebunden.
+- Datenschema bleibt 6; keine Migration erforderlich.
+
+---
+
 # VolleyTakt Live 0.4.3_1 – 07.10.2026
 
 - Sprachwahl **DE / EN** bereits auf der Vorschaltseite ergänzt.

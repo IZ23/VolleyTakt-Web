@@ -1,13 +1,14 @@
+import {t} from '../i18n.js';
 // VolleyTakt Live 0.4.2 RC2 · optional VolleyVideo-Worker API client
 const trimSlash=s=>String(s||'').trim().replace(/\/+$/,'');
 export function normalizeWorkerBaseUrl(value=''){
   let v=String(value||'').trim();if(!v)return '';
   if(!/^https?:\/\//i.test(v))v=`https://${v}`;
-  return trimSlash(v);
+  try{const u=new URL(v);const host=u.hostname.toLowerCase();const loopback=['localhost','127.0.0.1','::1'].includes(host);if(u.protocol!=='https:'&&!(u.protocol==='http:'&&loopback))return '';return trimSlash(u.href)}catch{return ''}
 }
 export function workerErrorMessage(code,message=''){
-  const map={SOURCE_NOT_FOUND:'Die Videodatei wurde auf dem Videoserver nicht gefunden.',SOURCE_NOT_ACCESSIBLE:'Der Videoserver kann nicht auf die Videoquelle zugreifen.',INVALID_MANIFEST:'Der Schnittauftrag ist ungültig.',INVALID_TIMESTAMP:'Mindestens eine Schnittzeit ist ungültig.',UNSUPPORTED_VIDEO:'Das Videoformat wird vom Server nicht unterstützt.',STORAGE_FULL:'Auf dem Videoserver ist nicht genügend Speicher verfügbar.',ENCODER_FAILED:'Die Videoverarbeitung ist fehlgeschlagen.',JOB_NOT_FOUND:'Der Videoauftrag wurde auf dem Server nicht gefunden.',RESULT_EXPIRED:'Das erzeugte Video ist nicht mehr verfügbar.',AUTH_FAILED:'Anmeldung am VolleyVideo-Worker fehlgeschlagen.',SERVER_BUSY:'Der Videoserver ist momentan ausgelastet.'};
-  return map[code]||message||'Der VolleyVideo-Worker konnte die Anfrage nicht verarbeiten.';
+  const map={SOURCE_NOT_FOUND:'videoWorker.error.sourceNotFound',SOURCE_NOT_ACCESSIBLE:'videoWorker.error.sourceNotAccessible',INVALID_MANIFEST:'videoWorker.error.invalidManifest',INVALID_TIMESTAMP:'videoWorker.error.invalidTimestamp',UNSUPPORTED_VIDEO:'videoWorker.error.unsupportedVideo',STORAGE_FULL:'videoWorker.error.storageFull',ENCODER_FAILED:'videoWorker.error.encoderFailed',JOB_NOT_FOUND:'videoWorker.error.jobNotFound',RESULT_EXPIRED:'videoWorker.error.resultExpired',AUTH_FAILED:'videoWorker.error.authFailed',SERVER_BUSY:'videoWorker.error.serverBusy'};
+  return map[code]?t(map[code]):message||t('videoWorker.error.generic');
 }
 async function parseResponse(response){
   const type=response.headers.get('content-type')||'';
@@ -18,13 +19,13 @@ async function parseResponse(response){
 export function createVideoWorkerClient(config={}){
   const base=normalizeWorkerBaseUrl(config.baseUrl);const token=String(config.apiToken||'');
   const request=async(path,{method='GET',body,timeout=15000}={})=>{
-    if(!base)throw new Error('Keine VolleyVideo-Worker-Adresse konfiguriert.');
+    if(!base)throw new Error(t('videoWorker.error.addressMissingOrInsecure'));
     const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),timeout);
     try{
       const headers={Accept:'application/json'};if(token)headers.Authorization=`Bearer ${token}`;if(body!==undefined)headers['Content-Type']='application/json';
       const response=await fetch(`${base}/api/v1${path}`,{method,headers,body:body===undefined?undefined:JSON.stringify(body),signal:controller.signal,cache:'no-store'});
       return await parseResponse(response);
-    }catch(error){if(error?.name==='AbortError')throw new Error('Zeitüberschreitung beim VolleyVideo-Worker.');if(error instanceof TypeError)throw new Error('VolleyVideo-Worker nicht erreichbar. Bei einer LAN-Adresse bitte HTTPS, CORS und den lokalen Netzwerkzugriff des Browsers prüfen.');throw error}finally{clearTimeout(timer)}
+    }catch(error){if(error?.name==='AbortError')throw new Error(t('videoWorker.error.timeout'));if(error instanceof TypeError)throw new Error(t('videoWorker.error.unreachable'));throw error}finally{clearTimeout(timer)}
   };
   return {
     health:()=>request('/health'),
@@ -33,6 +34,6 @@ export function createVideoWorkerClient(config={}){
     getJob:jobId=>request(`/jobs/${encodeURIComponent(jobId)}`),
     getResult:async jobId=>{const r=await request(`/jobs/${encodeURIComponent(jobId)}/result`,{timeout:60000});return r},
     deleteJob:jobId=>request(`/jobs/${encodeURIComponent(jobId)}`,{method:'DELETE'}),
-    async test(){const health=await this.health();const capabilities=await this.capabilities();const apiVersion=Number(capabilities?.apiVersion??health?.apiVersion);if(apiVersion!==1){const e=new Error(`Worker erreichbar, aber API-Version ${capabilities?.apiVersion??health?.apiVersion??'unbekannt'} wird nicht unterstützt.`);e.code='API_INCOMPATIBLE';throw e}return {health,capabilities}}
+    async test(){const health=await this.health();const capabilities=await this.capabilities();const apiVersion=Number(capabilities?.apiVersion??health?.apiVersion);if(apiVersion!==1){const e=new Error(t('videoWorker.error.apiIncompatible',{version:capabilities?.apiVersion??health?.apiVersion??'?'}));e.code='API_INCOMPATIBLE';throw e}return {health,capabilities}}
   };
 }

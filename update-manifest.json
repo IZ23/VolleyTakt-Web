@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "app": "VolleyTakt Live",
-  "version": "0.4.3_1",
-  "version_id": "0.4.3_1",
+  "version": "0.4.3.2",
+  "version_id": "0.4.3.2",
   "data_schema": 6,
   "channel": "stable",
   "requires_confirmation": true,
@@ -12,6 +12,7 @@
     "cloud_sync_after_local_migration": true
   },
   "features": [
+    "security hardening for imported/stored data, analysis rendering, WebDAV relay, browser security headers and video URL validation",
     "language selection on the startup screen with DE/EN handoff into the scouting app and ?lang=de/en support",
     "offline-first Livescouting with regular and spontaneous scouting",
     "WER-WAS-WIE-WO-WOHIN capture with DataVolley-oriented quality semantics",

@@ -22,11 +22,12 @@ export function youtubeVideoId(reference=''){
   if(/^[A-Za-z0-9_-]{11}$/.test(ref))return ref;
   try{
     const u=new URL(ref);
-    if(u.hostname.includes('youtu.be'))return u.pathname.split('/').filter(Boolean)[0]||'';
-    if(u.hostname.includes('youtube.com')||u.hostname.includes('youtube-nocookie.com')){
-      if(u.searchParams.get('v'))return u.searchParams.get('v');
+    const host=u.hostname.toLowerCase().replace(/\.$/,'');
+    if(host==='youtu.be'||host==='www.youtu.be')return (/^[A-Za-z0-9_-]{11}$/.test(u.pathname.split('/').filter(Boolean)[0]||'')?u.pathname.split('/').filter(Boolean)[0]:'');
+    if(['youtube.com','www.youtube.com','m.youtube.com','music.youtube.com','youtube-nocookie.com','www.youtube-nocookie.com'].includes(host)){
+      if(/^[A-Za-z0-9_-]{11}$/.test(u.searchParams.get('v')||''))return u.searchParams.get('v');
       const p=u.pathname.split('/').filter(Boolean),i=p.findIndex(x=>['embed','shorts','live'].includes(x));
-      if(i>=0)return p[i+1]||'';
+      if(i>=0&&/^[A-Za-z0-9_-]{11}$/.test(p[i+1]||''))return p[i+1];
     }
   }catch{}
   return '';
@@ -41,7 +42,7 @@ function clipForEvent(event,index=0,{preRoll=1.5,postRoll=1.5}={}){
   const rawVideoStart=hasTimestamp?Math.max(0,scoutStart+offset):null,rawVideoEnd=hasTimestamp?Math.max(rawVideoStart+.5,scoutEnd+offset):null;
   const start=hasTimestamp?Math.max(0,rawVideoStart-preRoll):null,end=hasTimestamp?Math.max(start+.5,rawVideoEnd+postRoll):null;
   const playback=assignment?.playbackSource||null,storageType=playback?.type||assignment?.storageType||'',ref=playback?.reference||assignment?.reference||'',youtubeId=storageType==='youtube'?youtubeVideoId(ref):youtubeVideoId(ref);
-  const browserUrl=/^https?:\/\//i.test(ref)?ref:'';
+  let browserUrl='';try{const u=new URL(ref);browserUrl=u.protocol==='https:'?u.href:''}catch{}
   const playable=hasTimestamp&&!!(youtubeId||browserUrl);
   return {
     id:`clip_${match.matchId||'match'}_${event?.event_id||event?.id||index}`,

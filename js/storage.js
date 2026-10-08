@@ -1,3 +1,4 @@
+import {normalizeImportedEvents} from './data/import-sanitize.js';
 import {normalizeContextEvents} from './data/context.js';
 export const CSV_HEADER=['context_id','context_schema','legacy_event_id','video','video_clip_id','seconds','timestamp','action_start_seconds','action_start_timestamp','action_end_seconds','action_end_timestamp','action_started_at','action_completed_at','set','rotation','position','player_rotation_position','action_zone','target_zone','serve_technique','set_tempo','set_distance','rally_phase','transition_no','player_id','player_abbreviation','player_name','player','action','value','event_type','rally_id','rally_no','rally_sequence','rally_event','rally_winner','quality_level','quality_profile','serving_before','serving_after','sideout','rotation_side','rotation_index_before','rotation_index_after','lineup_before','lineup_after','own_lineup','opp_lineup','player_out_id','player_in_id','player_out_jersey','player_in_jersey','set_winner','set_wins_us','set_wins_them','score_us','score_them','note'];
 const MASTER_KEY='volleytakt-masterdata-v2';
@@ -142,7 +143,7 @@ export function loadMaster(){try{const m={...seedMaster(),...JSON.parse(localSto
 export function saveMaster(m){localStorage.setItem(MASTER_KEY,JSON.stringify(m))}
 export function loadState(){try{return JSON.parse(localStorage.getItem(STATE_KEY)||'{}')}catch{return {}}}
 export function saveState(v){localStorage.setItem(STATE_KEY,JSON.stringify(v))}
-export function loadEvents(){try{const rows=JSON.parse(localStorage.getItem(EVENTS_KEY)||'[]');const st=loadState();return normalizeContextEvents(rows,st?.matchId||'')}catch{return []}}
+export function loadEvents(){try{const rows=normalizeImportedEvents(JSON.parse(localStorage.getItem(EVENTS_KEY)||'[]'));const st=loadState();return normalizeContextEvents(rows,st?.matchId||'')}catch{return []}}
 export function saveEvents(v){const st=loadState();localStorage.setItem(EVENTS_KEY,JSON.stringify(normalizeContextEvents(v,st?.matchId||'')))}
 export function loadSettings(){try{return JSON.parse(localStorage.getItem(SETTINGS_KEY)||'{}')}catch{return {}}}
 export function saveSettings(v){localStorage.setItem(SETTINGS_KEY,JSON.stringify(v))}
@@ -174,7 +175,7 @@ export function parseCsv(text){
   }
   if(cell||row.length){row.push(cell);rows.push(row)}
   const head=rows.shift()||[];
-  return rows.filter(r=>r.some(Boolean)).map(r=>Object.fromEntries(head.map((h,i)=>[h,r[i]??''])));
+  return normalizeImportedEvents(rows.filter(r=>r.some(Boolean)).map(r=>Object.fromEntries(head.map((h,i)=>[h,r[i]??'']))));
 }
 
 export class CsvStore{

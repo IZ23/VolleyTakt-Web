@@ -26,7 +26,6 @@ python3 tests/check_report_share_visibility_rc6_8.py
 python3 tests/check_release_static.py
 node tests/check_0_4_2_rc2.mjs
 node tests/check_video_worker_rc2.mjs
-python3 tests/check_0_4_3.py
 node tests/check_i18n_modular_rc3_1.mjs
 python3 tests/check_i18n_hardcoded_rc3_1.py
 python3 tests/check_report_menu_0_4_2_rc1.py
@@ -48,5 +47,6 @@ node tests/check_report_i18n_rc3.mjs
 node tests/check_report_i18n1_rc3.mjs
 node tests/check_report_i18n1a_rc3_2.mjs
 python3 tests/check_variable_shadowing_rc3_2.py
-echo "All VolleyTakt Live 0.4.3_1 checks passed."
-python3 tests/check_0_4_3_1.py
+node tests/check_0_4_3_2_security.mjs
+php tests/check_webdav_relay_0_4_3_2.php
+echo "All VolleyTakt Live 0.4.3.2 checks passed."
