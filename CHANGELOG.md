@@ -1,4 +1,11 @@
-# VolleyTakt Live 0.4.3.2 – 08.10.2026
+# VolleyTakt Live 0.4.3.3 – 08.10.2026
+
+## UI-I18N5 – Kamera-Panel vollständig lokalisiert
+- Kamera-Status, Akku, Qualitätsanzeige, Verbindungszustand und Verbindungsbuttons verwenden zentrale Sprachschlüssel.
+- DJI-/GoPro-Kurzanleitung, Kompatibilitätshinweise und BLE-Diagnosebeschriftungen sind DE/EN lokalisiert.
+- Die Verbindungsqualität im Drawer verwendet denselben lokalisierten `labelKey` wie das Hauptpanel.
+
+# VolleyTakt Live 0.4.3.3 – 08.10.2026
 
 ## Security fix
 

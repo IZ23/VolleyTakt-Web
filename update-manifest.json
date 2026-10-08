@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "app": "VolleyTakt Live",
-  "version": "0.4.3.2",
-  "version_id": "0.4.3.2",
+  "version": "0.4.3.3",
+  "version_id": "0.4.3.3",
   "data_schema": 6,
   "channel": "stable",
   "requires_confirmation": true,

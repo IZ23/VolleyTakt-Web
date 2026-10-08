@@ -3,7 +3,7 @@ declare(strict_types=1);
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
 
-const RELAY_VERSION = '0.4.3.2';
+const RELAY_VERSION = '0.4.3.3';
 const RATE_WINDOW_SECONDS = 300;
 const RATE_BLOCK_SECONDS = 600;
 const RATE_MAX_USER_IP_FAILURES = 6;

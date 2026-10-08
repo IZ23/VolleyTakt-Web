@@ -1,4 +1,4 @@
-# VolleyTakt Live 0.4.3.2
+# VolleyTakt Live 0.4.3.3
 
 VolleyTakt Live ist die browserbasierte, offline-first Scouting-Anwendung des VolleyTakt-Projekts.
 
@@ -23,7 +23,7 @@ VolleyTakt Live ist die browserbasierte, offline-first Scouting-Anwendung des Vo
 
 ## Version
 
-**VolleyTakt Live 0.4.3.2**
+**VolleyTakt Live 0.4.3.3**
 
 - Release-Kanal: `stable`
 - Datenschema: `6`

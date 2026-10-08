@@ -49,4 +49,5 @@ node tests/check_report_i18n1a_rc3_2.mjs
 python3 tests/check_variable_shadowing_rc3_2.py
 node tests/check_0_4_3_2_security.mjs
 php tests/check_webdav_relay_0_4_3_2.php
-echo "All VolleyTakt Live 0.4.3.2 checks passed."
+node tests/check_camera_i18n_0_4_3_3.mjs
+echo "All VolleyTakt Live 0.4.3.3 checks passed."

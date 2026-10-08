@@ -35,7 +35,7 @@ ok(str_contains($src, "strtolower((string)(\$parts['scheme']??''))!=='https'"), 
 ok(str_contains($src, "isset(\$parts['user'])||isset(\$parts['pass'])"), 'URL credentials rejected');
 ok(str_contains($src, 'validateForwardHeaders'), 'request headers use an explicit allowlist');
 ok(str_contains($src, "CURLOPT_USERAGENT=>'VolleyTaktLive-WebDAV-Relay/'.RELAY_VERSION"), 'central relay user agent used');
-ok(RELAY_VERSION === '0.4.3.2', 'relay version is 0.4.3.2');
+ok(RELAY_VERSION === '0.4.3.3', 'relay version is 0.4.3.3');
 
 foreach (glob($dir.'/*') ?: [] as $f) @unlink($f); @rmdir($dir);
 echo "WebDAV relay security checks OK.\n";
