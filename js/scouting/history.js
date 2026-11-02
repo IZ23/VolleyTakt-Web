@@ -34,6 +34,78 @@ export function undoEventBatch(source=[]){
   return {events,removed};
 }
 
+export function describeHistoryBatch(batch=[],mode='undo'){
+  const rows=Array.isArray(batch)?batch.filter(Boolean):[];
+  const direction=mode==='redo'?'redo':'undo';
+  if(!rows.length)return {kind:'fallback',mode:direction};
+
+  const correction=[...rows].reverse().find(e=>e?.event_type==='score_correction'||e?.action==='Spielstandskorrektur');
+  if(correction){
+    const raw=String(correction.value||'');
+    const m=raw.match(/(\d+):(\d+)\s*->\s*(\d+):(\d+)/);
+    return {kind:'scoreCorrection',mode:direction,before:m?`${m[1]}:${m[2]}`:'',after:m?`${m[3]}:${m[4]}`:''};
+  }
+
+  const change=[...rows].reverse().find(e=>e?.event_type==='substitution'||e?.event_type==='libero_replacement'||e?.action==='Wechsel'||e?.action==='Libero'||String(e?.action||'').endsWith(' Wechsel')||String(e?.action||'').endsWith(' Libero'));
+  if(change){
+    return {
+      kind:change.event_type==='libero_replacement'||String(change.action||'').includes('Libero')?'libero':'substitution',
+      mode:direction,
+      side:change.rotation_side||'own',
+      outJersey:String(change.player_out_jersey||'').trim(),
+      inJersey:String(change.player_in_jersey||'').trim()
+    };
+  }
+
+  const result=[...rows].reverse().find(e=>e?.event_type==='rally_result'||e?.event_type==='point'||e?.action==='Punkt wir'||e?.action==='Punkt Gegner');
+  const rotation=[...rows].reverse().find(e=>String(e?.action||'').includes('Rotation'));
+  const technique=rows.find(e=>e?.event_type==='action'||(['Aufschlag','Annahme','Zuspiel','Angriff','Block','Abwehr'].includes(String(e?.action||'').replace(/^Gegner\s+/,''))));
+  if(result){
+    const winner=result.rally_winner||(result.action==='Punkt wir'?'us':result.action==='Punkt Gegner'?'them':'');
+    const desc={kind:'point',mode:direction,winner:winner||'',side:result.rotation_side||'',rotation:null,technique:null};
+    if(rotation){
+      desc.rotation={
+        side:rotation.rotation_side||'own',
+        beforeIndex:Number.isFinite(+rotation.rotation_index_before)?+rotation.rotation_index_before:null,
+        afterIndex:Number.isFinite(+rotation.rotation_index_after)?+rotation.rotation_index_after:null,
+        afterLabel:String(rotation.rotation||'')
+      };
+    }
+    if(technique){
+      desc.technique={
+        action:String(technique.action||'').replace(/^Gegner\s+/,''),
+        side:String(technique.action||'').startsWith('Gegner ')?'opponent':(technique.rotation_side||'own'),
+        playerId:technique.player_id||'',
+        playerAbbreviation:technique.player_abbreviation||technique.player||'',
+        value:String(technique.value??technique.action_quality??'')
+      };
+    }
+    return desc;
+  }
+
+  if(technique){
+    return {
+      kind:'technique',mode:direction,
+      action:String(technique.action||'').replace(/^Gegner\s+/,''),
+      side:String(technique.action||'').startsWith('Gegner ')?'opponent':(technique.rotation_side||'own'),
+      playerId:technique.player_id||'',
+      playerAbbreviation:technique.player_abbreviation||technique.player||'',
+      value:String(technique.value??technique.action_quality??'')
+    };
+  }
+
+  if(rotation){
+    return {
+      kind:'rotation',mode:direction,side:rotation.rotation_side||'own',
+      beforeIndex:Number.isFinite(+rotation.rotation_index_before)?+rotation.rotation_index_before:null,
+      afterIndex:Number.isFinite(+rotation.rotation_index_after)?+rotation.rotation_index_after:null,
+      afterLabel:String(rotation.rotation||'')
+    };
+  }
+
+  return {kind:'fallback',mode:direction};
+}
+
 
 export function restoreEventBatch(source=[],batch=[]){
   return [...(source||[]),...(batch||[])];

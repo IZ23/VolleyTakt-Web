@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "project": "VolleyTakt Live",
-  "release": "0.4.3.3",
-  "generated": "2026-10-07",
+  "release": "0.4.3.5",
+  "generated": "2026-10-08",
   "statusValues": [
     "open",
     "in_progress",
@@ -1542,6 +1542,24 @@
       "priority": "medium",
       "targetVersion": "0.4.3.3",
       "description": "Kamera-Qualitäts-/Statusanzeige und VolleyVideo-Worker-Fehlertexte verwenden semantische DE/EN-Schlüssel."
+    },
+    {
+      "id": "UI-SCOUT-UNDO1",
+      "title": "Nicht-modale Undo/Redo-Rückmeldung im Protokollbereich",
+      "status": "implemented",
+      "version": "0.4.3.5",
+      "type": "feature",
+      "priority": "medium",
+      "targetVersion": "0.4.3.5",
+      "description": "Nach Undo/Redo wird im unteren Protokollbereich kurz fachlich verständlich angezeigt, welche Aktion rückgängig gemacht bzw. wiederhergestellt wurde. Die Anzeige ist nicht modal, übernimmt keinen Fokus und blockiert das Live-Scouting nicht. Erneute Undo/Redo-Aktionen aktualisieren die Meldung und starten den Timeout neu; neue Eingaben invalidieren den Redo-Stack weiterhin korrekt."
+    },
+    {
+      "id": "UI-ONBOARD2",
+      "title": "Schnellstart auf Vorschaltseite dauerhaft erreichbar",
+      "status": "closed",
+      "version": "0.4.3.5",
+      "targetVersion": "0.4.3.5",
+      "description": "Der manuelle Schnellstart bleibt auf der Vorschaltseite unabhängig vom gespeicherten Tour-Entscheid sichtbar. „Nicht mehr zeigen“ unterdrückt nur den automatischen Einführungsrundgang; Browser-/Web-Bluetooth-Hinweise dürfen den Schnellstart nicht entfernen."
     }
   ]
 }

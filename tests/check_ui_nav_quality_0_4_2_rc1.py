@@ -20,7 +20,8 @@ assert "async function openQuickStartFromGate(){await start({skipAutoTour:true})
 assert "titleKey:`tour.${n}.title`" in app
 assert "target=step.sel?$(step.sel):null" in app
 assert 'function updateStartQuickVisibility()' in app
-assert 'b.hidden=decided' in app
+assert "b.hidden=false" in app
+assert "b.setAttribute('aria-hidden','false')" in app
 # iOS issue deliberately excluded
 tickets=json.loads((root/'tickets.json').read_text())['tickets']
 assert not any(t.get('id')=='UI-MOBILE-IOS2' for t in tickets)

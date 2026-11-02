@@ -1,3 +1,13 @@
+# VolleyTakt Live 0.4.3.5 – 08.10.2026
+
+## UI-SCOUT-UNDO1
+- Nicht-modale Undo/Redo-Rückmeldung direkt im Protokollbereich.
+- Fachliche Beschreibung von Technikaktionen, Punkten inkl. Rotation, Wechseln, Libero-Wechseln und Spielstandskorrekturen.
+- Rückmeldung bleibt ca. 3 Sekunden sichtbar, blockiert keine Eingaben und übernimmt keinen Fokus.
+- Erneutes Undo/Redo aktualisiert die Meldung und startet den Timer neu.
+- Neue Eingaben nach Undo invalidieren den Redo-Stack weiterhin unmittelbar.
+- DE/EN vollständig über das zentrale i18n-System.
+
 # VolleyTakt Live 0.4.3.3 – 08.10.2026
 
 ## UI-I18N5 – Kamera-Panel vollständig lokalisiert

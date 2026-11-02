@@ -1,10 +1,10 @@
-const CACHE = 'volleytakt-live-web-v0.4.3.3-r1';
+const CACHE = 'volleytakt-live-web-v0.4.3.5-r1';
 
 // Nur diese Kernressourcen dürfen die Installation des Service Workers blockieren.
 const CORE_ASSETS = [
   './',
   './index.html',
-  './styles.css?v=0.4.3.3',
+  './styles.css?v=0.4.3.5',
   './manifest.webmanifest',
   './update-manifest.json',
   './logo.png',
@@ -47,12 +47,12 @@ const OPTIONAL_ASSETS = [
   './app-icons/volleytakt-96.png',
   './app-icons/volleytakt-192.png',
   './app-icons/volleytakt-512.png',
-  './app-icons/techniques/aufschlag.png?v=0.4.3.3',
-  './app-icons/techniques/zuspiel.png?v=0.4.3.3',
-  './app-icons/techniques/angriff.png?v=0.4.3.3',
-  './app-icons/techniques/annahme.png?v=0.4.3.3',
-  './app-icons/techniques/abwehr.png?v=0.4.3.3',
-  './app-icons/techniques/block.png?v=0.4.3.3',
+  './app-icons/techniques/aufschlag.png?v=0.4.3.5',
+  './app-icons/techniques/zuspiel.png?v=0.4.3.5',
+  './app-icons/techniques/angriff.png?v=0.4.3.5',
+  './app-icons/techniques/annahme.png?v=0.4.3.5',
+  './app-icons/techniques/abwehr.png?v=0.4.3.5',
+  './app-icons/techniques/block.png?v=0.4.3.5',
   './app-icons/volleytakt-1024.png'
 ];
 

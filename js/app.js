@@ -12,7 +12,7 @@ import {createRallyController,automaticPointFor} from './scouting/rally.js';
 import {buildScoutingEvent,buildPlayerActionExtra} from './scouting/events.js';
 import {scorePointTransition,pointAwardAllowed,winningSideForTarget,setWinTransition} from './scouting/scoring.js';
 import {rotationTransition,setLineupTransition,nextSetTransition,matchFinishedTransition,beginSetSetupTransition} from './scouting/match-flow.js';
-import {reconstructMatchState,undoEventBatch,restoreEventBatch} from './scouting/history.js';
+import {reconstructMatchState,undoEventBatch,restoreEventBatch,describeHistoryBatch} from './scouting/history.js';
 import {filterMatches as filterAnalysisMatches,filterEvents as filterAnalysisEvents} from './analysis/filters.js';
 import {stats as analysisStats} from './analysis/rallies.js';
 import {analyzeView as analyzeAnalysisView} from './analysis/basic.js';
@@ -25,8 +25,8 @@ import {createVideoWorkerClient,normalizeWorkerBaseUrl} from './video/worker-cli
 import {buildVideoCutManifest,buildSelectionContext,proposeVideoFilename,safeVideoFilename,validateVideoCutManifest} from './video/cut-manifest.js';
 import {libraryDisplayDate,applyMatchMetadata} from './library/metadata.js';
 
-const APP_VERSION='0.4.3.3';
-const APP_VERSION_ID='0.4.3.3';
+const APP_VERSION='0.4.3.5';
+const APP_VERSION_ID='0.4.3.5';
 const TECHNIQUE_ICON_REV='0.4.2';
 const UPDATE_REPO='IZ23/VolleyTakt-Web';
 const migrationReport=runDataMigrations();
@@ -74,6 +74,7 @@ const now=()=>new Date().toISOString(), esc=s=>String(s??'').replace(/[&<>"']/g,
 const fmt=sec=>{sec=Math.max(0,+sec||0);const m=Math.floor(sec/60),s=sec-m*60;return `${String(m).padStart(2,'0')}:${s.toFixed(1).padStart(4,'0')}`};
 const defaultState=createDefaultState();
 const persistedSettings=loadSettings();
+let historyFeedbackTimer=null;
 let master=loadMaster(), state=normalizeLoadedState(loadState(),defaultState), events=loadEvents(), redoStack=[], drawerHistory=[], settings={camera:{adapter:'dji_osmo',statusIntervalMs:12000,reconnect:true},sync:{provider:'none',url:'',path:'VolleyTakt',username:'',password:'',clientId:'',oneDriveClientId:'',dropboxClientId:'',boxClientId:'',appleContainerId:'',appleApiToken:'',appleEnvironment:'production',autoStart:false,autoChange:false},videoCut:{enabled:false,provider:'volleyvideo-worker',providers:{'volleyvideo-worker':{baseUrl:'',apiToken:'',preferredProfile:'1080p-h264',lastCapabilities:null}}},shortcuts:{...DEFAULT_SHORTCUTS},ui:{tourDismissedVersion:'',language:'de'},...persistedSettings};settings.camera={adapter:'dji_osmo',statusIntervalMs:12000,reconnect:true,...(settings.camera||{})};settings.videoCut={enabled:false,provider:'volleyvideo-worker',providers:{'volleyvideo-worker':{baseUrl:'',apiToken:'',preferredProfile:'1080p-h264',lastCapabilities:null}},...(settings.videoCut||{})};settings.videoCut.providers={...(settings.videoCut.providers||{}),'volleyvideo-worker':{baseUrl:'',apiToken:'',preferredProfile:'1080p-h264',lastCapabilities:null,...(settings.videoCut.providers?.['volleyvideo-worker']||{})}};settings.shortcuts={...DEFAULT_SHORTCUTS,...(settings.shortcuts||{})};settings.ui={tourDismissedVersion:'',language:'de',playerSort:'jersey',playersTableSort:{key:'abbreviation',direction:'asc'},...(settings.ui||{})};
 function resolveStartupLanguage(){const query=new URLSearchParams(location.search).get('lang');if(['de','en'].includes(query))return query;const stored=localStorage.getItem('volleytakt-live-ui-language');if(['de','en'].includes(stored))return stored;const configured=persistedSettings?.ui?.language;if(['de','en'].includes(configured))return configured;const browser=String(navigator.languages?.[0]||navigator.language||'').toLowerCase();return browser.startsWith('de')?'de':'en'}
 settings.ui.language=resolveStartupLanguage();saveSettings(settings);
@@ -746,17 +747,76 @@ function restoreSessionAfterReload(){
  saveState({...state,selectedPos:0,selectedOppPos:0,pendingSide:null,pendingAction:null,pendingQuality:null,inputStep:'WER',selectedPlayerId:'',selectedPlayerPos:0,actionZone:0,targetZone:0,targetSide:'',actionStartedSeconds:null,actionStartedAt:'',setTempo:'',setDistance:'',serveTechnique:'',autoServePreset:false});
  return true;
 }
+
+function historyPlayerToken(desc){
+ const p=desc?.playerId?player(desc.playerId):null;
+ const jersey=String(p?.defaultJersey||'').trim();
+ if(jersey)return `#${jersey}`;
+ const abbr=String(desc?.playerAbbreviation||'').trim();
+ return abbr||t('history.playerUnknown');
+}
+function historyActionLabel(action=''){
+ const key={Aufschlag:'volleyball.serve',Annahme:'volleyball.reception',Zuspiel:'volleyball.set',Angriff:'volleyball.attack',Block:'volleyball.block',Abwehr:'volleyball.dig'}[String(action||'')];
+ return key?t(key):String(action||'')||t('history.lastEntry');
+}
+function historyRotationLabel(index,fallback=''){
+ return Number.isInteger(index)&&index>=0&&index<ROT.length?ROT[index]:(fallback||'–');
+}
+function historyBatchText(batch,mode='undo'){
+ const d=describeHistoryBatch(batch,mode),prefix=t(mode==='redo'?'history.restoredPrefix':'history.undonePrefix');
+ const sideLabel=side=>t(side==='opponent'?'history.opponent':'history.us');
+ if(d.kind==='scoreCorrection'){
+   const detail=d.before&&d.after?t('history.scoreCorrectionDetail',{before:d.before,after:d.after}):t('history.scoreCorrection');
+   return `${prefix}: ${detail}`;
+ }
+ if(d.kind==='substitution'||d.kind==='libero'){
+   const key=d.kind==='libero'?'history.liberoReplacement':'history.substitution';
+   const change=d.outJersey&&d.inJersey?`#${d.outJersey} → #${d.inJersey}`:t('history.lastEntry');
+   return `${prefix}: ${t(key)} · ${change}`;
+ }
+ if(d.kind==='technique'){
+   const bits=[historyActionLabel(d.action),historyPlayerToken(d)];
+   if(d.value)bits.push(t('history.rating',{value:d.value}));
+   if(d.side==='opponent')bits.splice(1,0,sideLabel('opponent'));
+   return `${prefix}: ${bits.join(' · ')}`;
+ }
+ if(d.kind==='point'){
+   const bits=[t('history.point',{side:sideLabel(d.winner==='them'?'opponent':'own')})];
+   if(d.technique){
+     const tech=[historyActionLabel(d.technique.action),historyPlayerToken(d.technique)];
+     if(d.technique.value)tech.push(t('history.rating',{value:d.technique.value}));
+     bits.push(t('history.afterTechnique',{detail:tech.join(' · ')}));
+   }
+   if(d.rotation){
+     const before=historyRotationLabel(d.rotation.beforeIndex),after=historyRotationLabel(d.rotation.afterIndex,d.rotation.afterLabel);
+     bits.push(t(mode==='redo'?'history.rotationRestored':'history.rotationReset',{before,after}));
+   }
+   return `${prefix}: ${bits.join(' · ')}`;
+ }
+ if(d.kind==='rotation'){
+   const before=historyRotationLabel(d.beforeIndex),after=historyRotationLabel(d.afterIndex,d.afterLabel);
+   return `${prefix}: ${t(mode==='redo'?'history.rotationRestored':'history.rotationReset',{before,after})}`;
+ }
+ return `${prefix}: ${t('history.lastEntry')}`;
+}
+function showHistoryFeedback(batch,mode='undo'){
+ const el=$('#historyFeedback');if(!el)return;
+ if(historyFeedbackTimer){clearTimeout(historyFeedbackTimer);historyFeedbackTimer=null}
+ el.textContent=historyBatchText(batch,mode);el.classList.add('visible');el.setAttribute('aria-hidden','false');
+ historyFeedbackTimer=setTimeout(()=>{el.classList.remove('visible');el.setAttribute('aria-hidden','true');historyFeedbackTimer=null},3000);
+}
+
 async function undo(){
  if(!events.length)return;
  const result=undoEventBatch(events);events=result.events;const removed=result.removed;if(!removed.length)return;redoStack.push(removed);
  // Der sichtbare Zustand wird immer aus dem verbleibenden Eventstrom rekonstruiert.
  reconstruct(events);
- await csv.write(events);persist();render();setStatus(t(removed.length>1?'status.undoMany':'status.undoOne'))
+ await csv.write(events);persist();render();showHistoryFeedback(removed,'undo');setStatus(t(removed.length>1?'status.undoMany':'status.undoOne'))
 }
 async function redo(){
  if(!redoStack.length)return;
  const batch=redoStack.pop();events=restoreEventBatch(events,batch);reconstruct(events);
- await csv.write(events);persist();render();setStatus(t(batch.length>1?'status.redoMany':'status.redoOne'))
+ await csv.write(events);persist();render();showHistoryFeedback(batch,'redo');setStatus(t(batch.length>1?'status.redoMany':'status.redoOne'))
 }
 
 function updateOverlayUiState(){const open=!$('#drawerBackdrop')?.hidden||!$('#dialogBackdrop')?.hidden||!$('#tourOverlay')?.hidden;document.body.classList.toggle('overlay-open',!!open)}
@@ -1255,7 +1315,7 @@ function validateShortcutInputs(){const inputs=$$('.shortcut-input'),seen=new Ma
 function drawHelp(anchor=''){const b=$('#drawerBody'),help=helpContent(settings.ui?.language||'de');const section=(id,item)=>`<section id="help-${id}" class="help-section"><h3>${item.title}</h3>${item.html}${id==='about'?`<p>${esc(t('legal.ai_notice'))}</p>`:''}<a class="help-back" href="#help-toc">${t('help.backToc')}</a></section>`;const ids=['quickstart','prepare','scout','rally','sets','sub','quality','shortcuts','camera','sync','data','analysis','settings','about'];b.innerHTML=`<div class="drawer-subhead"><h3>${t('help.title')}</h3></div><article class="help-doc"><div id="help-toc" class="card help-toc"><h3>${t('help.contents')}</h3><div class="help-start-actions"><button id="helpTourStart" class="primary">${t('help.startTour')}</button><button id="helpTourReset">${t('help.resetTour')}</button><a class="help-quickstart-button" href="#help-quickstart">${t('help.quickStart')}</a></div><nav><a href="#help-quickstart">${t('help.toc.quick')}</a><a href="#help-prepare">${t('help.toc.prepare')}</a><a href="#help-scout">${t('help.toc.scout')}</a><a href="#help-rally">${t('help.toc.rally')}</a><a href="#help-sets">${t('help.toc.sets')}</a><a href="#help-sub">${t('help.toc.sub')}</a><a href="#help-quality">${t('help.toc.quality')}</a><a href="#help-shortcuts">${t('help.toc.shortcuts')}</a><a href="#help-camera">${t('help.toc.camera')}</a><a href="#help-sync">${t('help.toc.sync')}</a><a href="#help-data">${t('help.toc.data')}</a><a href="#help-analysis">${t('help.toc.analysis')}</a><a href="#help-settings">${t('help.toc.settings')}</a><a href="#help-about">${t('help.toc.about')}</a></nav></div>${ids.map(id=>section(id,help[id])).join('')}</article>`;$('#helpTourStart').onclick=()=>{closeDrawer();startTour(true)};$('#helpTourReset').onclick=()=>{settings.ui.tourDismissedVersion='';saveSettings(settings);updateStartQuickVisibility();setStatus(t('help.tourResetStatus'));};if(anchor)requestAnimationFrame(()=>$('#help-'+anchor)?.scrollIntoView({block:'start'}));}
 
 let tourRepositionHandler=null;
-function updateStartQuickVisibility(){const b=$('#startQuickBtn');if(!b)return;const decided=!!settings.ui?.tourDismissedVersion;b.hidden=decided;b.setAttribute('aria-hidden',decided?'true':'false')}
+function updateStartQuickVisibility(){const b=$('#startQuickBtn');if(!b)return;b.hidden=false;b.setAttribute('aria-hidden','false')}
 function maybeStartTour(){updateStartQuickVisibility();if(settings.ui?.tourDismissedVersion===TOUR_VERSION)return;startTour(false)}
 function clearTourHighlight(){$$('.tour-highlight').forEach(x=>x.classList.remove('tour-highlight'));const spot=$('#tourSpotlight');if(spot){spot.hidden=true;spot.removeAttribute('style')}}
 function placeTourCard(target){
